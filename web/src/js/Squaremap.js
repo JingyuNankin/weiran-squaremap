@@ -2,6 +2,7 @@ import { Sidebar } from "./Sidebar.js";
 import { PlayerList } from "./PlayerList.js";
 import { WorldList } from "./WorldList.js";
 import { UICoordinates } from "./UICoordinates.js";
+import { UIScaleBar } from "./UIScaleBar.js";
 import { UILink } from "./UILink.js";
 import { LayerControl } from "./LayerControl.js";
 import L from "leaflet";
@@ -27,6 +28,8 @@ class SquaremapMap {
     worldList;
     /** @type {UICoordinates} */
     coordinates;
+    /** @type {UIScaleBar} */
+    scaleBar;
     /** @type {UILink} */
     uiLink;
     /** @type {number} */
@@ -57,6 +60,9 @@ class SquaremapMap {
 
         this.tick_count = 1;
 
+        /** @type {number} */
+        this.tickMs = Number(import.meta.env.VITE_MAP_TICK_MS) || 1000;
+
         this.layerControl = new LayerControl();
 
         this.init();
@@ -66,7 +72,7 @@ class SquaremapMap {
             this.tick();
             this.tick_count++;
         }
-        setTimeout(() => this.loop(), 1000);
+        setTimeout(() => this.loop(), this.tickMs);
     }
     tick() {
         // tick player tracker
@@ -86,6 +92,7 @@ class SquaremapMap {
                 this.sidebar = new Sidebar(json.ui.sidebar, this.getUrlParam("show_sidebar", "true") === "true");
                 this.playerList = new PlayerList(json.ui.sidebar);
                 this.worldList = new WorldList(json.worlds);
+                this.scaleBar = new UIScaleBar();
                 this.coordinates = new UICoordinates(
                     json.ui.coordinates,
                     this.getUrlParam("show_coordinates", "true") === "true",

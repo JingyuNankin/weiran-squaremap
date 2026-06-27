@@ -1,5 +1,6 @@
-import { Options, Rectangle, PolyLine, Polygon, Circle, Ellipse, Icon } from "./Markers.js";
+import { Options, Rectangle, PolyLine, Polygon, Circle, Ellipse, Icon, RegionLabel, IconWithText } from "./Markers.js";
 import { S } from "../Squaremap.js";
+import { fetchMarkerLayersBySource } from "./markerLayers.js";
 import L from "leaflet";
 
 class World {
@@ -52,15 +53,11 @@ class World {
         }
     }
     tickMarkers() {
-        S.getJSON(
-            `tiles/${this.name}/markers.json`,
-            (json) => {
-                if (this === S.worldList.curWorld) {
-                    this.markers(json);
-                }
-            },
-            true,
-        );
+        fetchMarkerLayersBySource(this.name).then(({ squaremap, weiranGis }) => {
+            if (this === S.worldList.curWorld) {
+                this.markersFromSources(squaremap, weiranGis);
+            }
+        });
     }
     unload() {
         S.playerList.clearPlayerMarkers();
@@ -94,6 +91,7 @@ class World {
                 S.centerOn(this.spawn.x, this.spawn.z, this.zoom.def)
                     .setMinZoom(0) // extra zoom out doesn't work :(
                     .setMaxZoom(this.zoom.max + this.zoom.extra);
+                S.scaleBar?.update();
 
                 // update page title
                 document.title = S.title.replace(/{world}/g, this.display_name);
@@ -131,69 +129,143 @@ class World {
                 return "url('images/overworld_sky.png')";
         }
     }
-    markers(json) {
-        // check if json is iterable
-        if (json == null || !(Symbol.iterator in Object(json))) {
-            return;
+    /**
+     * @param {any[]} squaremapLayers
+     * @param {any[]} weiranGisLayers
+     */
+    markersFromSources(squaremapLayers, weiranGisLayers) {
+        /** @type {Set<string>} */
+        const activeIds = new Set();
+        for (const entry of squaremapLayers) {
+            if (entry?.id != null) {
+                activeIds.add(entry.id);
+            }
         }
-        // iterate layers
-        for (const entry of json) {
-            // check if layer exists and needs updating
-            let layer = this.markerLayers.get(entry.id);
-            if (layer != null) {
-                if (layer.timestamp === entry.timestamp) {
-                    continue; // skip
-                }
-                // clear existing layer to rebuild
+        for (const entry of weiranGisLayers) {
+            if (entry?.id != null) {
+                activeIds.add(entry.id);
+            }
+        }
+
+        for (const [id, layer] of this.markerLayers) {
+            if (!activeIds.has(id)) {
                 S.layerControl.removeOverlay(layer);
-                // TODO
-                // implement marker tracker instead of clearing
-                // to reduce possible client side lag
+                this.markerLayers.delete(id);
             }
+        }
 
-            // setup the layer
-            layer = new L.LayerGroup();
-            layer.order = entry.order;
-            layer.id = entry.id;
-            layer.timestamp = entry.timestamp;
-            layer.setZIndex(entry.z_index);
-            this.markerLayers.set(layer.id, layer);
-
-            // setup the layer control
-            if (entry.control === true) {
-                S.layerControl.addOverlay(entry.name, layer, entry.hide);
-            }
-
-            // setup the markers
-            for (const shape in entry.markers) {
-                let marker;
-                const opts = new Options(entry.markers[shape]);
-                switch (opts.pop("type")) {
-                    case "rectangle":
-                        marker = new Rectangle(opts);
-                        break;
-                    case "polyline":
-                        marker = new PolyLine(opts);
-                        break;
-                    case "polygon":
-                        marker = new Polygon(opts);
-                        break;
-                    case "circle":
-                        marker = new Circle(opts);
-                        break;
-                    case "ellipse":
-                        marker = new Ellipse(opts);
-                        break;
-                    case "icon":
-                        marker = new Icon(opts);
-                        break;
-                }
-                if (marker != null) {
-                    marker.addTo(layer);
-                }
-            }
+        for (const entry of squaremapLayers) {
+            this.applyMarkerEntry(entry, "squaremap");
+        }
+        for (const entry of weiranGisLayers) {
+            this.applyMarkerEntry(entry, entry.controlSource ?? "geo-region");
         }
     }
+    /**
+     * @param {any} entry
+     * @param {'squaremap' | 'geo-region' | 'unit-point'} source
+     */
+    applyMarkerEntry(entry, source) {
+        if (entry == null || entry.id == null) {
+            return;
+        }
+
+        let layer = this.markerLayers.get(entry.id);
+        if (layer != null) {
+            if (layer.timestamp === entry.timestamp && layer.source === source) {
+                return;
+            }
+            S.layerControl.removeOverlay(layer);
+        }
+
+        layer = new L.LayerGroup();
+        layer.order = entry.order;
+        layer.id = entry.id;
+        layer.timestamp = entry.timestamp;
+        layer.source = source;
+        layer.setZIndex(entry.z_index);
+        this.markerLayers.set(layer.id, layer);
+
+        if (entry.control === true) {
+            S.layerControl.addOverlay(entry.name, layer, entry.hide, source, entry.legend ?? null);
+        }
+
+        for (const shape in entry.markers) {
+            let marker;
+            const opts = new Options(entry.markers[shape]);
+            switch (opts.pop("type")) {
+                case "rectangle":
+                    marker = new Rectangle(opts);
+                    break;
+                case "polyline":
+                    marker = new PolyLine(opts);
+                    break;
+                case "polygon":
+                    marker = new Polygon(opts);
+                    break;
+                case "circle":
+                    marker = new Circle(opts);
+                    break;
+                case "ellipse":
+                    marker = new Ellipse(opts);
+                    break;
+                case "icon":
+                    marker = new Icon(opts);
+                    break;
+                case "label":
+                    marker = new RegionLabel(opts);
+                    break;
+                case "iconWithText":
+                    marker = new IconWithText(opts);
+                    break;
+            }
+            if (marker != null) {
+                marker.addTo(layer);
+            }
+        }
+
+        bindLayerZoomVisibility(layer, entry.minZoom, entry.maxZoom);
+    }
+}
+
+/**
+ * @param {L.LayerGroup} layer
+ * @param {number | null | undefined} minZoom
+ * @param {number | null | undefined} maxZoom
+ */
+function bindLayerZoomVisibility(layer, minZoom, maxZoom) {
+    if (minZoom == null && maxZoom == null) {
+        return;
+    }
+
+    /** @param {number} zoom */
+    const isVisibleAtZoom = (zoom) => {
+        if (minZoom != null && zoom < minZoom) {
+            return false;
+        }
+        if (maxZoom != null && zoom > maxZoom) {
+            return false;
+        }
+        return true;
+    };
+
+    const update = () => {
+        if (!S.map.hasLayer(layer)) {
+            return;
+        }
+        const visible = isVisibleAtZoom(S.map.getZoom());
+        layer.eachLayer((marker) => {
+            if (typeof marker.setOpacity === "function") {
+                marker.setOpacity(visible ? 1 : 0);
+            }
+        });
+    };
+
+    layer.on("add", update);
+    S.map.on("zoomend", update);
+    layer.on("remove", () => {
+        S.map.off("zoomend", update);
+    });
 }
 
 export { World };
