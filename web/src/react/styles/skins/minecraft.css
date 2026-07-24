@@ -196,6 +196,7 @@
     --weiran-map-poi-unit-label-stroke: #ffffff;
     --weiran-map-poi-unit-label-stroke-width: 1.5px;
     --weiran-map-poi-badge-bg: #c6c6c6;
+    --weiran-map-poi-badge-radius: 0;
     --weiran-map-poi-badge-shadow: none;
     --weiran-map-poi-badge-size: 20px;
     --weiran-map-poi-highlight-ring: inset 0 0 0 2px #5b8731, 0 0 0 1px #000000;
@@ -214,4 +215,20 @@
     box-shadow:
         inset 1px 1px 0 #ffffff,
         inset -1px -1px 0 #555555;
+}
+
+#react-root[data-ui-skin="minecraft"] .poi-detail-popover {
+    border: 2px solid var(--weiran-ui-bevel-outer);
+    border-radius: 0;
+    box-shadow:
+        inset 1px 1px 0 var(--weiran-ui-bevel-light),
+        inset -1px -1px 0 var(--weiran-ui-bevel-dark);
+}
+
+#react-root[data-ui-skin="minecraft"] .poi-detail-popover .poi-detail-meta-row {
+    border-top: 2px solid var(--weiran-ui-bevel-outer);
+}
+
+#react-root[data-ui-skin="minecraft"] .poi-detail-scrim {
+    background: rgba(0, 0, 0, 0.35);
 }

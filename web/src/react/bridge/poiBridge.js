@@ -4,6 +4,9 @@ let highlightedPoiId = null;
 /** @type {string | null} */
 let detailPoiId = null;
 
+/** @type {{ x: number, z: number } | null} */
+let detailAnchor = null;
+
 /** @type {Set<() => void>} */
 const highlightListeners = new Set();
 
@@ -36,9 +39,11 @@ export function subscribeHighlight(listener) {
 
 /**
  * @param {string | null} id
+ * @param {{ x: number, z: number } | null | undefined} [anchor]
  */
-export function openPoiDetail(id) {
+export function openPoiDetail(id, anchor) {
     detailPoiId = id;
+    detailAnchor = anchor ?? null;
     if (id != null) {
         highlightedPoiId = id;
         for (const listener of highlightListeners) {
@@ -52,6 +57,7 @@ export function openPoiDetail(id) {
 
 export function closePoiDetail() {
     detailPoiId = null;
+    detailAnchor = null;
     highlightedPoiId = null;
     for (const listener of highlightListeners) {
         listener();
@@ -64,6 +70,11 @@ export function closePoiDetail() {
 /** @returns {string | null} */
 export function getPoiDetailId() {
     return detailPoiId;
+}
+
+/** @returns {{ x: number, z: number } | null} */
+export function getPoiDetailAnchor() {
+    return detailAnchor;
 }
 
 /**

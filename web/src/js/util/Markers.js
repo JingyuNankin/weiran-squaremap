@@ -214,6 +214,8 @@ class IconWithText {
             text: String(text ?? ""),
             color,
             icon,
+            x: Number(point.x),
+            z: Number(point.z),
         });
 
         const badgeAnchor = getUnitBadgeAnchor(String(layerKey));
@@ -263,6 +265,8 @@ class RegionLabel {
             layerKey: String(layerKey),
             text: String(text ?? ""),
             color,
+            x: Number(point.x),
+            z: Number(point.z),
         });
 
         this.marker = L.marker(S.toLatLng(point.x, point.z), {

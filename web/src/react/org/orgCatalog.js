@@ -180,6 +180,35 @@ export function getOrgTreeData(sortMode = ORG_SORT.CATEGORY, worldType) {
 }
 
 /**
+ * 从根组织到直属上级的名称链（不含 POI 自身）。
+ *
+ * @param {string} poiId
+ * @returns {string[]}
+ */
+export function getPoiOrgPath(poiId) {
+    /** @type {Map<string, OrgListNode>} */
+    const byId = new Map(getOrgListNodes().map((node) => [node.id, node]));
+    const self = byId.get(poiId);
+    if (self == null) {
+        return [];
+    }
+
+    /** @type {string[]} */
+    const path = [];
+    let parentId = self.parentId;
+    while (parentId != null) {
+        const parent = byId.get(parentId);
+        if (parent == null) {
+            break;
+        }
+        path.unshift(parent.title);
+        parentId = parent.parentId;
+    }
+
+    return path;
+}
+
+/**
  * @param {import("antd").TreeDataNode[]} nodes
  * @returns {string[]}
  */

@@ -17,6 +17,8 @@ import { UnitPointMarker } from "../components/PoiMarker/UnitPointMarker.jsx";
  *   text: string,
  *   color?: string | null,
  *   icon?: string | null,
+ *   x: number,
+ *   z: number,
  * }} PoiMarkerProps
  */
 
@@ -43,7 +45,7 @@ function PoiMarkerHost(props) {
 
     const handleClick = () => {
         highlightPoi(props.id);
-        openPoiDetail(props.id);
+        openPoiDetail(props.id, { x: props.x, z: props.z });
     };
 
     if (props.variant === "label") {

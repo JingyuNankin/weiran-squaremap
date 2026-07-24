@@ -3,7 +3,7 @@ import { Input } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { getLayerBridge } from "../../bridge/layerBridge.js";
 import { getMapBridge } from "../../bridge/mapBridge.js";
-import { highlightPoi } from "../../bridge/poiBridge.js";
+import { highlightPoi, openPoiDetail } from "../../bridge/poiBridge.js";
 import { SIDE_PANEL } from "../../bridge/panelBridge.js";
 import { usePoiSearch } from "../../hooks/usePoiSearch.js";
 import { useSidePanelOpen } from "../../hooks/useSidePanelOpen.js";
@@ -40,6 +40,7 @@ export function SearchPanel() {
     const handleSelect = (poi) => {
         layerBridge.setLayerVisible(poi.layerId, true);
         highlightPoi(poi.id);
+        openPoiDetail(poi.id, { x: poi.x, z: poi.z });
         const zoom =
             poi.minZoom != null && Number.isFinite(poi.minZoom)
                 ? poi.minZoom

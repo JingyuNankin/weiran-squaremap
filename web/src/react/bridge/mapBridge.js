@@ -65,5 +65,29 @@ export function getMapBridge() {
         zoomOut() {
             squaremap?.map?.zoomOut();
         },
+        /**
+         * 将 Minecraft 世界坐标投影到地图容器像素（相对视口）。
+         * @param {number | string} x
+         * @param {number | string} z
+         * @returns {{ x: number, y: number } | null}
+         */
+        projectMapPoint(x, z) {
+            const map = squaremap?.map;
+            if (map == null || squaremap == null) {
+                return null;
+            }
+            const parsedX = Number(x);
+            const parsedZ = Number(z);
+            if (!Number.isFinite(parsedX) || !Number.isFinite(parsedZ)) {
+                return null;
+            }
+            const point = map.latLngToContainerPoint(squaremap.toLatLng(parsedX, parsedZ));
+            const mapEl = map.getContainer();
+            const rect = mapEl.getBoundingClientRect();
+            return {
+                x: rect.left + point.x,
+                y: rect.top + point.y,
+            };
+        },
     };
 }

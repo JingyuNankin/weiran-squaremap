@@ -39,6 +39,7 @@
     --weiran-map-poi-unit-label-stroke-width: 2px;
     --weiran-map-poi-badge-bg: rgba(255, 255, 255, 0.72);
     --weiran-map-poi-badge-size: 22px;
+    --weiran-map-poi-badge-radius: 50%;
     --weiran-map-poi-badge-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
     --weiran-map-poi-icon-size: 10px;
     --weiran-map-poi-unit-gap: 5px;
@@ -53,6 +54,13 @@
 .weiran-icon-with-text-icon {
     background: transparent !important;
     border: none !important;
+}
+
+/* 缩放级不可见时禁用命中（World.js setMarkerZoomVisibility） */
+.weiran-poi-marker--hidden,
+.weiran-poi-marker--hidden .weiran-poi {
+    pointer-events: none !important;
+    cursor: default;
 }
 
 .weiran-poi {
@@ -141,7 +149,7 @@
     flex-shrink: 0;
     width: var(--weiran-map-poi-badge-size);
     height: var(--weiran-map-poi-badge-size);
-    border-radius: 50%;
+    border-radius: var(--weiran-map-poi-badge-radius);
     background: var(--weiran-map-poi-badge-bg);
     box-shadow: var(--weiran-map-poi-badge-shadow);
 }
@@ -189,24 +197,4 @@
 
 .weiran-maki-icon svg {
     display: block;
-}
-
-/* POI 详情抽屉 */
-.poi-detail-drawer .ant-drawer-content-wrapper {
-    pointer-events: auto;
-}
-
-.poi-detail-drawer-title {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.poi-detail-drawer-category {
-    display: block;
-    margin-bottom: 8px;
-}
-
-.poi-detail-drawer-meta {
-    margin-top: 4px;
 }

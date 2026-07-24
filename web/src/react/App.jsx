@@ -4,7 +4,7 @@ import { MapCoordinates } from "./components/MapCoordinates.jsx";
 import { MapFloatingControls } from "./components/MapFloatingControls.jsx";
 import { OrgPanel } from "./components/OrgPanel/OrgPanel.jsx";
 import { SearchPanel } from "./components/SearchPanel/SearchPanel.jsx";
-import { PoiDetailDrawer } from "./components/PoiMarker/PoiDetailDrawer.jsx";
+import { PoiDetailOverlay } from "./components/PoiMarker/PoiDetailOverlay.jsx";
 import { SettingPanel } from "./components/SettingPanel/SettingPanel.jsx";
 import { useAntdSkinTheme } from "./hooks/useAntdSkinTheme.js";
 
@@ -18,7 +18,7 @@ export function App() {
             <LayerPanel />
             <OrgPanel />
             <SettingPanel />
-            <PoiDetailDrawer />
+            <PoiDetailOverlay />
             <MapCoordinates />
         </ConfigProvider>
     );
