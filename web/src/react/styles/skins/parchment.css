@@ -236,3 +236,27 @@
         var(--weiran-ui-parchment-gilt-line),
         0 0 0 1px var(--weiran-ui-color-primary);
 }
+
+/* 地图 POI — Parchment（地名类对齐默认按钮：纸面暖底、褐字、框线） */
+#map[data-ui-skin="parchment"] {
+    --weiran-map-poi-geo-color: #4a3728;
+    --weiran-map-poi-geo-bg: rgba(243, 233, 210, 0.96);
+    --weiran-map-poi-geo-border: #6b5344;
+    --weiran-map-poi-geo-radius: 10px;
+    --weiran-map-poi-geo-shadow:
+        0 1px 3px rgba(74, 55, 40, 0.12),
+        inset 0 0 0 1px rgba(74, 55, 40, 0.42);
+    --weiran-map-poi-unit-label-color: #4a3728;
+    --weiran-map-poi-unit-label-stroke: rgba(243, 233, 210, 0.95);
+    --weiran-map-poi-badge-bg: rgba(243, 233, 210, 0.94);
+    --weiran-map-poi-badge-shadow: 0 1px 3px rgba(74, 55, 40, 0.2);
+    --weiran-map-poi-highlight-ring: 0 0 0 2px #b8860b, 0 0 10px rgba(184, 134, 11, 0.45);
+}
+
+#map[data-ui-skin="parchment"] .weiran-poi-geo {
+    border: 2px solid #6b5344;
+}
+
+#map[data-ui-skin="parchment"] .weiran-poi-unit-badge {
+    box-shadow: var(--weiran-map-poi-badge-shadow), inset 0 0 0 1px rgba(74, 55, 40, 0.22);
+}

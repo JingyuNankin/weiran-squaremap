@@ -23,12 +23,17 @@ export function getUiSkinDefinition(skinId) {
  * @param {string} [skinId]
  */
 export function applyUiSkin(skinId = DEFAULT_UI_SKIN) {
-    const root = document.getElementById("react-root");
-    if (root == null) {
-        return;
-    }
     const resolvedSkinId = getUiSkinDefinition(skinId)?.id ?? DEFAULT_UI_SKIN;
-    root.dataset.uiSkin = resolvedSkinId;
+
+    const root = document.getElementById("react-root");
+    if (root != null) {
+        root.dataset.uiSkin = resolvedSkinId;
+    }
+
+    const map = document.getElementById("map");
+    if (map != null) {
+        map.dataset.uiSkin = resolvedSkinId;
+    }
 }
 
 /**

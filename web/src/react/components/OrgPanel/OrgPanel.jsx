@@ -3,6 +3,7 @@ import { Button, Card, Segmented, Tooltip, Tree, Typography } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { getLayerBridge } from "../../bridge/layerBridge.js";
 import { getMapBridge } from "../../bridge/mapBridge.js";
+import { highlightPoi } from "../../bridge/poiBridge.js";
 import { SIDE_PANEL } from "../../bridge/panelBridge.js";
 import { useSidePanelOpen } from "../../hooks/useSidePanelOpen.js";
 import { collectExpandableTreeKeys, getOrgTreeData, ORG_SORT } from "../../org/orgCatalog.js";
@@ -44,6 +45,7 @@ export function OrgPanel() {
         }
 
         layerBridge.setLayerVisible(org.layerId, true);
+        highlightPoi(String(node.key));
         const zoom =
             org.minZoom != null && Number.isFinite(org.minZoom)
                 ? org.minZoom

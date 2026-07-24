@@ -184,3 +184,34 @@
     background: var(--weiran-ui-color-primary);
     border-color: var(--weiran-ui-bevel-outer);
 }
+
+/* 地图 POI — Minecraft（地名类对齐默认按钮：灰底黑字、方角、浮雕边） */
+#map[data-ui-skin="minecraft"] {
+    --weiran-map-poi-geo-color: #1f1f1f;
+    --weiran-map-poi-geo-bg: #c6c6c6;
+    --weiran-map-poi-geo-border: #555555;
+    --weiran-map-poi-geo-radius: 0;
+    --weiran-map-poi-geo-shadow: none;
+    --weiran-map-poi-unit-label-color: #1f1f1f;
+    --weiran-map-poi-unit-label-stroke: #ffffff;
+    --weiran-map-poi-unit-label-stroke-width: 1.5px;
+    --weiran-map-poi-badge-bg: #c6c6c6;
+    --weiran-map-poi-badge-shadow: none;
+    --weiran-map-poi-badge-size: 20px;
+    --weiran-map-poi-highlight-ring: inset 0 0 0 2px #5b8731, 0 0 0 1px #000000;
+    --weiran-map-poi-highlight-scale: 1;
+}
+
+#map[data-ui-skin="minecraft"] .weiran-poi-geo {
+    border: 2px solid #555555;
+    box-shadow:
+        inset 1px 1px 0 #ffffff,
+        inset -1px -1px 0 #555555;
+}
+
+#map[data-ui-skin="minecraft"] .weiran-poi-unit-badge {
+    border: 2px solid #555555;
+    box-shadow:
+        inset 1px 1px 0 #ffffff,
+        inset -1px -1px 0 #555555;
+}

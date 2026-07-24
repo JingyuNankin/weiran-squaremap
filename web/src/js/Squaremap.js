@@ -11,6 +11,14 @@ import "./addons/Ellipse.js";
 import "./addons/RotateMarker.js";
 import "leaflet/dist/leaflet.css";
 import "../css/styles.css";
+import "../react/styles/poi-marker.css";
+import "../react/styles/skins/light.css";
+import "../react/styles/skins/gloom.css";
+import "../react/styles/skins/minecraft.css";
+import "../react/styles/skins/parchment.css";
+import { applyUiSkin } from "../react/theme/applyUiSkin.js";
+
+applyUiSkin();
 
 class SquaremapMap {
     /** @type {L.Map} */

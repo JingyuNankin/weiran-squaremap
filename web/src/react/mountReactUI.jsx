@@ -6,6 +6,7 @@ import "./styles/skins/gloom.css";
 import "./styles/skins/minecraft.css";
 import "./styles/skins/parchment.css";
 import "./styles/react-overlays.css";
+import "./styles/poi-marker.css";
 
 /** @type {import("react-dom/client").Root | null} */
 let root = null;

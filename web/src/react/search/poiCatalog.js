@@ -105,3 +105,11 @@ export function searchPois(query, pois, limit = 50) {
 
     return matched.slice(0, limit).map((entry) => entry.poi);
 }
+
+/**
+ * @param {string} id
+ * @returns {SearchPoi | null}
+ */
+export function getPoiById(id) {
+    return getSearchablePois().find((poi) => poi.id === id) ?? null;
+}

@@ -50,25 +50,34 @@ function getControlSource(layerDef) {
 
 /**
  * @param {Record<string, unknown>} layerDef
- * @returns {{ icon: string, iconColor: string, iconBackgroundColor: string, iconBackgroundOpacity: number } | null}
+ * @returns {{ icon: string, iconColor: string } | null}
  */
 export function buildLayerLegend(layerDef) {
     /** @type {Record<string, unknown>} */
     const style = /** @type {Record<string, unknown>} */ (layerDef.style) ?? {};
-    if (style.icon == null || style.icon === "" || style.iconColor == null) {
+    if (style.icon == null || style.icon === "" || style.color == null) {
         return null;
     }
     return {
         icon: String(style.icon),
-        iconColor: String(style.iconColor),
-        iconBackgroundColor: String(style.iconBackgroundColor ?? "#ffffff"),
-        iconBackgroundOpacity: Number(style.iconBackgroundOpacity ?? 0.72),
+        iconColor: String(style.color),
     };
 }
 
 /**
  * @param {Record<string, unknown>} layerDef
  * @param {Record<string, unknown>} instance
+ * @returns {{
+ *   type: string,
+ *   id: string,
+ *   layerKey: string,
+ *   point: unknown,
+ *   text: unknown,
+ *   color: string | null,
+ *   icon: string | null,
+ * }}
+ *
+ * markerType 两类：label（地名类，外观由皮肤 CSS 控制）/ iconWithText（地点类，color+icon 来自 JSON）
  */
 function buildMarkerPayload(layerDef, instance) {
     /** @type {Record<string, unknown>} */
@@ -76,15 +85,20 @@ function buildMarkerPayload(layerDef, instance) {
     if (instance.icon != null) {
         style.icon = instance.icon;
     }
-    if (style.icon != null) {
-        style.icon = resolveMakiIcon(style.icon);
+
+    let icon = style.icon;
+    if (icon != null && icon !== "") {
+        icon = resolveMakiIcon(icon);
     }
 
     return {
         type: layerDef.markerType ?? "label",
+        id: String(instance.id),
+        layerKey: String(instance.layer),
         point: instance.point,
         text: instance.text,
-        style,
+        color: style.color == null ? null : String(style.color),
+        icon: icon == null || icon === "" ? null : String(icon),
     };
 }
 

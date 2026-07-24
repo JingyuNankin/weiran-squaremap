@@ -76,3 +76,16 @@
     --weiran-ui-scrollbar-thumb-hover: rgba(255, 255, 255, 0.36);
     --weiran-ui-scrollbar-radius: 999px;
 }
+
+/* 地图 POI — Gloom（地名类对齐默认按钮：深底浅字） */
+#map[data-ui-skin="gloom"] {
+    --weiran-map-poi-geo-color: rgba(255, 255, 255, 0.88);
+    --weiran-map-poi-geo-bg: rgba(0, 0, 0, 0.72);
+    --weiran-map-poi-geo-border: rgba(255, 255, 255, 0.18);
+    --weiran-map-poi-geo-radius: 8px;
+    --weiran-map-poi-geo-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+    --weiran-map-poi-unit-label-stroke: rgba(0, 0, 0, 0.85);
+    --weiran-map-poi-badge-bg: rgba(28, 28, 30, 0.88);
+    --weiran-map-poi-badge-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --weiran-map-poi-highlight-ring: 0 0 0 2px #4096ff, 0 0 14px rgba(64, 150, 255, 0.55);
+}
