@@ -17,6 +17,7 @@ import "../react/styles/skins/gloom.css";
 import "../react/styles/skins/minecraft.css";
 import "../react/styles/skins/parchment.css";
 import { applyUiSkin } from "../react/theme/applyUiSkin.js";
+import { initMapFilter } from "../react/bridge/mapFilterBridge.js";
 
 applyUiSkin();
 
@@ -67,6 +68,8 @@ class SquaremapMap {
             .on("dblclick", () => {
                 this.playerList.followPlayerMarker(null);
             });
+
+        initMapFilter(this.map);
 
         this.tick_count = 1;
 

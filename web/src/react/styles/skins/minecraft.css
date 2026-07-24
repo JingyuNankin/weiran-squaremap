@@ -185,6 +185,25 @@
     border-color: var(--weiran-ui-bevel-outer);
 }
 
+#react-root[data-ui-skin="minecraft"] .settings-panel-filter-slider .ant-slider-rail {
+    background: #8b8b8b;
+    border: 1px solid var(--weiran-ui-bevel-outer);
+    border-radius: 0;
+}
+
+#react-root[data-ui-skin="minecraft"] .settings-panel-filter-slider .ant-slider-track {
+    background: var(--weiran-ui-color-primary);
+    border-radius: 0;
+}
+
+#react-root[data-ui-skin="minecraft"] .settings-panel-filter-slider .ant-slider-handle::after {
+    border-radius: 0;
+    box-shadow:
+        inset 1px 1px 0 var(--weiran-ui-bevel-light),
+        inset -1px -1px 0 var(--weiran-ui-bevel-dark),
+        0 0 0 2px var(--weiran-ui-bevel-outer);
+}
+
 /* 地图 POI — Minecraft（地名类对齐默认按钮：灰底黑字、方角、浮雕边） */
 #map[data-ui-skin="minecraft"] {
     --weiran-map-poi-geo-color: #1f1f1f;

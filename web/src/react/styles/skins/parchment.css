@@ -297,3 +297,16 @@
 #react-root[data-ui-skin="parchment"] .poi-detail-scrim {
     background: rgba(74, 55, 40, 0.28);
 }
+
+#react-root[data-ui-skin="parchment"] .settings-panel-filter-slider .ant-slider-rail {
+    background: rgba(74, 55, 40, 0.12);
+    border: 1px solid var(--weiran-ui-parchment-frame);
+}
+
+#react-root[data-ui-skin="parchment"] .settings-panel-filter-slider .ant-slider-track {
+    background: var(--weiran-ui-color-primary);
+}
+
+#react-root[data-ui-skin="parchment"] .settings-panel-filter-slider .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px var(--weiran-ui-parchment-frame);
+}

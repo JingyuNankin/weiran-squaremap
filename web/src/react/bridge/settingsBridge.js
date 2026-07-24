@@ -1,4 +1,15 @@
 import { applyUiSkin, getCurrentUiSkin, UI_SKINS } from "../theme/applyUiSkin.js";
+import {
+    getBrightnessLevel,
+    getBrightnessLevelMax,
+    getBrightnessLevelMin,
+    getSaturationLevel,
+    getSaturationLevelMax,
+    getSaturationLevelMin,
+    loadFilterForSkin,
+    setBrightnessLevel,
+    setSaturationLevel,
+} from "./mapFilterBridge.js";
 import { getPanelBridge, SIDE_PANEL } from "./panelBridge.js";
 
 /** @type {Set<() => void>} */
@@ -35,6 +46,33 @@ export function getSettingsBridge() {
          */
         setSkin(skinId) {
             applyUiSkin(skinId);
+            loadFilterForSkin(skinId);
+            notify();
+        },
+        getBrightnessLevelMin() {
+            return getBrightnessLevelMin();
+        },
+        getBrightnessLevelMax() {
+            return getBrightnessLevelMax();
+        },
+        getSaturationLevelMin() {
+            return getSaturationLevelMin();
+        },
+        getSaturationLevelMax() {
+            return getSaturationLevelMax();
+        },
+        getBrightnessLevel() {
+            return getBrightnessLevel();
+        },
+        getSaturationLevel() {
+            return getSaturationLevel();
+        },
+        setBrightnessLevel(level) {
+            setBrightnessLevel(level);
+            notify();
+        },
+        setSaturationLevel(level) {
+            setSaturationLevel(level);
             notify();
         },
         /**

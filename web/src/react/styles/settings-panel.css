@@ -5,6 +5,52 @@
     border-top-color: var(--weiran-ui-border-subtle) !important;
 }
 
+.settings-panel-filter-heading {
+    display: block;
+    margin-top: 10px;
+}
+
+.settings-panel-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 8px;
+    padding: 0 var(--weiran-ui-padding-panel-section-x, 12px) 4px;
+}
+
+.settings-panel-filter-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.settings-panel-filter-label {
+    font-size: var(--weiran-ui-font-size-sm);
+    line-height: var(--weiran-ui-line-height-sm);
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.settings-panel-filter-slider.ant-slider {
+    margin: 4px 6px 18px;
+}
+
+.settings-panel-filter-slider .ant-slider-mark-text {
+    font-size: 10px;
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.settings-panel-filter-slider .ant-slider-rail {
+    background: var(--weiran-ui-border-subtle);
+}
+
+.settings-panel-filter-slider .ant-slider-track {
+    background: var(--weiran-ui-color-primary);
+}
+
+.settings-panel-filter-slider .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px var(--weiran-ui-color-primary);
+}
+
 .settings-panel-about {
     padding-bottom: 2px;
 }

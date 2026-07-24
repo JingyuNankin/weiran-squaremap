@@ -1,6 +1,7 @@
 import { S } from "../Squaremap.js";
 import L from "leaflet";
 import { mountPoiMarker, unmountPoiMarker } from "../../react/map/mountPoiMarker.jsx";
+import { POI_LAYER_PANE } from "./mapFilterPane.js";
 
 class Marker {
     /** @type {L.Marker} */
@@ -226,6 +227,7 @@ class IconWithText {
                 iconAnchor: [badgeAnchor, badgeAnchor],
             }),
             interactive: true,
+            pane: POI_LAYER_PANE,
         });
 
         this.marker.on("remove", () => {
@@ -275,6 +277,7 @@ class RegionLabel {
                 html: container,
             }),
             interactive: true,
+            pane: POI_LAYER_PANE,
         });
 
         this.marker.on("remove", () => {
