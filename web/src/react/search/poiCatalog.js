@@ -5,7 +5,7 @@ import { WEIRAN_GIS_ID_PREFIX } from "../../js/util/weiranGis.js";
 
 /** @typedef {import('../../js/util/gisDimension.js').GisDimension} GisDimension */
 
-/** @typedef {{ id: string, name: string, layerKey: string, layerName: string, layerId: string, dimension: GisDimension, x: number, z: number, minZoom: number | null, maxZoom: number | null }} SearchPoi */
+/** @typedef {{ id: string, name: string, layerKey: string, layerName: string, layerId: string, dimension: GisDimension, x: number, z: number, minZoom: number | null, maxZoom: number | null, remark: string | null }} SearchPoi */
 
 /** @type {SearchPoi[] | null} */
 let cachedPois = null;
@@ -44,6 +44,10 @@ export function getSearchablePois() {
             z: Number(instance.point?.z),
             minZoom: layerMinZoom.get(layerKey) ?? null,
             maxZoom: null,
+            remark:
+                instance.remark == null || String(instance.remark).trim() === ""
+                    ? null
+                    : String(instance.remark).trim(),
         };
     });
 

@@ -1,5 +1,5 @@
 {
-    "version": 25,
+    "version": 40,
     "instances": [
         {
             "layer": "nation",
@@ -487,17 +487,6 @@
         },
         {
             "layer": "public-institution",
-            "id": "public-institution-2",
-            "parentNode": "nation-ocieania",
-            "point": {
-                "x": 2218,
-                "z": 3875
-            },
-            "text": "八角笼",
-            "dimension": "normal"
-        },
-        {
-            "layer": "public-institution",
             "id": "public-institution-3",
             "parentNode": "nation-ocieania",
             "point": {
@@ -603,7 +592,7 @@
                 "x": 1633,
                 "z": 2731
             },
-            "text": "柏拉图银行",
+            "text": "柏拉图村镇银行",
             "dimension": "normal"
         },
         {
@@ -735,18 +724,7 @@
                 "x": 1732,
                 "z": 2696
             },
-            "text": "快速熔炉",
-            "dimension": "normal"
-        },
-        {
-            "layer": "economic-unit",
-            "id": "economic-unit-12",
-            "parentNode": "nation-doublezero",
-            "point": {
-                "x": 401,
-                "z": 136
-            },
-            "text": "经验塔",
+            "text": "先进制造与碳中和能源中心",
             "dimension": "normal"
         },
         {
@@ -754,8 +732,8 @@
             "id": "economic-unit-13",
             "parentNode": "nation-doublezero",
             "point": {
-                "x": -182,
-                "z": 3192
+                "x": -815,
+                "z": 3300
             },
             "text": "蛙明灯厂",
             "dimension": "normal"
@@ -867,7 +845,7 @@
                 "x": 2372,
                 "z": 3845
             },
-            "text": "募兵遗址",
+            "text": "幕兵纪念堂",
             "dimension": "normal"
         },
         {
@@ -1143,6 +1121,855 @@
                 "z": 4413
             },
             "text": "洋北村",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-15",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1203,
+                "z": 3317
+            },
+            "text": "秋分大磨坊",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-16",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1227,
+                "z": 3421
+            },
+            "text": "告解台",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-17",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1152,
+                "z": 3406
+            },
+            "text": "天南府",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-17",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1158,
+                "z": 3500
+            },
+            "text": "白之楼树",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-18",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1098,
+                "z": 3380
+            },
+            "text": "Lofi旧日酒馆",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-19",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1212,
+                "z": 3467
+            },
+            "text": "天南纪念碑",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-18",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2787,
+                "z": 3949
+            },
+            "text": "市民中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-20",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2791,
+                "z": 3963
+            },
+            "text": "蓬洲大旅社",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-16",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2799,
+                "z": 4019
+            },
+            "text": "烧炼中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-14",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2805,
+                "z": 4044
+            },
+            "text": "山阴会堂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-17",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2689,
+                "z": 3640
+            },
+            "text": "新渡口",
+            "dimension": "normal"
+        },
+        {
+            "layer": "region",
+            "id": "region-24",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 381,
+                "z": 4193
+            },
+            "text": "冰杉市",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-15",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1804,
+                "z": 3732
+            },
+            "text": "红樱机场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-16",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1821,
+                "z": 3767
+            },
+            "text": "政府飞行服务队",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-21",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1904,
+                "z": 3705
+            },
+            "text": "NGO中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-22",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1921,
+                "z": 3677
+            },
+            "text": "Apple store瑰洋",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-18",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1831,
+                "z": 3626
+            },
+            "text": "快速熔炉",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-19",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1836,
+                "z": 3638
+            },
+            "text": "大洋航空烟花制造公司",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-20",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1836,
+                "z": 3649
+            },
+            "text": "甘蔗厂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-19",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1916,
+                "z": 3610
+            },
+            "text": "瑰洋市政府",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-17",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1872,
+                "z": 3612
+            },
+            "text": "字幕纪念堂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-23",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1693,
+                "z": 3561
+            },
+            "text": "堆沙岛栗思卡尔顿隐世酒店",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-21",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2149,
+                "z": 3632
+            },
+            "text": "鱿城热力厂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-20",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2209,
+                "z": 3721
+            },
+            "text": "鱿城市政府",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-24",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2217,
+                "z": 3874
+            },
+            "text": "鱿城市民中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-18",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2333,
+                "z": 3702
+            },
+            "text": "鱿城口岸",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-22",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2193,
+                "z": 3646
+            },
+            "text": "山姆会员店",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-19",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2192,
+                "z": 3620
+            },
+            "text": "鱿城机场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-23",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2340,
+                "z": 3785
+            },
+            "text": "电信产业园",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-20",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1101,
+                "z": 3629
+            },
+            "text": "橡树角机场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-21",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1448,
+                "z": 3406
+            },
+            "text": "政府飞行服务队堆沙岛北驻地",
+            "dimension": "normal"
+        },
+        {
+            "layer": "office",
+            "id": "office-7",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2255,
+                "z": 2660
+            },
+            "text": "祖母暗沙办事处",
+            "dimension": "normal"
+        },
+        {
+            "layer": "region",
+            "id": "region-25",
+            "parentNode": "nation-weiran",
+            "point": {
+                "x": 3432,
+                "z": 1109
+            },
+            "text": "樱见台",
+            "dimension": "normal"
+        },
+        {
+            "layer": "village",
+            "id": "village-13",
+            "parentNode": "region-25",
+            "point": {
+                "x": 3435,
+                "z": 1254
+            },
+            "text": "樱原村",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-24",
+            "parentNode": "region-21",
+            "point": {
+                "x": 180,
+                "z": 40
+            },
+            "text": "小麦&萝卜&甜菜&土豆",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-25",
+            "parentNode": "region-21",
+            "point": {
+                "x": 220,
+                "z": 20
+            },
+            "text": "16色羊毛机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-26",
+            "parentNode": "region-21",
+            "point": {
+                "x": 230,
+                "z": 0
+            },
+            "text": "全手动可可豆机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-27",
+            "parentNode": "region-21",
+            "point": {
+                "x": 220,
+                "z": -70
+            },
+            "text": "活塞虫式甘蔗&竹块&瓜机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-28",
+            "parentNode": "region-21",
+            "point": {
+                "x": 130,
+                "z": -60
+            },
+            "text": "海带",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-29",
+            "parentNode": "region-21",
+            "point": {
+                "x": 100,
+                "z": -30
+            },
+            "text": "刷花机（蓝花美耳草，滨菊，蒲公英，矢车菊，虞美人）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-30",
+            "parentNode": "region-21",
+            "point": {
+                "x": 130,
+                "z": -100
+            },
+            "text": "下界刷花机（下界菌、菌索、缠怨藤）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-31",
+            "parentNode": "region-21",
+            "point": {
+                "x": 200,
+                "z": -20
+            },
+            "text": "甜浆果",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-32",
+            "parentNode": "region-21",
+            "point": {
+                "x": 220,
+                "z": -130
+            },
+            "text": "嗅探兽（火把花，瓶子草）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-33",
+            "parentNode": "region-21",
+            "point": {
+                "x": 240,
+                "z": -70
+            },
+            "text": "蜜蜂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-34",
+            "parentNode": "region-21",
+            "point": {
+                "x": 140,
+                "z": 20
+            },
+            "text": "村民相关（交易、繁殖）",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-35",
+            "parentNode": "region-21",
+            "point": {
+                "x": 280,
+                "z": -50
+            },
+            "text": "缓存式玄武岩机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-36",
+            "parentNode": "region-21",
+            "point": {
+                "x": 290,
+                "z": -80
+            },
+            "text": "全手动混凝土固化",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-37",
+            "parentNode": "region-21",
+            "point": {
+                "x": 260,
+                "z": -240
+            },
+            "text": "刷铁机（收集在下界）",
+            "dimension": "normal",
+            "remark": "收集在下界"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-38",
+            "parentNode": "region-21",
+            "point": {
+                "x": 160,
+                "z": 0
+            },
+            "text": "仙人掌经验炉",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-39",
+            "parentNode": "region-21",
+            "point": {
+                "x": 230,
+                "z": -120
+            },
+            "text": "32倍熔炉",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-40",
+            "parentNode": "region-21",
+            "point": {
+                "x": 240,
+                "z": -130
+            },
+            "text": "没有TNT复制的TNT炸石机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-41",
+            "parentNode": "region-21",
+            "point": {
+                "x": 20,
+                "z": -20
+            },
+            "text": "猪灵交易",
+            "dimension": "nether",
+            "remark": "基岩层上方高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-42",
+            "parentNode": "region-21",
+            "point": {
+                "x": 240,
+                "z": -950
+            },
+            "text": "飞行器式冰厂",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-43",
+            "parentNode": "region-21",
+            "point": {
+                "x": 160,
+                "z": -200
+            },
+            "text": "史莱姆农场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-44",
+            "parentNode": "region-21",
+            "point": {
+                "x": -120,
+                "z": 0
+            },
+            "text": "流浪者刷怪笼",
+            "dimension": "normal",
+            "remark": "地下"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-45",
+            "parentNode": "region-21",
+            "point": {
+                "x": 401,
+                "z": 136
+            },
+            "text": "猪人塔（附凋零玫瑰+金相关产品）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-46",
+            "parentNode": "region-21",
+            "point": {
+                "x": 270,
+                "z": 0
+            },
+            "text": "全自动无经验小黑塔（附幽匿块相关农场）",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-47",
+            "parentNode": "region-21",
+            "point": {
+                "x": 460,
+                "z": -440
+            },
+            "text": "潜影壳",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-48",
+            "parentNode": "region-21",
+            "point": {
+                "x": -110,
+                "z": 200
+            },
+            "text": "三叉戟",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-49",
+            "parentNode": "region-21",
+            "point": {
+                "x": -3030,
+                "z": 4660
+            },
+            "text": "女巫塔",
+            "dimension": "normal",
+            "remark": "高空挂机"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-50",
+            "parentNode": "region-21",
+            "point": {
+                "x": 500,
+                "z": 280
+            },
+            "text": "烈焰人刷怪笼",
+            "dimension": "nether",
+            "remark": "高度66"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-51",
+            "parentNode": "region-21",
+            "point": {
+                "x": 640,
+                "z": -680
+            },
+            "text": "单维度凋零骷髅",
+            "dimension": "nether",
+            "remark": "高度40"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-52",
+            "parentNode": "region-21",
+            "point": {
+                "x": -100,
+                "z": -400
+            },
+            "text": "双维度恶魂塔（主世界收集）",
+            "dimension": "nether",
+            "remark": "基岩层上方"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-53",
+            "parentNode": "region-21",
+            "point": {
+                "x": -100,
+                "z": 400
+            },
+            "text": "双维度岩浆怪（附蛙明灯）",
+            "dimension": "nether",
+            "remark": "基岩层上方"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-54",
+            "parentNode": "region-21",
+            "point": {
+                "x": -360,
+                "z": -360
+            },
+            "text": "守卫者农场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-55",
+            "parentNode": "region-21",
+            "point": {
+                "x": 120,
+                "z": -80
+            },
+            "text": "兔子",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-56",
+            "parentNode": "region-21",
+            "point": {
+                "x": 180,
+                "z": -60
+            },
+            "text": "骨粉机",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-57",
+            "parentNode": "region-21",
+            "point": {
+                "x": 170,
+                "z": 90
+            },
+            "text": "鸡肉机（附带羽毛产出）",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-58",
+            "parentNode": "region-21",
+            "point": {
+                "x": 190,
+                "z": 80
+            },
+            "text": "脚手架机",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-25",
+            "parentNode": "region-11",
+            "point": {
+                "x": 1756,
+                "z": 2756
+            },
+            "text": "老油火锅店",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-26",
+            "parentNode": "region-11",
+            "point": {
+                "x": 1811,
+                "z": 2712
+            },
+            "text": "大黑塔",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-23",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1664,
+                "z": 2793
+            },
+            "text": "武装力量与战略反击指挥部",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-22",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1785,
+                "z": 2823
+            },
+            "text": "控糖与再生农业研究中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-21",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1833,
+                "z": 2721
+            },
+            "text": "地块经济发展部",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-22",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1781,
+                "z": 2725
+            },
+            "text": "生物多样性保护部",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-27",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1932,
+                "z": 2838
+            },
+            "text": "天空岛",
             "dimension": "normal"
         }
     ]

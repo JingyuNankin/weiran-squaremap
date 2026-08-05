@@ -80,6 +80,14 @@
     opacity: 0.55;
 }
 
+.poi-detail-remark {
+    margin: 0;
+    font-size: var(--weiran-ui-font-size-sm);
+    line-height: var(--weiran-ui-line-height-sm);
+    color: var(--weiran-ui-color-text-muted);
+    font-style: italic;
+}
+
 .poi-detail-meta-row {
     display: flex;
     align-items: center;

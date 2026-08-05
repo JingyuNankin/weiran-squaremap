@@ -20,6 +20,8 @@ export function PoiDetailContent({ poi }) {
                 </p>
             ) : null}
 
+            {poi.remark != null ? <p className="poi-detail-remark">{poi.remark}</p> : null}
+
             <div className="poi-detail-meta-row">
                 <span className="poi-detail-layer">{poi.layerName}</span>
                 <span className="poi-detail-coords">
