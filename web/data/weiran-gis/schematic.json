@@ -1,0 +1,184 @@
+{
+    "version": 23,
+    "layout": {
+        "worldGrid": 100,
+        "halfGrid": 50,
+        "cell": 80,
+        "padding": 80
+    },
+    "overrides": {
+        "station-baimo": { "row": "station-huguang" },
+        "station-xingwei": { "col": "station-jiahai" },
+        "station-xinanha": { "colShift": -1 },
+        "station-guiyang": { "col": "station-hongying-airport" },
+        "station-xuedongcun": { "col": "station-hongying-airport" },
+        "station-youyu-bandao": { "col": "station-hongying-airport" },
+        "station-yangbeicun": { "col": "station-hongying-airport" },
+        "station-lanzichangdao-nan": { "col": "station-hongying-airport" },
+        "station-gongyeyuanqu": { "row": "station-guiyang", "colShift": -1 },
+        "station-xiaoludao": { "row": "station-youyu-bandao" },
+        "station-haigui-qundao": { "row": "station-youyu-bandao" },
+        "station-lanzidao": { "row": "station-youyu-bandao", "colShift": -1 }
+    },
+    "bends": {
+        "station-shengli|station-xingwei": "L"
+    },
+    "lines": [
+        {
+            "id": "line-central",
+            "name": "中央线",
+            "color": "#FF5A60",
+            "stations": [
+                "station-dongsheng",
+                "station-zimenfeng",
+                "station-yinggu",
+                "station-xuexia",
+                "station-beishengli",
+                "station-shengli",
+                "station-youyiguan-kouan"
+            ]
+        },
+        {
+            "id": "line-yingjia",
+            "name": "樱嘉线",
+            "color": "#FFB459",
+            "stations": [
+                "station-yinggu",
+                "station-baimo",
+                "station-huguang",
+                "station-shaxi",
+                "station-yongchunjiao",
+                "station-jiahai"
+            ]
+        },
+        {
+            "id": "line-yingpeng",
+            "name": "樱蓬线",
+            "color": "#FFB459",
+            "stations": [
+                "station-yinggu",
+                "station-nantiamen-industrial",
+                "station-pengzhou",
+                "station-youyiguan"
+            ]
+        },
+        {
+            "id": "line-husheng",
+            "name": "湖生线",
+            "color": "#5CBDFC",
+            "stations": [
+                "station-huhai",
+                "station-huguang",
+                "station-xuexia",
+                "station-nanshengli",
+                "station-shengli"
+            ]
+        },
+        {
+            "id": "line-jiahai",
+            "name": "嘉海线",
+            "color": "#4DDA90",
+            "stations": [
+                "station-shaxi",
+                "station-haifeng",
+                "station-beishengli",
+                "station-shengli",
+                "station-xingwei",
+                "station-jiahai",
+                "station-buyudao",
+                "station-shaxi"
+            ]
+        },
+        {
+            "id": "line-guanguang",
+            "name": "观光线",
+            "color": "#FFB459",
+            "stations": [
+                "station-jiahai",
+                "station-yingjiao",
+                "station-wuling",
+                "station-tiannan"
+            ]
+        },
+        {
+            "id": "line-hengguan",
+            "name": "横贯线",
+            "color": "#FF5A60",
+            "stations": [
+                "station-youyiguan-kouan",
+                "station-youcheng-kouan",
+                "station-guiyang",
+                "station-duishadao",
+                "station-xiangshujiao",
+                "station-bingxia"
+            ]
+        },
+        {
+            "id": "line-s1",
+            "name": "市域铁路S1",
+            "color": "#2EBD6B",
+            "stations": [
+                "station-gongyeyuanqu",
+                "station-guiyang",
+                "station-renquan",
+                "station-shimin-huodong",
+                "station-dongwuyuan",
+                "station-hongying-airport",
+                "station-gongyeyuanqu"
+            ],
+            "branches": [
+                ["station-gongyeyuanqu", "station-duishadao"],
+                ["station-renquan", "station-youcheng"],
+                ["station-shimin-huodong", "station-mubing"]
+            ]
+        },
+        {
+            "id": "line-zongguan",
+            "name": "纵贯线",
+            "color": "#4A7DFF",
+            "stations": [
+                "station-guiyang",
+                "station-hongying-airport",
+                "station-xuedongcun",
+                "station-youyu-bandao",
+                "station-yangbeicun",
+                "station-lanzichangdao-nan"
+            ]
+        },
+        {
+            "id": "line-haidao",
+            "name": "海岛连接线",
+            "color": "#3B8A58",
+            "stations": [
+                "station-youyu-bandao",
+                "station-lanzidao",
+                "station-haigui-qundao",
+                "station-xiaoludao",
+                "station-linxidao",
+                "station-ziyangjiao",
+                "station-lanzichangdao-nan"
+            ]
+        },
+        {
+            "id": "line-xinanha",
+            "name": "西南海线",
+            "color": "#C24A4A",
+            "stations": [
+                "station-guiyang",
+                "station-xinanha"
+            ]
+        },
+        {
+            "id": "line-kuaisu-bingdao",
+            "name": "快速冰道",
+            "color": "#7ED4E8",
+            "style": "canal",
+            "stations": [
+                "station-guiyang",
+                "station-yingjiao",
+                "station-qixin",
+                "station-yinggu"
+            ]
+        }
+    ]
+}

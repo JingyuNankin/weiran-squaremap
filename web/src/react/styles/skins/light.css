@@ -1,0 +1,102 @@
+/**
+ * Light 光昼 — 浅色 UI 皮肤（默认；Ant Design / Material 白天模式思路）。
+ * 半透明白色浮层叠在地图上，主色与 Ant Design 默认蓝对齐。
+ */
+html[data-ui-skin="light"],
+html:not([data-ui-skin]),
+#react-root[data-ui-skin="light"],
+#react-root:not([data-ui-skin]) {
+    /* 主色 — Ant Design 默认 primary */
+    --weiran-ui-color-primary: #1677ff;
+
+    /* 文字 — Ant Design / Material 正文层级 */
+    --weiran-ui-color-text: rgba(0, 0, 0, 0.88);
+    --weiran-ui-color-text-muted: rgba(0, 0, 0, 0.45);
+    --weiran-ui-color-text-hover: rgba(0, 0, 0, 0.88);
+
+    /* 背景 — Material surface（略透明以融入地图） */
+    --weiran-ui-bg-container: rgba(255, 255, 255, 0.94);
+    --weiran-ui-bg-container-hover: #f5f5f5;
+    --weiran-ui-bg-hover: rgba(0, 0, 0, 0.04);
+    --weiran-ui-bg-hover-subtle: rgba(0, 0, 0, 0.02);
+
+    /* 主色悬停 — Ant Design primary hover */
+    --weiran-ui-color-primary-hover: #4096ff;
+
+    /* 边框 — Ant Design 默认分割 / 描边 */
+    --weiran-ui-border: #d9d9d9;
+    --weiran-ui-border-hover: #4096ff;
+    --weiran-ui-border-subtle: rgba(0, 0, 0, 0.06);
+    --weiran-ui-border-divider: rgba(5, 5, 5, 0.06);
+
+    /* 圆角 — Ant Design 控件常用 8px */
+    --weiran-ui-radius: 8px;
+    --weiran-ui-radius-control: 8px;
+    --weiran-ui-radius-none: 0;
+
+    /* 阴影 — Ant Design / Material 轻 elevation */
+    --weiran-ui-shadow-control:
+        0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02),
+        0 2px 4px 0 rgba(0, 0, 0, 0.02);
+    --weiran-ui-shadow-panel:
+        0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+        0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+    /* 字号 / 行高 */
+    --weiran-ui-font-size-sm: 12px;
+    --weiran-ui-font-size-section: 11px;
+    --weiran-ui-line-height-sm: 14px;
+    --weiran-ui-letter-spacing-section: 0.04em;
+
+    /* 内边距 */
+    --weiran-ui-padding-coordinates-body: 2px 8px;
+    --weiran-ui-padding-panel-body: 8px 0;
+    --weiran-ui-padding-panel-section-x: 12px;
+    --weiran-ui-padding-panel-section-y: 4px;
+    --weiran-ui-padding-panel-item: 4px 12px;
+
+    /* 布局间距 */
+    --weiran-ui-inset-edge: 10px;
+    --weiran-ui-gap-control: 8px;
+    --weiran-ui-control-width: 40px;
+
+    /* 搜索 — Spotlight 毛玻璃 */
+    --weiran-ui-search-bg: rgba(255, 255, 255, 0.58);
+    --weiran-ui-search-backdrop-filter: blur(24px) saturate(190%);
+    --weiran-ui-search-border-width: 0.5px;
+    --weiran-ui-search-border: rgba(255, 255, 255, 0.52);
+    --weiran-ui-search-shadow:
+        0 20px 64px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+    --weiran-ui-search-radius: 14px;
+    --weiran-ui-search-input-size: 18px;
+    --weiran-ui-search-input-height: 52px;
+    --weiran-ui-search-input-padding-x: 18px;
+    --weiran-ui-search-scrim: rgba(0, 0, 0, 0.08);
+    --weiran-ui-search-item-hover: rgba(0, 0, 0, 0.06);
+    --weiran-ui-search-item-radius: 8px;
+    --weiran-ui-search-divider-width: 0.5px;
+    --weiran-ui-search-divider: rgba(0, 0, 0, 0.08);
+
+    /* 滚动条 */
+    --weiran-ui-scrollbar-size: 6px;
+    --weiran-ui-scrollbar-track: transparent;
+    --weiran-ui-scrollbar-thumb: rgba(0, 0, 0, 0.18);
+    --weiran-ui-scrollbar-thumb-hover: rgba(0, 0, 0, 0.32);
+    --weiran-ui-scrollbar-radius: 999px;
+}
+
+/* 地图 POI — Light（地名类对齐 .map-tool-btn 默认按钮：白底黑字） */
+#map[data-ui-skin="light"],
+#map:not([data-ui-skin]) {
+    --weiran-map-poi-geo-color: rgba(0, 0, 0, 0.88);
+    --weiran-map-poi-geo-bg: rgba(255, 255, 255, 0.94);
+    --weiran-map-poi-geo-border: #d9d9d9;
+    --weiran-map-poi-geo-radius: 8px;
+    --weiran-map-poi-geo-shadow:
+        0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02),
+        0 2px 4px 0 rgba(0, 0, 0, 0.02);
+    --weiran-map-poi-unit-label-stroke: #ffffff;
+    --weiran-map-poi-badge-bg: rgba(255, 255, 255, 0.82);
+    --weiran-map-poi-badge-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+    --weiran-map-poi-highlight-ring: 0 0 0 2px #1677ff, 0 0 12px rgba(22, 119, 255, 0.5);
+}

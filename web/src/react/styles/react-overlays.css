@@ -1,0 +1,394 @@
+/* React 浮层：覆盖在 Leaflet 地图之上，不阻挡地图拖拽（仅交互元素可点击） */
+#react-root {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+html[data-ui-layout="compact"] #react-root {
+    height: 100dvh;
+}
+
+.map-floating-controls {
+    position: absolute;
+    top: var(--weiran-ui-inset-edge);
+    left: var(--weiran-ui-inset-edge);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: var(--weiran-ui-control-width);
+    pointer-events: auto;
+    gap: var(--weiran-ui-gap-control);
+}
+
+.map-toolbar-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: var(--weiran-ui-gap-control);
+}
+
+.map-zoom-control {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(var(--weiran-ui-control-width) * 2);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border-radius: var(--weiran-ui-radius);
+    overflow: hidden;
+    box-shadow: var(--weiran-ui-shadow-control);
+    border: 1px solid var(--weiran-ui-border);
+    background: var(--weiran-ui-bg-container);
+}
+
+.map-zoom-control-btn.ant-btn {
+    flex: 1 1 50%;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: var(--weiran-ui-radius-none);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--weiran-ui-color-text);
+    background: transparent;
+}
+
+.map-zoom-control-btn.ant-btn:hover,
+.map-zoom-control-btn.ant-btn:focus-visible {
+    color: var(--weiran-ui-color-text-hover);
+    background: var(--weiran-ui-bg-hover);
+}
+
+.map-zoom-control-btn-in {
+    border-bottom: 1px solid var(--weiran-ui-border-subtle) !important;
+}
+
+/* Tooltip 包裹后保持工具栏布局 */
+.map-floating-controls > .ant-tooltip,
+.map-toolbar-controls > .ant-tooltip {
+    display: block;
+    width: 100%;
+}
+
+.map-floating-controls > .ant-tooltip .map-tool-btn,
+.map-toolbar-controls > .ant-tooltip .map-tool-btn {
+    width: 100%;
+}
+
+.map-zoom-control > .ant-tooltip {
+    flex: 1 1 50%;
+    display: flex;
+    min-height: 0;
+    width: 100%;
+}
+
+.map-zoom-control > .ant-tooltip .map-zoom-control-btn {
+    flex: 1;
+    width: 100%;
+}
+
+.map-tool-btn.ant-btn,
+.map-layer-control-btn.ant-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: var(--weiran-ui-control-width) !important;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border-radius: var(--weiran-ui-radius-control, var(--weiran-ui-radius));
+    box-shadow: var(--weiran-ui-shadow-control);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-tool-btn.ant-btn:not(.ant-btn-primary),
+.map-layer-control-btn.ant-btn:not(.ant-btn-primary) {
+    background: var(--weiran-ui-bg-container);
+    border-color: var(--weiran-ui-border);
+    color: var(--weiran-ui-color-text);
+}
+
+.map-tool-btn.ant-btn:not(.ant-btn-primary):hover,
+.map-tool-btn.ant-btn:not(.ant-btn-primary):focus-visible,
+.map-layer-control-btn.ant-btn:not(.ant-btn-primary):hover,
+.map-layer-control-btn.ant-btn:not(.ant-btn-primary):focus-visible {
+    color: var(--weiran-ui-color-text-hover);
+    border-color: var(--weiran-ui-border-hover);
+    background: var(--weiran-ui-bg-container-hover) !important;
+}
+
+.map-tool-btn.ant-btn-primary:hover,
+.map-tool-btn.ant-btn-primary:focus-visible,
+.map-layer-control-btn.ant-btn-primary:hover,
+.map-layer-control-btn.ant-btn-primary:focus-visible {
+    background: var(--weiran-ui-color-primary-hover) !important;
+    border-color: var(--weiran-ui-color-primary-hover) !important;
+}
+
+.layer-panel,
+.settings-panel,
+.org-panel {
+    position: absolute;
+    top: var(--weiran-ui-inset-edge);
+    left: calc(
+        var(--weiran-ui-inset-edge) + var(--weiran-ui-control-width) + var(--weiran-ui-gap-control)
+    );
+    pointer-events: auto;
+    border-radius: var(--weiran-ui-radius);
+    box-shadow: var(--weiran-ui-shadow-panel);
+}
+
+.layer-panel {
+    min-width: 180px;
+    max-width: min(280px, calc(100vw - 80px));
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+}
+
+.settings-panel,
+.org-panel {
+    min-width: 160px;
+    max-width: min(calc(100vw - 80px), 360px);
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+}
+
+/* 手机端：工具栏右上、缩放下放右侧；侧栏面板改锚定到右侧 */
+html[data-ui-layout="compact"] .map-floating-controls {
+    display: contents;
+}
+
+html[data-ui-layout="compact"] .map-toolbar-controls {
+    position: absolute;
+    top: var(--weiran-ui-inset-edge);
+    right: var(--weiran-ui-inset-edge);
+    left: auto;
+    width: var(--weiran-ui-control-width);
+    pointer-events: auto;
+}
+
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--search {
+    order: 1;
+}
+
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--layers {
+    order: 2;
+}
+
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--org {
+    order: 3;
+}
+
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--schematic {
+    order: 4;
+}
+
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--settings {
+    order: 5;
+}
+
+html[data-ui-layout="compact"] .map-zoom-control {
+    position: absolute;
+    top: 62%;
+    right: var(--weiran-ui-inset-edge);
+    left: auto;
+    width: var(--weiran-ui-control-width);
+    flex-shrink: 0;
+    transform: translateY(-50%);
+    pointer-events: auto;
+}
+
+html[data-ui-layout="compact"] .layer-panel,
+html[data-ui-layout="compact"] .settings-panel,
+html[data-ui-layout="compact"] .org-panel {
+    left: auto;
+    right: calc(
+        var(--weiran-ui-inset-edge) + var(--weiran-ui-control-width) + var(--weiran-ui-gap-control)
+    );
+    max-width: min(280px, calc(100vw - 24px - var(--weiran-ui-control-width) - var(--weiran-ui-gap-control)));
+}
+
+.settings-panel-skin-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+    padding: 4px var(--weiran-ui-padding-panel-section-x) 10px;
+    box-sizing: border-box;
+}
+
+.settings-panel-skin-list .skin-preview-card {
+    flex: 1 1 120px;
+    min-width: 120px;
+    max-width: 100%;
+}
+
+@media (orientation: portrait) {
+    .settings-panel-skin-list {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .settings-panel-skin-list .skin-preview-card {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (orientation: landscape) {
+    .settings-panel-skin-list {
+        flex-direction: row;
+    }
+
+    .settings-panel-skin-list .skin-preview-card {
+        flex: 1 1 0;
+        min-width: 108px;
+    }
+}
+
+.layer-panel .ant-card-body,
+.map-side-panel .ant-card-body {
+    padding: var(--weiran-ui-padding-panel-body) !important;
+}
+
+.map-side-panel-section-title,
+.layer-panel-section-title {
+    display: block;
+    padding: 0 var(--weiran-ui-padding-panel-section-x) var(--weiran-ui-padding-panel-section-y);
+    font-size: var(--weiran-ui-font-size-section) !important;
+    font-weight: 700;
+    letter-spacing: var(--weiran-ui-letter-spacing-section);
+    text-transform: uppercase;
+    color: var(--weiran-ui-color-text-muted) !important;
+}
+
+.layer-panel-divider {
+    margin: 6px 0 !important;
+    border-color: var(--weiran-ui-border-divider) !important;
+}
+
+.layer-panel-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.layer-panel-item {
+    margin: 0 !important;
+    padding: var(--weiran-ui-padding-panel-item);
+    width: 100%;
+}
+
+.layer-panel-item:hover {
+    background: var(--weiran-ui-bg-hover-subtle);
+}
+
+.layer-panel-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.layer-panel-label-text {
+    color: var(--weiran-ui-color-text);
+}
+
+.layer-panel-legend {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.layer-panel-legend svg {
+    display: block;
+}
+
+.map-coordinates {
+    position: absolute;
+    bottom: var(--weiran-ui-inset-edge);
+    left: var(--weiran-ui-inset-edge);
+    z-index: 1;
+    min-height: 30px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    border-radius: var(--weiran-ui-radius);
+    box-shadow: var(--weiran-ui-shadow-control);
+    border: 1px solid var(--weiran-ui-border);
+    background: var(--weiran-ui-bg-container);
+    padding: var(--weiran-ui-padding-coordinates-body);
+}
+
+.map-coordinates-content {
+    font-size: var(--weiran-ui-font-size-sm);
+    line-height: var(--weiran-ui-line-height-sm);
+    color: var(--weiran-ui-color-text);
+    white-space: nowrap;
+}
+
+/* 手机端：坐标 + 比例尺合并为 fixed 底栏（避开 Leaflet 层被遮挡） */
+.map-bottom-bar--compact {
+    position: fixed;
+    z-index: 1100;
+    left: calc(var(--weiran-ui-inset-edge) + env(safe-area-inset-left, 0px));
+    right: auto;
+    bottom: calc(var(--weiran-ui-inset-edge) + env(safe-area-inset-bottom, 0px));
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: var(--weiran-ui-gap-control);
+    max-width: calc(
+        100vw - (var(--weiran-ui-inset-edge) + env(safe-area-inset-left, 0px)) -
+            (var(--weiran-ui-inset-edge) + env(safe-area-inset-right, 0px))
+    );
+    pointer-events: none;
+}
+
+.map-bottom-bar--compact > .map-coordinates,
+.map-bottom-bar--compact > .map-scale-bar {
+    position: static;
+    flex-shrink: 0;
+    pointer-events: auto;
+}
+
+.map-bottom-bar--compact .map-scale-bar {
+    padding: 4px 8px 2px;
+    height: 30px;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.map-copy-toast[hidden] {
+    display: none !important;
+}
+
+.map-copy-toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--weiran-ui-inset-edge, 10px) + 48px);
+    z-index: 1200;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    border: 1px solid var(--weiran-ui-border, #d9d9d9);
+    border-radius: var(--weiran-ui-radius, 8px);
+    background: var(--weiran-ui-bg-container, rgba(255, 255, 255, 0.94));
+    box-shadow: var(--weiran-ui-shadow-panel, 0 6px 16px rgba(0, 0, 0, 0.12));
+    color: var(--weiran-ui-color-text, rgba(0, 0, 0, 0.88));
+    font-size: var(--weiran-ui-font-size-sm, 12px);
+    line-height: var(--weiran-ui-line-height-sm, 14px);
+    pointer-events: none;
+    white-space: nowrap;
+}

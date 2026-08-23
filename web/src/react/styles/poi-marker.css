@@ -1,0 +1,200 @@
+/**
+ * 地图 POI 样式
+ *
+ * POI 分两类（与 layers.json markerType 对应）：
+ *
+ * 1. 地名类（GeoRegionLabel / markerType: label）
+ *    国名、政区、自然村、办事处等。居中背景文本，无 icon。
+ *    外观与各皮肤工具栏默认按钮（.map-tool-btn）一致；tier 间仅差字号、字重、背景不透明度与内边距。
+ *
+ * 2. 地点类（UnitPointMarker / markerType: iconWithText）
+ *    行政单位、事业单位、经济单位等。圆形 badge + Maki icon，文本在 icon 右侧。
+ *    层 JSON 的 color 作为 --weiran-map-poi-accent 着色 icon 与标签文字。
+ *
+ * 变量由 #map[data-ui-skin] 注入；见 styles/skins/*.css
+ */
+
+#map {
+    --weiran-map-poi-accent-fallback: #e53935;
+
+    /* 地名类 — 默认（Light 语义，各皮肤在 skins/*.css 覆盖） */
+    --weiran-map-poi-geo-color: rgba(0, 0, 0, 0.88);
+    --weiran-map-poi-geo-bg: rgba(255, 255, 255, 0.94);
+    --weiran-map-poi-geo-bg-opacity: 0.92;
+    --weiran-map-poi-geo-border: #d9d9d9;
+    --weiran-map-poi-geo-radius: 8px;
+    --weiran-map-poi-geo-shadow:
+        0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02),
+        0 2px 4px 0 rgba(0, 0, 0, 0.02);
+    --weiran-map-poi-geo-font-size: 14px;
+    --weiran-map-poi-geo-font-weight: 600;
+    --weiran-map-poi-geo-padding-y: 4px;
+    --weiran-map-poi-geo-padding-x: 10px;
+
+    /* 地点类 */
+    --weiran-map-poi-unit-label-color: #000000;
+    --weiran-map-poi-unit-label-weight: 600;
+    --weiran-map-poi-unit-label-size: 13px;
+    --weiran-map-poi-unit-label-stroke: #ffffff;
+    --weiran-map-poi-unit-label-stroke-width: 2px;
+    --weiran-map-poi-badge-bg: rgba(255, 255, 255, 0.72);
+    --weiran-map-poi-badge-size: 22px;
+    --weiran-map-poi-badge-radius: 50%;
+    --weiran-map-poi-badge-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    --weiran-map-poi-icon-size: 10px;
+    --weiran-map-poi-unit-gap: 5px;
+
+    /* 高亮 */
+    --weiran-map-poi-highlight-ring: 0 0 0 2px var(--weiran-ui-color-primary, #1677ff),
+        0 0 12px rgba(22, 119, 255, 0.55);
+    --weiran-map-poi-highlight-scale: 1.06;
+}
+
+.weiran-region-label-icon,
+.weiran-icon-with-text-icon {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* 缩放级不可见时禁用命中（World.js setMarkerZoomVisibility） */
+.weiran-poi-marker--hidden,
+.weiran-poi-marker--hidden .weiran-poi {
+    pointer-events: none !important;
+    cursor: default;
+}
+
+.weiran-poi {
+    pointer-events: auto;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.weiran-poi--highlighted {
+    transform: scale(var(--weiran-map-poi-highlight-scale));
+    filter: drop-shadow(0 0 6px rgba(22, 119, 255, 0.45));
+    z-index: 1;
+}
+
+/* —— 1. 地名类 —— */
+.weiran-poi-geo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    line-height: 1.25;
+    box-sizing: border-box;
+    color: var(--weiran-map-poi-geo-color);
+    border: 1px solid var(--weiran-map-poi-geo-border);
+    border-radius: var(--weiran-map-poi-geo-radius);
+    box-shadow: var(--weiran-map-poi-geo-shadow);
+    font-size: var(--weiran-map-poi-geo-font-size);
+    font-weight: var(--weiran-map-poi-geo-font-weight);
+    padding: var(--weiran-map-poi-geo-padding-y) var(--weiran-map-poi-geo-padding-x);
+    background-color: color-mix(
+        in srgb,
+        var(--weiran-map-poi-geo-bg) calc(var(--weiran-map-poi-geo-bg-opacity) * 100%),
+        transparent
+    );
+}
+
+/* tier 仅覆盖字号、字重、背景不透明度、内边距 */
+.weiran-poi-geo--nation {
+    --weiran-map-poi-geo-font-size: 28px;
+    --weiran-map-poi-geo-font-weight: 700;
+    --weiran-map-poi-geo-bg-opacity: 1;
+    --weiran-map-poi-geo-padding-y: 6px;
+    --weiran-map-poi-geo-padding-x: 14px;
+}
+
+.weiran-poi-geo--region {
+    --weiran-map-poi-geo-font-size: 18px;
+    --weiran-map-poi-geo-font-weight: 600;
+    --weiran-map-poi-geo-bg-opacity: 0.96;
+    --weiran-map-poi-geo-padding-y: 4px;
+    --weiran-map-poi-geo-padding-x: 10px;
+}
+
+.weiran-poi-geo--village,
+.weiran-poi-geo--office {
+    --weiran-map-poi-geo-font-size: 14px;
+    --weiran-map-poi-geo-font-weight: 400;
+    --weiran-map-poi-geo-bg-opacity: 0.88;
+    --weiran-map-poi-geo-padding-y: 3px;
+    --weiran-map-poi-geo-padding-x: 8px;
+}
+
+.weiran-poi-geo-text {
+    display: block;
+}
+
+.weiran-poi--highlighted.weiran-poi-geo {
+    box-shadow: var(--weiran-map-poi-geo-shadow), var(--weiran-map-poi-highlight-ring);
+}
+
+/* —— 2. 地点类 —— */
+.weiran-poi-unit {
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.weiran-poi-unit-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--weiran-map-poi-badge-size);
+    height: var(--weiran-map-poi-badge-size);
+    border-radius: var(--weiran-map-poi-badge-radius);
+    background: var(--weiran-map-poi-badge-bg);
+    box-shadow: var(--weiran-map-poi-badge-shadow);
+}
+
+.weiran-poi-unit--central-department {
+    --weiran-map-poi-badge-size: 24px;
+    --weiran-map-poi-icon-size: 11px;
+    --weiran-map-poi-unit-label-size: 16px;
+    --weiran-map-poi-unit-label-weight: 700;
+    --weiran-map-poi-unit-label-stroke-width: 2.5px;
+    --weiran-map-poi-unit-gap: 6px;
+}
+
+.weiran-poi-unit-icon {
+    width: var(--weiran-map-poi-icon-size);
+    height: var(--weiran-map-poi-icon-size);
+}
+
+.weiran-poi-unit-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.weiran-poi-unit-label {
+    margin-left: var(--weiran-map-poi-unit-gap);
+    white-space: nowrap;
+    line-height: 1.25;
+    font-size: var(--weiran-map-poi-unit-label-size);
+    font-weight: var(--weiran-map-poi-unit-label-weight);
+    color: var(--weiran-map-poi-accent, var(--weiran-map-poi-unit-label-color));
+    -webkit-text-stroke: var(--weiran-map-poi-unit-label-stroke-width) var(--weiran-map-poi-unit-label-stroke);
+    paint-order: stroke fill;
+}
+
+.weiran-poi--highlighted.weiran-poi-unit .weiran-poi-unit-badge {
+    box-shadow: var(--weiran-map-poi-badge-shadow), var(--weiran-map-poi-highlight-ring);
+}
+
+.weiran-maki-icon {
+    display: block;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.weiran-maki-icon svg {
+    display: block;
+}

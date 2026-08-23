@@ -1,6 +1,7 @@
 import { Options, Rectangle, PolyLine, Polygon, Circle, Ellipse, Icon, RegionLabel, IconWithText } from "./Markers.js";
 import { S } from "../Squaremap.js";
 import { fetchMarkerLayersBySource } from "./markerLayers.js";
+import { notifyMapWorldChanged } from "../../react/bridge/mapBridge.js";
 import L from "leaflet";
 
 class World {
@@ -53,7 +54,7 @@ class World {
         }
     }
     tickMarkers() {
-        fetchMarkerLayersBySource(this.name).then(({ squaremap, weiranGis }) => {
+        fetchMarkerLayersBySource(this.name, this.type).then(({ squaremap, weiranGis }) => {
             if (this === S.worldList.curWorld) {
                 this.markersFromSources(squaremap, weiranGis);
             }
@@ -115,6 +116,8 @@ class World {
                 if (callback != null) {
                     callback(this);
                 }
+
+                notifyMapWorldChanged();
             },
         );
     }
@@ -229,6 +232,30 @@ class World {
 }
 
 /**
+ * @param {L.Layer} marker
+ * @param {boolean} visible
+ */
+function setMarkerZoomVisibility(marker, visible) {
+    if (typeof marker.setOpacity === "function") {
+        marker.setOpacity(visible ? 1 : 0);
+    }
+    marker.options.interactive = visible;
+    if (typeof marker.getElement !== "function") {
+        return;
+    }
+    const el = marker.getElement();
+    if (!(el instanceof HTMLElement)) {
+        return;
+    }
+    el.classList.toggle("weiran-poi-marker--hidden", !visible);
+    el.style.pointerEvents = visible ? "" : "none";
+    const poiEl = el.querySelector(".weiran-poi");
+    if (poiEl instanceof HTMLElement) {
+        poiEl.tabIndex = visible ? 0 : -1;
+    }
+}
+
+/**
  * @param {L.LayerGroup} layer
  * @param {number | null | undefined} minZoom
  * @param {number | null | undefined} maxZoom
@@ -255,15 +282,15 @@ function bindLayerZoomVisibility(layer, minZoom, maxZoom) {
         }
         const visible = isVisibleAtZoom(S.map.getZoom());
         layer.eachLayer((marker) => {
-            if (typeof marker.setOpacity === "function") {
-                marker.setOpacity(visible ? 1 : 0);
-            }
+            setMarkerZoomVisibility(marker, visible);
         });
     };
 
     layer.on("add", update);
+    S.map.on("zoom", update);
     S.map.on("zoomend", update);
     layer.on("remove", () => {
+        S.map.off("zoom", update);
         S.map.off("zoomend", update);
     });
 }

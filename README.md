@@ -224,7 +224,13 @@ bun run preview
 
 #### 2. 实例 `web/data/weiran-gis/instances.json`
 
-同一类型可有多个实例（例如多个行政区名）。`layer` 字段引用 `layers.json` 中的 key：
+同一类型可有多个实例（例如多个行政区名）。`layer` 字段引用 `layers.json` 中的 key；`dimension` 表示 POI 所在维度，与 squaremap 世界 `type` 对齐：
+
+| `dimension` | 含义 |
+|-------------|------|
+| `normal` | 主世界（默认） |
+| `nether` | 下界 |
+| `the_end` | 末地 |
 
 ```json
 {
@@ -233,6 +239,7 @@ bun run preview
     {
       "layer": "admin-names",
       "id": "yinggu",
+      "dimension": "normal",
       "point": { "x": 3094, "z": 3324 },
       "text": "樱谷"
     }
@@ -240,17 +247,51 @@ bun run preview
 }
 ```
 
-单个实例可通过 `icon` 覆盖图层默认 icon。增删实例后递增 `instances.json` 的 `version` 即可。
+单个实例可通过 `icon` 覆盖图层默认 icon。增删实例或修改 `dimension` 后，递增 `instances.json` 的 `version` 即可。
 
 前端左上角图层控件分为 **Square Map**（服务端）与 **Weiran GIS**（本地 JSON）两个分组展示。
 
 修改 marker 内容后，递增 `timestamp` 可强制前端刷新该层。`npm run dev` 下保存 JSON 后刷新页面即可；上线需重新 `./gradlew build` 并部署插件。
 
+### 前端版本号
+
+设置面板「关于」中显示的版本为 **大版本.小版本.编辑版本**（例如 `1.2.22`），由两处配置组成：
+
+| 段 | 配置文件 | 何时递增 |
+|----|----------|----------|
+| **大版本** | `web/data/weiran-gis/release.json` → `major` | 架构级或不兼容变更 |
+| **小版本** | `web/data/weiran-gis/release.json` → `minor` | 每次向服主交付新的前端构建（`npm run package` 并发包） |
+| **编辑版本** | `web/data/weiran-gis/instances.json` → 顶层 `version` | 增删改 GIS 实例或实例字段（如 `dimension`、坐标、名称） |
+| **构建日期** | `web/data/weiran-gis/build.json` → `builtAt` | 执行 `npm run package` 时自动写入（精确到日，`YYYY-MM-DD`） |
+
+`release.json` 示例：
+
+```json
+{
+  "major": 1,
+  "minor": 2
+}
+```
+
+当前示例：`instances.json` 的 `version` 为 `22`，`release.json` 为 `1.2`，故界面显示 **1.2.22**。
+
+交付记录（蔚然 GIS 前端）：
+
+| 小版本 | 说明 |
+|--------|------|
+| `1.0` | 首次前端构建交付 |
+| `1.1` | 第二次前端构建交付 |
+| `1.2` | 当前：搜索、组织树、皮肤、维度等 |
+
+仅改 GIS 数据、未发新包时：只递增 `instances.json` 的 `version`（编辑版本 +1），小版本不变，例如仍为 `1.2.23`。
+
+向服主交付时请用 **`npm run package`**（会先写入当日 `builtAt`，再执行构建）；本地调试仍可用 `npm run build` 或 `npm run dev`，此时关于页不显示构建日期。
+
 ## 目录结构
 
 ```
 web/                  # 前端（Leaflet 地图 UI）
-web/data/weiran-gis/   # 蔚然 GIS：layers.json（类型/样式）+ instances.json（实例）
+web/data/weiran-gis/   # 蔚然 GIS：layers.json、instances.json、release.json、build.json
 common/               # 插件核心（渲染、HTTP 服务、配置）
 paper/                # Paper 平台插件入口
 deploy/magicflower/   # Magic Flower 服务端配置示例

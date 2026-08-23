@@ -1,733 +1,2616 @@
 {
-    "version": 21,
+    "version": 51,
     "instances": [
         {
             "layer": "nation",
             "id": "nation-weiran",
             "parentNode": null,
-            "point": { "x": 3096, "z": 3325 },
-            "text": "蔚然"
+            "point": {
+                "x": 3096,
+                "z": 3325
+            },
+            "text": "蔚然",
+            "dimension": "normal"
         },
         {
             "layer": "nation",
             "id": "nation-ocieania",
             "parentNode": null,
-            "point": { "x": 1725, "z": 3927 },
-            "text": "大洋"
+            "point": {
+                "x": 1725,
+                "z": 3927
+            },
+            "text": "大洋",
+            "dimension": "normal"
         },
         {
             "layer": "nation",
             "id": "nation-plato",
             "parentNode": null,
-            "point": { "x": 1718, "z": 2734 },
-            "text": "柏拉图"
+            "point": {
+                "x": 1718,
+                "z": 2734
+            },
+            "text": "柏拉图",
+            "dimension": "normal"
         },
         {
             "layer": "nation",
             "id": "nation-doublezero",
             "parentNode": null,
-            "point": { "x": 0, "z": 0 },
-            "text": "零陵"
+            "point": {
+                "x": 0,
+                "z": 0
+            },
+            "text": "零陵",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-1",
             "parentNode": "nation-weiran",
-            "point": { "x": 3114, "z": 3250 },
-            "text": "樱谷"
+            "point": {
+                "x": 3114,
+                "z": 3250
+            },
+            "text": "樱谷",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-2",
             "parentNode": "nation-weiran",
-            "point": { "x": 2676, "z": 2882 },
-            "text": "湖海"
+            "point": {
+                "x": 2676,
+                "z": 2882
+            },
+            "text": "湖海",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-3",
             "parentNode": "nation-weiran",
-            "point": { "x": 2835, "z": 2909 },
-            "text": "白沫"
+            "point": {
+                "x": 2835,
+                "z": 2909
+            },
+            "text": "白沫",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-4",
             "parentNode": "nation-weiran",
-            "point": { "x": 3165, "z": 2812 },
-            "text": "栖心"
+            "point": {
+                "x": 3165,
+                "z": 2812
+            },
+            "text": "栖心",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-5",
             "parentNode": "nation-weiran",
-            "point": { "x": 2490, "z": 3375 },
-            "text": "生栗屯"
+            "point": {
+                "x": 2490,
+                "z": 3375
+            },
+            "text": "生栗屯",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-6",
             "parentNode": "nation-weiran",
-            "point": { "x": 2760, "z": 3950 },
-            "text": "蓬洲"
+            "point": {
+                "x": 2760,
+                "z": 3950
+            },
+            "text": "蓬洲",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-7",
             "parentNode": "nation-weiran",
-            "point": { "x": 3319, "z": 3849 },
-            "text": "南天门"
+            "point": {
+                "x": 3319,
+                "z": 3849
+            },
+            "text": "南天门",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-8",
             "parentNode": "nation-weiran",
-            "point": { "x": 3606, "z": 3388 },
-            "text": "东昇"
+            "point": {
+                "x": 3606,
+                "z": 3388
+            },
+            "text": "东昇",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-9",
             "parentNode": "nation-weiran",
-            "point": { "x": 2128, "z": 2800 },
-            "text": "嘉海"
+            "point": {
+                "x": 2128,
+                "z": 2800
+            },
+            "text": "嘉海",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-10",
             "parentNode": "nation-plato",
-            "point": { "x": 1700, "z": 2640 },
-            "text": "海北"
+            "point": {
+                "x": 1700,
+                "z": 2640
+            },
+            "text": "海北",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-11",
             "parentNode": "nation-plato",
-            "point": { "x": 1835, "z": 2690 },
-            "text": "鹰角"
+            "point": {
+                "x": 1835,
+                "z": 2690
+            },
+            "text": "鹰角",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-12",
             "parentNode": "nation-plato",
-            "point": { "x": 1793, "z": 2793 },
-            "text": "武陵"
+            "point": {
+                "x": 1793,
+                "z": 2793
+            },
+            "text": "武陵",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-13",
             "parentNode": "nation-plato",
-            "point": { "x": 1614, "z": 2918 },
-            "text": "西绛"
+            "point": {
+                "x": 1614,
+                "z": 2918
+            },
+            "text": "西绛",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-14",
             "parentNode": "nation-plato",
-            "point": { "x": 1156, "z": 3490 },
-            "text": "天南"
+            "point": {
+                "x": 1156,
+                "z": 3490
+            },
+            "text": "天南",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-15",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1917, "z": 3611 },
-            "text": "瑰洋"
+            "point": {
+                "x": 1917,
+                "z": 3611
+            },
+            "text": "瑰洋",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-16",
             "parentNode": "nation-ocieania",
-            "point": { "x": 2200, "z": 3700 },
-            "text": "鱿城"
+            "point": {
+                "x": 2200,
+                "z": 3700
+            },
+            "text": "鱿城",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-17",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1725, "z": 3924 },
-            "text": "西南海"
+            "point": {
+                "x": 1725,
+                "z": 3924
+            },
+            "text": "西南海",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-18",
             "parentNode": "nation-doublezero",
-            "point": { "x": 4100, "z": 1737 },
-            "text": "雪原猫村"
+            "point": {
+                "x": 4100,
+                "z": 1737
+            },
+            "text": "雪原猫村",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-19",
             "parentNode": "nation-doublezero",
-            "point": { "x": 1522, "z": 229 },
-            "text": "小猪神社"
+            "point": {
+                "x": 1522,
+                "z": 229
+            },
+            "text": "小猪神社",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-20",
             "parentNode": "nation-doublezero",
-            "point": { "x": 74, "z": 205 },
-            "text": "使馆区"
+            "point": {
+                "x": 74,
+                "z": 205
+            },
+            "text": "使馆区",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-21",
             "parentNode": "nation-doublezero",
-            "point": { "x": 197, "z": -43 },
-            "text": "联合赤石公司"
+            "point": {
+                "x": 197,
+                "z": -43
+            },
+            "text": "联合赤石公司",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-22",
             "parentNode": "nation-doublezero",
-            "point": { "x": -145, "z": 90 },
-            "text": "涉津国"
+            "point": {
+                "x": -145,
+                "z": 90
+            },
+            "text": "涉津国",
+            "dimension": "normal"
         },
         {
             "layer": "region",
             "id": "region-23",
             "parentNode": "nation-doublezero",
-            "point": { "x": -235, "z": -190 },
-            "text": "未命名"
+            "point": {
+                "x": -235,
+                "z": -190
+            },
+            "text": "静海镇",
+            "dimension": "normal"
         },
         {
             "layer": "office",
             "id": "office-1",
             "parentNode": "region-9",
-            "point": { "x": 2294, "z": 3235 },
-            "text": "星蔚岛办事处"
+            "point": {
+                "x": 2294,
+                "z": 3235
+            },
+            "text": "星蔚岛办事处",
+            "dimension": "normal"
         },
         {
             "layer": "office",
             "id": "office-2",
             "parentNode": "region-9",
-            "point": { "x": 2343, "z": 2658 },
-            "text": "捕鱼岛办事处"
+            "point": {
+                "x": 2343,
+                "z": 2658
+            },
+            "text": "捕鱼岛办事处",
+            "dimension": "normal"
         },
         {
             "layer": "office",
             "id": "office-3",
             "parentNode": "region-9",
-            "point": { "x": 1443, "z": 3322 },
-            "text": "暮汐岛办事处"
+            "point": {
+                "x": 1443,
+                "z": 3322
+            },
+            "text": "暮汐岛办事处",
+            "dimension": "normal"
         },
         {
             "layer": "office",
             "id": "office-4",
             "parentNode": "region-2",
-            "point": { "x": 2781, "z": 2942 },
-            "text": "鱿鱼庄办事处"
+            "point": {
+                "x": 2781,
+                "z": 2942
+            },
+            "text": "鱿鱼庄办事处",
+            "dimension": "normal"
         },
         {
             "layer": "office",
             "id": "office-5",
             "parentNode": "nation-weiran",
-            "point": { "x": 3925, "z": -2232 },
-            "text": "恶地办事处"
+            "point": {
+                "x": 3925,
+                "z": -2232
+            },
+            "text": "恶地办事处",
+            "dimension": "normal"
         },
         {
             "layer": "office",
             "id": "office-6",
             "parentNode": "nation-weiran",
-            "point": { "x": 3848, "z": 3864 },
-            "text": "末地要塞办事处"
+            "point": {
+                "x": 3848,
+                "z": 3864
+            },
+            "text": "末地要塞办事处",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-1",
             "parentNode": "nation-weiran",
-            "point": { "x": 3107, "z": 3363 },
-            "text": "农业部"
+            "point": {
+                "x": 3107,
+                "z": 3363
+            },
+            "text": "农业部",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-2",
             "parentNode": "nation-weiran",
-            "point": { "x": 3140, "z": 3270 },
-            "text": "工业部"
+            "point": {
+                "x": 3140,
+                "z": 3270
+            },
+            "text": "工业部",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-3",
             "parentNode": "nation-weiran",
-            "point": { "x": 3090, "z": 3255 },
-            "text": "建设部"
+            "point": {
+                "x": 3090,
+                "z": 3255
+            },
+            "text": "建设部",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-4",
             "parentNode": "nation-weiran",
-            "point": { "x": 3063, "z": 3321 },
-            "text": "科技部"
+            "point": {
+                "x": 3063,
+                "z": 3321
+            },
+            "text": "科技部",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-5",
             "parentNode": "nation-weiran",
-            "point": { "x": 3125, "z": 3311 },
-            "text": "环境部"
+            "point": {
+                "x": 3125,
+                "z": 3311
+            },
+            "text": "环境部",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-16",
             "parentNode": "nation-weiran",
-            "point": { "x": 3095, "z": 3305 },
-            "text": "文旅部"
+            "point": {
+                "x": 3095,
+                "z": 3305
+            },
+            "text": "文旅部",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-6",
             "parentNode": "nation-plato",
-            "point": { "x": 3092, "z": 3454 },
-            "text": "柏拉图驻蔚大使馆"
+            "point": {
+                "x": 3092,
+                "z": 3454
+            },
+            "text": "柏拉图驻蔚大使馆",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-7",
             "parentNode": "nation-weiran",
-            "point": { "x": 44, "z": 132 },
-            "text": "蔚然驻零大使馆"
+            "point": {
+                "x": 44,
+                "z": 132
+            },
+            "text": "蔚然驻零大使馆",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-8",
             "parentNode": "nation-plato",
-            "point": { "x": 153, "z": 240 },
-            "text": "柏拉图驻零大使馆"
+            "point": {
+                "x": 153,
+                "z": 240
+            },
+            "text": "柏拉图驻零大使馆",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-15",
             "parentNode": "nation-ocieania",
-            "point": { "x": 78, "z": 297 },
-            "text": "大洋国驻零大使馆（租用）"
+            "point": {
+                "x": 78,
+                "z": 297
+            },
+            "text": "大洋国驻零大使馆（租用）",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-1",
             "parentNode": "nation-weiran",
-            "point": { "x": 2453, "z": 3750 },
-            "text": "便民服务中心"
-        },
-        {
-            "layer": "public-institution",
-            "id": "public-institution-2",
-            "parentNode": "nation-ocieania",
-            "point": { "x": 2218, "z": 3875 },
-            "text": "八角笼"
+            "point": {
+                "x": 2453,
+                "z": 3750
+            },
+            "text": "便民服务中心",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-3",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1873, "z": 3673 },
-            "text": "图书馆"
+            "point": {
+                "x": 1873,
+                "z": 3673
+            },
+            "text": "图书馆",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-4",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1904, "z": 3816 },
-            "text": "动物园"
+            "point": {
+                "x": 1904,
+                "z": 3816
+            },
+            "text": "动物园",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-5",
             "parentNode": "nation-plato",
-            "point": { "x": 1717, "z": 2734 },
-            "text": "太阳宫"
+            "point": {
+                "x": 1717,
+                "z": 2734
+            },
+            "text": "太阳宫",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-6",
             "parentNode": "nation-weiran",
-            "point": { "x": 3101, "z": 3177 },
-            "text": "主题思想堂"
+            "point": {
+                "x": 3101,
+                "z": 3177
+            },
+            "text": "主体思想堂",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-7",
             "parentNode": "nation-weiran",
-            "point": { "x": 3212, "z": 3294 },
-            "text": "深空实验室"
+            "point": {
+                "x": 3212,
+                "z": 3294
+            },
+            "text": "深空实验室",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-8",
             "parentNode": "nation-weiran",
-            "point": { "x": 3063, "z": 3264 },
-            "text": "国家图书馆"
+            "point": {
+                "x": 3063,
+                "z": 3264
+            },
+            "text": "国家图书馆",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-15",
             "parentNode": "region-1",
-            "point": { "x": 2609, "z": 3348 },
-            "text": "神樱大社"
+            "point": {
+                "x": 2609,
+                "z": 3348
+            },
+            "text": "神樱大社",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-10",
             "parentNode": "nation-weiran",
-            "point": { "x": 2504, "z": 3428 },
-            "text": "Gormin烈士墓"
+            "point": {
+                "x": 2504,
+                "z": 3428
+            },
+            "text": "Gormin烈士墓",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-11",
             "parentNode": "nation-weiran",
-            "point": { "x": 2754, "z": 3029 },
-            "text": "村民交易所"
+            "point": {
+                "x": 2754,
+                "z": 3029
+            },
+            "text": "村民交易所",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-12",
             "parentNode": "nation-plato",
-            "point": { "x": 1633, "z": 2731 },
-            "text": "柏拉图银行"
+            "point": {
+                "x": 1633,
+                "z": 2731
+            },
+            "text": "柏拉图村镇银行",
+            "dimension": "normal"
         },
         {
             "layer": "public-institution",
             "id": "public-institution-13",
             "parentNode": "nation-doublezero",
-            "point": { "x": 138, "z": 8 },
-            "text": "零陵村民交易所"
+            "point": {
+                "x": 138,
+                "z": 8
+            },
+            "text": "零陵村民交易所",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-1",
             "parentNode": "region-1",
-            "point": { "x": 3109, "z": 3337 },
-            "text": "樱谷地质燃料厂"
+            "point": {
+                "x": 3109,
+                "z": 3337
+            },
+            "text": "樱谷地质燃料厂",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-2",
             "parentNode": "region-2",
-            "point": { "x": 2609, "z": 2967 },
-            "text": "湖海酒业"
+            "point": {
+                "x": 2609,
+                "z": 2967
+            },
+            "text": "湖海酒业",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-3",
             "parentNode": "region-2",
-            "point": { "x": 2627, "z": 3007 },
-            "text": "湖海林业"
+            "point": {
+                "x": 2627,
+                "z": 3007
+            },
+            "text": "湖海林业",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-4",
             "parentNode": "region-2",
-            "point": { "x": 2474, "z": 3044 },
-            "text": "沙隙石业"
+            "point": {
+                "x": 2474,
+                "z": 3044
+            },
+            "text": "沙隙石业",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-5",
             "parentNode": "region-2",
-            "point": { "x": 2646, "z": 2932 },
-            "text": "湖海羊毛"
+            "point": {
+                "x": 2646,
+                "z": 2932
+            },
+            "text": "湖海羊毛",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-6",
             "parentNode": "region-2",
-            "point": { "x": 2629, "z": 2924 },
-            "text": "湖海造纸"
+            "point": {
+                "x": 2629,
+                "z": 2924
+            },
+            "text": "湖海造纸",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-7",
             "parentNode": "region-2",
-            "point": { "x": 2721, "z": 2904 },
-            "text": "湖海瓜果"
+            "point": {
+                "x": 2721,
+                "z": 2904
+            },
+            "text": "湖海瓜果",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-8",
             "parentNode": "region-2",
-            "point": { "x": 2667, "z": 2889 },
-            "text": "快速熔炉"
+            "point": {
+                "x": 2667,
+                "z": 2889
+            },
+            "text": "快速熔炉",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-9",
             "parentNode": "region-2",
-            "point": { "x": 2700, "z": 2934 },
-            "text": "湖海化肥"
+            "point": {
+                "x": 2700,
+                "z": 2934
+            },
+            "text": "湖海化肥",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-10",
             "parentNode": "region-7",
-            "point": { "x": 3320, "z": 3857 },
-            "text": "生物质厂"
+            "point": {
+                "x": 3320,
+                "z": 3857
+            },
+            "text": "生物质厂",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-11",
             "parentNode": "nation-plato",
-            "point": { "x": 1732, "z": 3694 },
-            "text": "快速熔炉"
-        },
-        {
-            "layer": "economic-unit",
-            "id": "economic-unit-12",
-            "parentNode": "nation-doublezero",
-            "point": { "x": 401, "z": 136 },
-            "text": "经验塔"
+            "point": {
+                "x": 1732,
+                "z": 2696
+            },
+            "text": "先进制造与碳中和能源中心",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-13",
             "parentNode": "nation-doublezero",
-            "point": { "x": -182, "z": 3192 },
-            "text": "蛙明灯厂"
+            "point": {
+                "x": -815,
+                "z": 3300
+            },
+            "text": "蛙明灯厂",
+            "dimension": "normal"
         },
         {
             "layer": "economic-unit",
             "id": "economic-unit-14",
             "parentNode": "nation-doublezero",
-            "point": { "x": -3005, "z": 4662 },
-            "text": "女巫塔"
+            "point": {
+                "x": -3005,
+                "z": 4662
+            },
+            "text": "女巫塔",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-1",
             "parentNode": "department-16",
-            "point": { "x": 2622, "z": 3065 },
-            "text": "终末核心登海广场"
+            "point": {
+                "x": 2622,
+                "z": 3065
+            },
+            "text": "终末核心登海广场",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-2",
             "parentNode": "department-16",
-            "point": { "x": 2680, "z": 3057 },
-            "text": "望天际·登海豪庭"
+            "point": {
+                "x": 2680,
+                "z": 3057
+            },
+            "text": "望天际·登海豪庭",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-3",
             "parentNode": "department-16",
-            "point": { "x": 2654, "z": 2881 },
-            "text": "国宾馆"
+            "point": {
+                "x": 2654,
+                "z": 2881
+            },
+            "text": "国宾馆",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-4",
             "parentNode": "department-16",
-            "point": { "x": 3052, "z": 3361 },
-            "text": "丰收饭店"
+            "point": {
+                "x": 3052,
+                "z": 3361
+            },
+            "text": "丰收饭店",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-5",
             "parentNode": "department-16",
-            "point": { "x": 3044, "z": 3179 },
-            "text": "樱谷洲际酒店"
+            "point": {
+                "x": 3044,
+                "z": 3179
+            },
+            "text": "樱谷洲际酒店",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-6",
             "parentNode": "department-16",
-            "point": { "x": 3212, "z": 3328 },
-            "text": "2800营地"
+            "point": {
+                "x": 3212,
+                "z": 3328
+            },
+            "text": "2800营地",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-7",
             "parentNode": "region-13",
-            "point": { "x": 1723, "z": 2947 },
-            "text": "西绛度假村"
+            "point": {
+                "x": 1723,
+                "z": 2947
+            },
+            "text": "西绛度假村",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-8",
             "parentNode": "region-15",
-            "point": { "x": 1909, "z": 3654 },
-            "text": "瑰洋康莱德酒店"
+            "point": {
+                "x": 1909,
+                "z": 3654
+            },
+            "text": "瑰洋康莱德酒店",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-9",
             "parentNode": "region-15",
-            "point": { "x": 2372, "z": 3845 },
-            "text": "募兵遗址"
+            "point": {
+                "x": 2372,
+                "z": 3845
+            },
+            "text": "幕兵纪念堂",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-10",
             "parentNode": "region-6",
-            "point": { "x": 2777, "z": 3918 },
-            "text": "烟花观景台"
+            "point": {
+                "x": 2777,
+                "z": 3918
+            },
+            "text": "烟花观景台",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-11",
             "parentNode": "region-1",
-            "point": { "x": 2695, "z": 3342 },
-            "text": "悟道堂"
+            "point": {
+                "x": 2695,
+                "z": 3342
+            },
+            "text": "悟道堂",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-12",
             "parentNode": "region-1",
-            "point": { "x": 3265, "z": 3295 },
-            "text": "紫门峰"
+            "point": {
+                "x": 3265,
+                "z": 3295
+            },
+            "text": "紫门峰",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-13",
             "parentNode": "region-1",
-            "point": { "x": 3203, "z": 3387 },
-            "text": "苏维埃峰"
+            "point": {
+                "x": 3203,
+                "z": 3387
+            },
+            "text": "苏维埃峰",
+            "dimension": "normal"
         },
         {
             "layer": "culture-tourism-unit",
             "id": "culture-tourism-unit-14",
             "parentNode": "department-5",
-            "point": { "x": 2850, "z": 3371 },
-            "text": "玉衡殿"
+            "point": {
+                "x": 2850,
+                "z": 3371
+            },
+            "text": "玉衡殿",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-10",
             "parentNode": "nation-ocieania",
-            "point": { "x": 2492, "z": 3329 },
-            "text": "大洋驻蔚大使馆"
+            "point": {
+                "x": 2492,
+                "z": 3329
+            },
+            "text": "大洋驻蔚大使馆",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-11",
             "parentNode": "nation-weiran",
-            "point": { "x": 1876, "z": 3697 },
-            "text": "蔚然驻洋大使馆"
+            "point": {
+                "x": 1876,
+                "z": 3697
+            },
+            "text": "蔚然驻洋大使馆",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-12",
             "parentNode": "nation-weiran",
-            "point": { "x": 1756, "z": 2714 },
-            "text": "蔚然驻柏大使馆"
+            "point": {
+                "x": 1756,
+                "z": 2714
+            },
+            "text": "蔚然驻柏大使馆",
+            "dimension": "normal"
         },
         {
             "layer": "department",
             "id": "department-13",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1788, "z": 2745 },
-            "text": "大洋驻柏大使馆"
+            "point": {
+                "x": 1872,
+                "z": 2757
+            },
+            "text": "大洋驻柏大使馆",
+            "dimension": "normal",
+            "remark": "地下"
         },
         {
             "layer": "department",
             "id": "department-14",
             "parentNode": "nation-plato",
-            "point": { "x": 1612, "z": 2614 },
-            "text": "酥州"
+            "point": {
+                "x": 1612,
+                "z": 2614
+            },
+            "text": "酥州",
+            "dimension": "normal"
         },
         {
             "layer": "central-department",
             "id": "central-department-1",
             "parentNode": "nation-weiran",
-            "point": { "x": 3093, "z": 3321 },
-            "text": "中央委员会"
+            "point": {
+                "x": 3093,
+                "z": 3321
+            },
+            "text": "中央委员会",
+            "dimension": "normal"
         },
         {
             "layer": "central-department",
             "id": "central-department-2",
             "parentNode": "nation-plato",
-            "point": { "x": 1828, "z": 2695 },
-            "text": "行政中心"
+            "point": {
+                "x": 1828,
+                "z": 2695
+            },
+            "text": "行政中心",
+            "dimension": "normal"
         },
         {
             "layer": "central-department",
             "id": "central-department-3",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1760, "z": 3924 },
-            "text": "总统府"
+            "point": {
+                "x": 1760,
+                "z": 3924
+            },
+            "text": "总统府",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-1",
             "parentNode": "region-2",
-            "point": { "x": 2724, "z": 3083 },
-            "text": "湖光村"
+            "point": {
+                "x": 2724,
+                "z": 3083
+            },
+            "text": "湖光村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-2",
             "parentNode": "region-2",
-            "point": { "x": 2556, "z": 3050 },
-            "text": "沙隙村"
+            "point": {
+                "x": 2556,
+                "z": 3050
+            },
+            "text": "沙隙村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-3",
             "parentNode": "region-1",
-            "point": { "x": 2741, "z": 3316 },
-            "text": "雪下村"
+            "point": {
+                "x": 2741,
+                "z": 3316
+            },
+            "text": "雪下村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-4",
             "parentNode": "region-4",
-            "point": { "x": 2843, "z": 2277 },
-            "text": "舟水村"
+            "point": {
+                "x": 2843,
+                "z": 2277
+            },
+            "text": "舟水村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-5",
             "parentNode": "region-4",
-            "point": { "x": 3405, "z": 2509 },
-            "text": "白猫村"
+            "point": {
+                "x": 3405,
+                "z": 2509
+            },
+            "text": "白猫村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-6",
             "parentNode": "region-8",
-            "point": { "x": 3541, "z": 3095 },
-            "text": "东昇村"
+            "point": {
+                "x": 3541,
+                "z": 3095
+            },
+            "text": "东昇村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-7",
             "parentNode": "region-8",
-            "point": { "x": 4070, "z": 2878 },
-            "text": "东日村"
+            "point": {
+                "x": 4070,
+                "z": 2878
+            },
+            "text": "东日村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-8",
             "parentNode": "region-8",
-            "point": { "x": 4741, "z": 2842 },
-            "text": "东旭村"
+            "point": {
+                "x": 4741,
+                "z": 2842
+            },
+            "text": "东旭村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-9",
             "parentNode": "region-8",
-            "point": { "x": 3957, "z": 3362 },
-            "text": "两户村"
+            "point": {
+                "x": 3957,
+                "z": 3362
+            },
+            "text": "两户村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-10",
             "parentNode": "region-7",
-            "point": { "x": 3541, "z": 4090 },
-            "text": "南安村"
+            "point": {
+                "x": 3541,
+                "z": 4090
+            },
+            "text": "南安村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-11",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1772, "z": 4039 },
-            "text": "雪东村"
+            "point": {
+                "x": 1772,
+                "z": 4039
+            },
+            "text": "雪东村",
+            "dimension": "normal"
         },
         {
             "layer": "village",
             "id": "village-12",
             "parentNode": "nation-ocieania",
-            "point": { "x": 1940, "z": 4413 },
-            "text": "洋北村"
+            "point": {
+                "x": 1940,
+                "z": 4413
+            },
+            "text": "洋北村",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-15",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1203,
+                "z": 3317
+            },
+            "text": "秋分大磨坊",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-16",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1227,
+                "z": 3421
+            },
+            "text": "告解台",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-17",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1152,
+                "z": 3406
+            },
+            "text": "天南府",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-17",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1158,
+                "z": 3500
+            },
+            "text": "白之楼树",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-18",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1098,
+                "z": 3380
+            },
+            "text": "Lofi旧日酒馆",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-19",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1212,
+                "z": 3467
+            },
+            "text": "天南纪念碑",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-18",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2787,
+                "z": 3949
+            },
+            "text": "市民中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-20",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2791,
+                "z": 3963
+            },
+            "text": "蓬洲大旅社",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-16",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2799,
+                "z": 4019
+            },
+            "text": "烧炼中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-14",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2805,
+                "z": 4044
+            },
+            "text": "山阴会堂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-17",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2689,
+                "z": 3640
+            },
+            "text": "新渡口",
+            "dimension": "normal"
+        },
+        {
+            "layer": "region",
+            "id": "region-24",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 381,
+                "z": 4193
+            },
+            "text": "冰杉市",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-15",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1804,
+                "z": 3732
+            },
+            "text": "红樱机场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-16",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1821,
+                "z": 3767
+            },
+            "text": "政府飞行服务队",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-21",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1904,
+                "z": 3705
+            },
+            "text": "NGO中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-22",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1921,
+                "z": 3677
+            },
+            "text": "Apple store瑰洋",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-18",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1831,
+                "z": 3626
+            },
+            "text": "快速熔炉",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-19",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1836,
+                "z": 3638
+            },
+            "text": "大洋航空烟花制造公司",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-20",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1836,
+                "z": 3649
+            },
+            "text": "甘蔗厂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-19",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1916,
+                "z": 3610
+            },
+            "text": "瑰洋市政府",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-17",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1872,
+                "z": 3612
+            },
+            "text": "字幕纪念堂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-23",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1693,
+                "z": 3561
+            },
+            "text": "堆沙岛栗思卡尔顿隐世酒店",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-21",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2149,
+                "z": 3632
+            },
+            "text": "鱿城热力厂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-20",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2209,
+                "z": 3721
+            },
+            "text": "鱿城市政府",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-24",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2217,
+                "z": 3874
+            },
+            "text": "鱿城市民中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-18",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2333,
+                "z": 3702
+            },
+            "text": "鱿城口岸",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-22",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2193,
+                "z": 3646
+            },
+            "text": "山姆会员店",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-19",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2192,
+                "z": 3620
+            },
+            "text": "鱿城机场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-23",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2340,
+                "z": 3785
+            },
+            "text": "电信产业园",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-20",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1101,
+                "z": 3629
+            },
+            "text": "橡树角机场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-21",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1448,
+                "z": 3406
+            },
+            "text": "政府飞行服务队堆沙岛北驻地",
+            "dimension": "normal"
+        },
+        {
+            "layer": "office",
+            "id": "office-7",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2255,
+                "z": 2660
+            },
+            "text": "祖母暗沙办事处",
+            "dimension": "normal"
+        },
+        {
+            "layer": "region",
+            "id": "region-25",
+            "parentNode": "nation-weiran",
+            "point": {
+                "x": 3432,
+                "z": 1109
+            },
+            "text": "樱见台",
+            "dimension": "normal"
+        },
+        {
+            "layer": "village",
+            "id": "village-13",
+            "parentNode": "region-25",
+            "point": {
+                "x": 3435,
+                "z": 1254
+            },
+            "text": "樱原村",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-24",
+            "parentNode": "region-21",
+            "point": {
+                "x": 180,
+                "z": 40
+            },
+            "text": "小麦&萝卜&甜菜&土豆",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-25",
+            "parentNode": "region-21",
+            "point": {
+                "x": 220,
+                "z": 20
+            },
+            "text": "16色羊毛机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-26",
+            "parentNode": "region-21",
+            "point": {
+                "x": 230,
+                "z": 0
+            },
+            "text": "全手动可可豆机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-27",
+            "parentNode": "region-21",
+            "point": {
+                "x": 220,
+                "z": -70
+            },
+            "text": "活塞虫式甘蔗&竹块&瓜机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-28",
+            "parentNode": "region-21",
+            "point": {
+                "x": 130,
+                "z": -60
+            },
+            "text": "海带",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-29",
+            "parentNode": "region-21",
+            "point": {
+                "x": 100,
+                "z": -30
+            },
+            "text": "刷花机（蓝花美耳草，滨菊，蒲公英，矢车菊，虞美人）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-30",
+            "parentNode": "region-21",
+            "point": {
+                "x": 130,
+                "z": -100
+            },
+            "text": "下界刷花机（下界菌、菌索、缠怨藤）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-31",
+            "parentNode": "region-21",
+            "point": {
+                "x": 200,
+                "z": -20
+            },
+            "text": "甜浆果",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-32",
+            "parentNode": "region-21",
+            "point": {
+                "x": 220,
+                "z": -130
+            },
+            "text": "嗅探兽（火把花，瓶子草）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-33",
+            "parentNode": "region-21",
+            "point": {
+                "x": 240,
+                "z": -70
+            },
+            "text": "蜜蜂",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-34",
+            "parentNode": "region-21",
+            "point": {
+                "x": 140,
+                "z": 20
+            },
+            "text": "村民相关（交易、繁殖）",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-35",
+            "parentNode": "region-21",
+            "point": {
+                "x": 280,
+                "z": -50
+            },
+            "text": "缓存式玄武岩机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-36",
+            "parentNode": "region-21",
+            "point": {
+                "x": 290,
+                "z": -80
+            },
+            "text": "全手动混凝土固化",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-37",
+            "parentNode": "region-21",
+            "point": {
+                "x": 260,
+                "z": -240
+            },
+            "text": "刷铁机（收集在下界）",
+            "dimension": "normal",
+            "remark": "收集在下界"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-38",
+            "parentNode": "region-21",
+            "point": {
+                "x": 160,
+                "z": 0
+            },
+            "text": "仙人掌经验炉",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-39",
+            "parentNode": "region-21",
+            "point": {
+                "x": 230,
+                "z": -120
+            },
+            "text": "32倍熔炉",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-40",
+            "parentNode": "region-21",
+            "point": {
+                "x": 240,
+                "z": -130
+            },
+            "text": "没有TNT复制的TNT炸石机",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-41",
+            "parentNode": "region-21",
+            "point": {
+                "x": 20,
+                "z": -20
+            },
+            "text": "猪灵交易",
+            "dimension": "nether",
+            "remark": "基岩层上方高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-42",
+            "parentNode": "region-21",
+            "point": {
+                "x": 240,
+                "z": -950
+            },
+            "text": "飞行器式冰厂",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-43",
+            "parentNode": "region-21",
+            "point": {
+                "x": 160,
+                "z": -200
+            },
+            "text": "史莱姆农场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-44",
+            "parentNode": "region-21",
+            "point": {
+                "x": -120,
+                "z": 0
+            },
+            "text": "流浪者刷怪笼",
+            "dimension": "normal",
+            "remark": "地下"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-45",
+            "parentNode": "region-21",
+            "point": {
+                "x": 401,
+                "z": 136
+            },
+            "text": "猪人塔（附凋零玫瑰+金相关产品）",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-46",
+            "parentNode": "region-21",
+            "point": {
+                "x": 270,
+                "z": 0
+            },
+            "text": "全自动无经验小黑塔（附幽匿块相关农场）",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-47",
+            "parentNode": "region-21",
+            "point": {
+                "x": 460,
+                "z": -440
+            },
+            "text": "潜影壳",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-48",
+            "parentNode": "region-21",
+            "point": {
+                "x": -110,
+                "z": 200
+            },
+            "text": "三叉戟",
+            "dimension": "normal",
+            "remark": "高空"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-49",
+            "parentNode": "region-21",
+            "point": {
+                "x": -3030,
+                "z": 4660
+            },
+            "text": "女巫塔",
+            "dimension": "normal",
+            "remark": "高空挂机"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-50",
+            "parentNode": "region-21",
+            "point": {
+                "x": 500,
+                "z": 280
+            },
+            "text": "烈焰人刷怪笼",
+            "dimension": "nether",
+            "remark": "高度66"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-51",
+            "parentNode": "region-21",
+            "point": {
+                "x": 640,
+                "z": -680
+            },
+            "text": "单维度凋零骷髅",
+            "dimension": "nether",
+            "remark": "高度40"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-52",
+            "parentNode": "region-21",
+            "point": {
+                "x": -100,
+                "z": -400
+            },
+            "text": "双维度恶魂塔（主世界收集）",
+            "dimension": "nether",
+            "remark": "基岩层上方"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-53",
+            "parentNode": "region-21",
+            "point": {
+                "x": -100,
+                "z": 400
+            },
+            "text": "双维度岩浆怪（附蛙明灯）",
+            "dimension": "nether",
+            "remark": "基岩层上方"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-54",
+            "parentNode": "region-21",
+            "point": {
+                "x": -360,
+                "z": -360
+            },
+            "text": "守卫者农场",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-55",
+            "parentNode": "region-21",
+            "point": {
+                "x": 120,
+                "z": -80
+            },
+            "text": "兔子",
+            "dimension": "normal"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-56",
+            "parentNode": "region-21",
+            "point": {
+                "x": 180,
+                "z": -60
+            },
+            "text": "骨粉机",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-57",
+            "parentNode": "region-21",
+            "point": {
+                "x": 170,
+                "z": 90
+            },
+            "text": "鸡肉机（附带羽毛产出）",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "economic-unit",
+            "id": "economic-unit-58",
+            "parentNode": "region-21",
+            "point": {
+                "x": 190,
+                "z": 80
+            },
+            "text": "脚手架机",
+            "dimension": "the_end"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-25",
+            "parentNode": "region-11",
+            "point": {
+                "x": 1756,
+                "z": 2756
+            },
+            "text": "老油火锅店",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-26",
+            "parentNode": "region-11",
+            "point": {
+                "x": 1811,
+                "z": 2712
+            },
+            "text": "大黑塔",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-23",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1664,
+                "z": 2793
+            },
+            "text": "武装力量与战略反击指挥部",
+            "dimension": "normal"
+        },
+        {
+            "layer": "public-institution",
+            "id": "public-institution-22",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1785,
+                "z": 2823
+            },
+            "text": "控糖与再生农业研究中心",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-21",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1833,
+                "z": 2721
+            },
+            "text": "低空经济发展部",
+            "dimension": "normal"
+        },
+        {
+            "layer": "department",
+            "id": "department-22",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1781,
+                "z": 2725
+            },
+            "text": "生物多样性保护部",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-27",
+            "parentNode": "nation-plato",
+            "point": {
+                "x": 1932,
+                "z": 2838
+            },
+            "text": "天空岛",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yinggu",
+            "parentNode": "region-1",
+            "point": {
+                "x": 3093,
+                "z": 3282
+            },
+            "text": "樱谷站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xuexia",
+            "parentNode": "village-3",
+            "point": {
+                "x": 2708,
+                "z": 3282
+            },
+            "text": "雪下站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-beishengli",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2515,
+                "z": 3282
+            },
+            "text": "北生栗站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-dongsheng",
+            "parentNode": "village-6",
+            "point": {
+                "x": 3544,
+                "z": 3283
+            },
+            "text": "东昇站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-baimo",
+            "parentNode": "region-3",
+            "point": {
+                "x": 2912,
+                "z": 2945
+            },
+            "text": "白沫站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-huhai",
+            "parentNode": "region-2",
+            "point": {
+                "x": 2677,
+                "z": 2945
+            },
+            "text": "湖海站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-huguang",
+            "parentNode": "village-1",
+            "point": {
+                "x": 2709,
+                "z": 3003
+            },
+            "text": "湖光站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-shaxi",
+            "parentNode": "village-2",
+            "point": {
+                "x": 2515,
+                "z": 3022
+            },
+            "text": "沙隙站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yongchunjiao",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2308,
+                "z": 3021
+            },
+            "text": "咏春礁站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-jiahai",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2122,
+                "z": 2817
+            },
+            "text": "嘉海站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-buyudao",
+            "parentNode": "office-2",
+            "point": {
+                "x": 2352,
+                "z": 2691
+            },
+            "text": "捕鱼岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xingwei",
+            "parentNode": "office-1",
+            "point": {
+                "x": 2269,
+                "z": 3249
+            },
+            "text": "星蔚站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youyiguan",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2405,
+                "z": 3725
+            },
+            "text": "友谊关站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youyiguan-kouan",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2481,
+                "z": 3609
+            },
+            "text": "友谊关口岸站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-pengzhou",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2764,
+                "z": 3940
+            },
+            "text": "蓬洲站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-nantiamen-industrial",
+            "parentNode": "region-7",
+            "point": {
+                "x": 3165,
+                "z": 3848
+            },
+            "text": "南天门工业区站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-zimenfeng",
+            "parentNode": "region-1",
+            "point": {
+                "x": 3259,
+                "z": 3294
+            },
+            "text": "紫门峰站",
+            "dimension": "normal",
+            "remark": "地下"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-shengli",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2515,
+                "z": 3376
+            },
+            "text": "生栗站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-nanshengli",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2573,
+                "z": 3513
+            },
+            "text": "南生栗站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-wuling",
+            "parentNode": "region-12",
+            "point": {
+                "x": 1747,
+                "z": 2786
+            },
+            "text": "武陵站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yingjiao",
+            "parentNode": "region-11",
+            "point": {
+                "x": 1873,
+                "z": 2750
+            },
+            "text": "鹰角站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-tiannan",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1261,
+                "z": 3366
+            },
+            "text": "天南站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youcheng-kouan",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2333,
+                "z": 3612
+            },
+            "text": "鱿城口岸站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youcheng",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2272,
+                "z": 3673
+            },
+            "text": "鱿城站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-guiyang",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1895,
+                "z": 3611
+            },
+            "text": "瑰洋站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-gongyeyuanqu",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1832,
+                "z": 3661
+            },
+            "text": "工业园区站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-duishadao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1561,
+                "z": 3603
+            },
+            "text": "堆沙岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xiangshujiao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1118,
+                "z": 3604
+            },
+            "text": "橡树角站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-bingxia",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 767,
+                "z": 3605
+            },
+            "text": "冰下站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xinanha",
+            "parentNode": "region-17",
+            "point": {
+                "x": 1808,
+                "z": 3898
+            },
+            "text": "西南海站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-hongying-airport",
+            "parentNode": "region-17",
+            "point": {
+                "x": 1832,
+                "z": 3787
+            },
+            "text": "红樱机场站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xuedongcun",
+            "parentNode": "village-11",
+            "point": {
+                "x": 1758,
+                "z": 4047
+            },
+            "text": "雪东村站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youyu-bandao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1917,
+                "z": 4223
+            },
+            "text": "鱿鱼半岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yangbeicun",
+            "parentNode": "village-12",
+            "point": {
+                "x": 1917,
+                "z": 4400
+            },
+            "text": "洋北村站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-lanzichangdao-nan",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1833,
+                "z": 4724
+            },
+            "text": "蓝紫长岛南站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-dongwuyuan",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1881,
+                "z": 3873
+            },
+            "text": "动物园站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-shimin-huodong",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2162,
+                "z": 3827
+            },
+            "text": "市民活动中心站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-renquan",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2167,
+                "z": 3711
+            },
+            "text": "人权理事会站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-mubing",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2325,
+                "z": 3829
+            },
+            "text": "幕兵站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-ziyangjiao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1400,
+                "z": 4708
+            },
+            "text": "紫阳礁站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-linxidao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1340,
+                "z": 4486
+            },
+            "text": "林西岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xiaoludao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1421,
+                "z": 4393
+            },
+            "text": "小鹿岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-haigui-qundao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1561,
+                "z": 4345
+            },
+            "text": "海龟群岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-lanzidao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1814,
+                "z": 4272
+            },
+            "text": "蓝紫岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-qixin",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3090,
+                "z": 2758
+            },
+            "text": "栖心站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-28",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3104,
+                "z": 2840
+            },
+            "text": "揽月楼",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-29",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3100,
+                "z": 2874
+            },
+            "text": "枕心阁",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-30",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3148,
+                "z": 2870
+            },
+            "text": "归源居",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-31",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3120,
+                "z": 2774
+            },
+            "text": "启明炬",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-32",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3163,
+                "z": 2802
+            },
+            "text": "烟火集",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-33",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3161,
+                "z": 2776
+            },
+            "text": "栖心之源",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-34",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3211,
+                "z": 2883
+            },
+            "text": "听风林",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-35",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3197,
+                "z": 2784
+            },
+            "text": "田舍驿",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-36",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2323,
+                "z": 2992
+            },
+            "text": "咏春礁",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-37",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2867,
+                "z": 3748
+            },
+            "text": "留泉阁",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-38",
+            "parentNode": "region-1",
+            "point": {
+                "x": 3059,
+                "z": 3528
+            },
+            "text": "南天门",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-39",
+            "parentNode": "region-8",
+            "point": {
+                "x": 3881,
+                "z": 3558
+            },
+            "text": "悠云山",
+            "dimension": "normal"
+        },
+        {
+            "layer": "culture-tourism-unit",
+            "id": "culture-tourism-unit-40",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2107,
+                "z": 2730
+            },
+            "text": "海上咖啡厅",
+            "dimension": "normal"
         }
     ]
 }
