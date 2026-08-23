@@ -405,6 +405,7 @@ html[data-ui-skin="gloom"] .schematic-line-inner {
 
 .schematic-line-glow.is-highlighted {
     opacity: 0.28;
+    stroke-width: calc(var(--schematic-glow-width, 10) * 1.7);
 }
 
 .schematic-line-hit {
@@ -492,6 +493,16 @@ html[data-ui-skin="gloom"] .schematic-line-label--canal .schematic-line-label-te
     stroke-width: 4;
 }
 
+.schematic-station-dot--transfer {
+    stroke: none;
+}
+
+.schematic-station-slice {
+    fill: none;
+    stroke-linecap: butt;
+    pointer-events: none;
+}
+
 .schematic-station-label {
     fill: var(--weiran-ui-color-text-muted);
     font-size: 24px;
@@ -501,7 +512,7 @@ html[data-ui-skin="gloom"] .schematic-line-label--canal .schematic-line-label-te
     user-select: none;
 }
 
-.schematic-station.is-highlighted .schematic-station-dot {
+.schematic-station.is-highlighted:not(.schematic-station--transfer) .schematic-station-dot {
     fill: currentColor;
 }
 

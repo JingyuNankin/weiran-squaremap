@@ -25,6 +25,8 @@ function schematicStationName(name) {
 }
 
 const MIN_VIEW_WIDTH = 160;
+const DESKTOP_FOCUS_VIEW_RATIO = 0.55;
+const COMPACT_VIEW_RATIO = 0.4;
 const LABEL_OFFSET_Y = -28;
 const PAN_THRESHOLD_PX = 4;
 const POPOVER_MARGIN = 12;
@@ -38,6 +40,7 @@ const LINE_CORNER_RADIUS = 32;
 const STATION_HIT_RADIUS = 22;
 const STATION_DOT_RADIUS = 9;
 const STATION_GLOW_RADIUS = 11;
+const STATION_STROKE_WIDTH = 4;
 
 /** @type {Map<string, { id: string, text: string, x: number, z: number }>} */
 const poiById = new Map(
@@ -386,21 +389,37 @@ function renderSchematic() {
 
     const camera = { x: 0, y: 0, w: viewWidth, h: viewHeight };
     const maxViewWidth = viewWidth * 2;
-    applyViewBox(svg, camera);
-
-    const focusStationPos = focusPoiId != null ? stationByPoiId.get(focusPoiId) : null;
-    if (focusStationPos != null) {
-        camera.w = viewWidth * 0.55;
-        camera.h = viewHeight * 0.55;
-        camera.x = focusStationPos.x - camera.w / 2;
-        camera.y = focusStationPos.y - camera.h / 2;
-        applyViewBox(svg, camera);
-    }
 
     /**
+     * @param {number} centerX
+     * @param {number} centerY
+     * @param {number} ratio
+     */
+    const setCameraAround = (centerX, centerY, ratio) => {
+        camera.w = viewWidth * ratio;
+        camera.h = viewHeight * ratio;
+        camera.x = centerX - camera.w / 2;
+        camera.y = centerY - camera.h / 2;
+    };
+
+    const focusStationPos = focusPoiId != null ? stationByPoiId.get(focusPoiId) : null;
+    if (isCompactLayout()) {
+        setCameraAround(
+            focusStationPos?.x ?? viewWidth / 2,
+            focusStationPos?.y ?? viewHeight / 2,
+            COMPACT_VIEW_RATIO,
+        );
+    } else if (focusStationPos != null) {
+        setCameraAround(focusStationPos.x, focusStationPos.y, DESKTOP_FOCUS_VIEW_RATIO);
+    }
+    applyViewBox(svg, camera);
+
+    /**
+     * 手机端按局部可读窗口定线宽字号，避免全图压进窄屏后过细过小。
      * @returns {number}
      */
-    const screenSizeScale = () => camera.w / viewWidth;
+    const screenSizeScale = () =>
+        isCompactLayout() ? camera.w / (viewWidth * COMPACT_VIEW_RATIO) : camera.w / viewWidth;
 
     /** @type {SVGPathElement[]} */
     const lineEls = [];
@@ -451,7 +470,9 @@ function renderSchematic() {
             innerEl?.setAttribute("stroke-width", String(LINE_CANAL_INNER_WIDTH * scale));
         }
         for (const glowEl of lineGlowEls) {
-            glowEl.setAttribute("stroke-width", String(LINE_GLOW_WIDTH * scale));
+            const glowWidth = LINE_GLOW_WIDTH * scale;
+            glowEl.style.setProperty("--schematic-glow-width", String(glowWidth));
+            glowEl.setAttribute("stroke-width", String(glowWidth));
         }
         for (const hitEl of lineHitEls) {
             hitEl.setAttribute("stroke-width", String(LINE_HIT_WIDTH * scale));
@@ -601,7 +622,9 @@ function renderSchematic() {
                 continue;
             }
             const ids = stationLineIds.get(poiId) ?? [];
-            ids.push(lineId);
+            if (!ids.includes(lineId)) {
+                ids.push(lineId);
+            }
             stationLineIds.set(poiId, ids);
             if (color !== "") {
                 stationColorByPoiId.set(poiId, color);
@@ -680,9 +703,15 @@ function renderSchematic() {
         group.dataset.poiId = poi.id;
         group.dataset.schematicX = String(station.x);
         group.dataset.schematicY = String(station.y);
-        const lineColor = stationColorByPoiId.get(station.poiId);
+        const transferColors = (stationLineIds.get(station.poiId) ?? [])
+            .map((lineId) => lineColorById.get(lineId))
+            .filter((color) => color != null && color !== "");
+        const lineColor = transferColors[0] ?? stationColorByPoiId.get(station.poiId);
         if (lineColor != null) {
             group.style.color = lineColor;
+        }
+        if (transferColors.length >= 2) {
+            group.classList.add("schematic-station--transfer");
         }
         group.setAttribute("tabindex", "0");
         group.setAttribute("role", "button");
@@ -701,20 +730,41 @@ function renderSchematic() {
         hit.setAttribute("r", String(STATION_HIT_RADIUS));
 
         const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        dot.setAttribute("class", "schematic-station-dot");
+        dot.setAttribute(
+            "class",
+            transferColors.length >= 2 ? "schematic-station-dot schematic-station-dot--transfer" : "schematic-station-dot",
+        );
         dot.setAttribute("cx", "0");
         dot.setAttribute("cy", "0");
         dot.setAttribute("r", String(STATION_DOT_RADIUS));
+
+        group.appendChild(glow);
+        group.appendChild(hit);
+        group.appendChild(dot);
+
+        if (transferColors.length >= 2) {
+            const circumference = 2 * Math.PI * STATION_DOT_RADIUS;
+            const segment = circumference / transferColors.length;
+            for (let index = 0; index < transferColors.length; index += 1) {
+                const slice = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                slice.setAttribute("class", "schematic-station-slice");
+                slice.setAttribute("cx", "0");
+                slice.setAttribute("cy", "0");
+                slice.setAttribute("r", String(STATION_DOT_RADIUS));
+                slice.setAttribute("stroke", transferColors[index]);
+                slice.setAttribute("stroke-width", String(STATION_STROKE_WIDTH));
+                slice.setAttribute("stroke-dasharray", `${segment} ${circumference - segment}`);
+                slice.setAttribute("stroke-dashoffset", String(-index * segment));
+                slice.setAttribute("transform", "rotate(-90)");
+                group.appendChild(slice);
+            }
+        }
 
         const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
         label.setAttribute("class", "schematic-station-label");
         label.setAttribute("x", "0");
         label.setAttribute("y", String(LABEL_OFFSET_Y));
         label.textContent = schematicStationName(poi.text);
-
-        group.appendChild(glow);
-        group.appendChild(hit);
-        group.appendChild(dot);
         group.appendChild(label);
 
         group.addEventListener("keydown", (event) => {
@@ -916,10 +966,11 @@ function renderSchematic() {
         }
         const schematicX = Number(stationEl.dataset.schematicX);
         const schematicY = Number(stationEl.dataset.schematicY);
-        camera.w = viewWidth * 0.55;
-        camera.h = viewHeight * 0.55;
-        camera.x = schematicX - camera.w / 2;
-        camera.y = schematicY - camera.h / 2;
+        setCameraAround(
+            schematicX,
+            schematicY,
+            isCompactLayout() ? COMPACT_VIEW_RATIO : DESKTOP_FOCUS_VIEW_RATIO,
+        );
         applyCamera();
         openDetail(poi, { schematicX, schematicY });
     };
@@ -987,8 +1038,14 @@ function renderSchematic() {
         }
         closeDetail();
     });
-    window.addEventListener("resize", layoutDetail);
-    subscribeUiLayout(layoutDetail);
+    window.addEventListener("resize", () => {
+        syncFixedSizes();
+        layoutDetail();
+    });
+    subscribeUiLayout(() => {
+        syncFixedSizes();
+        layoutDetail();
+    });
 
     bindSchematicControls({
         zoomBy,
