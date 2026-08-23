@@ -299,6 +299,10 @@ html[data-ui-skin="parchment"],
     background: rgba(74, 55, 40, 0.28);
 }
 
+html[data-ui-layout="compact"] #react-root[data-ui-skin="parchment"] .poi-detail-popover {
+    position: fixed;
+}
+
 #react-root[data-ui-skin="parchment"] .settings-panel-filter-slider .ant-slider-rail {
     background: rgba(74, 55, 40, 0.12);
     border: 1px solid var(--weiran-ui-parchment-frame);

@@ -3,6 +3,7 @@ import instanceCatalog from "../../data/weiran-gis/instances.json";
 import { getPoiOrgPath } from "../react/org/orgCatalog.js";
 import { getPoiById } from "../react/search/poiCatalog.js";
 import { applyUiSkin } from "../react/theme/applyUiSkin.js";
+import { applyUiLayout, isCompactLayout, subscribeUiLayout } from "../shared/uiLayout.js";
 import { SATELLITE_FOCUS_ZOOM, satelliteUrl } from "../shared/mapLinks.js";
 import { bindSchematicControls } from "./controls.js";
 import { layoutSchematic, offsetDuplicateLinePaths } from "./layout.js";
@@ -14,6 +15,7 @@ import "../react/styles/skin-previews.css";
 import "./schematic.css";
 
 applyUiSkin();
+applyUiLayout();
 
 /**
  * @param {string} name
@@ -27,16 +29,15 @@ const LABEL_OFFSET_Y = -28;
 const PAN_THRESHOLD_PX = 4;
 const POPOVER_MARGIN = 12;
 const POPOVER_GAP = 10;
-const MARKER_RADIUS = 28;
 const LINE_STROKE_WIDTH = 5;
 const LINE_CANAL_OUTER_WIDTH = 9;
 const LINE_CANAL_INNER_WIDTH = 4;
-const LINE_GLOW_WIDTH = 16;
+const LINE_GLOW_WIDTH = 10;
 const LINE_HIT_WIDTH = 26;
 const LINE_CORNER_RADIUS = 32;
 const STATION_HIT_RADIUS = 22;
 const STATION_DOT_RADIUS = 9;
-const STATION_GLOW_RADIUS = 15;
+const STATION_GLOW_RADIUS = 11;
 
 /** @type {Map<string, { id: string, text: string, x: number, z: number }>} */
 const poiById = new Map(
@@ -127,50 +128,74 @@ function applyViewBox(svg, camera) {
  * @returns {{ x: number, y: number }}
  */
 function clientToWorld(svg, camera, clientX, clientY) {
-    const rect = svg.getBoundingClientRect();
-    const relX = rect.width === 0 ? 0 : (clientX - rect.left) / rect.width;
-    const relY = rect.height === 0 ? 0 : (clientY - rect.top) / rect.height;
-    return {
-        x: camera.x + relX * camera.w,
-        y: camera.y + relY * camera.h,
-    };
+    const ctm = svg.getScreenCTM();
+    if (ctm == null) {
+        const rect = svg.getBoundingClientRect();
+        const relX = rect.width === 0 ? 0 : (clientX - rect.left) / rect.width;
+        const relY = rect.height === 0 ? 0 : (clientY - rect.top) / rect.height;
+        return {
+            x: camera.x + relX * camera.w,
+            y: camera.y + relY * camera.h,
+        };
+    }
+    const point = svg.createSVGPoint();
+    point.x = clientX;
+    point.y = clientY;
+    const world = point.matrixTransform(ctm.inverse());
+    return { x: world.x, y: world.y };
 }
 
 /**
  * @param {SVGSVGElement} svg
- * @param {{ x: number, y: number, w: number, h: number }} camera
  * @param {number} schematicX
  * @param {number} schematicY
  * @returns {{ x: number, y: number }}
  */
-function projectSchematicPoint(svg, camera, schematicX, schematicY) {
-    const rect = svg.getBoundingClientRect();
-    return {
-        x: rect.left + ((schematicX - camera.x) / camera.w) * rect.width,
-        y: rect.top + ((schematicY - camera.y) / camera.h) * rect.height,
-    };
+function projectSchematicPoint(svg, schematicX, schematicY) {
+    const point = svg.createSVGPoint();
+    point.x = schematicX;
+    point.y = schematicY;
+    const ctm = svg.getScreenCTM();
+    if (ctm == null) {
+        const rect = svg.getBoundingClientRect();
+        return { x: rect.left + schematicX, y: rect.top + schematicY };
+    }
+    const screen = point.matrixTransform(ctm);
+    return { x: screen.x, y: screen.y };
+}
+
+/**
+ * @param {SVGSVGElement} svg
+ * @param {number} schematicLength
+ */
+function schematicLengthToScreen(svg, schematicLength) {
+    const origin = projectSchematicPoint(svg, 0, 0);
+    const edge = projectSchematicPoint(svg, schematicLength, 0);
+    return Math.hypot(edge.x - origin.x, edge.y - origin.y);
 }
 
 /**
  * @param {{ x: number, y: number }} anchor
  * @param {{ width: number, height: number }} size
+ * @param {number} markerRadius
  * @returns {{ left: number, top: number }}
  */
-function computePopoverLayout(anchor, size) {
+function computePopoverLayout(anchor, size, markerRadius) {
     const clampTop = (top) =>
         Math.min(window.innerHeight - POPOVER_MARGIN - size.height, Math.max(POPOVER_MARGIN, top));
+    const radius = markerRadius + POPOVER_GAP;
 
-    const rightLeft = anchor.x + MARKER_RADIUS + POPOVER_GAP;
+    const rightLeft = anchor.x + radius;
     if (rightLeft + size.width <= window.innerWidth - POPOVER_MARGIN) {
         return { left: rightLeft, top: clampTop(anchor.y - size.height / 2) };
     }
 
-    const leftLeft = anchor.x - MARKER_RADIUS - POPOVER_GAP - size.width;
+    const leftLeft = anchor.x - radius - size.width;
     if (leftLeft >= POPOVER_MARGIN) {
         return { left: leftLeft, top: clampTop(anchor.y - size.height / 2) };
     }
 
-    const topTop = anchor.y - MARKER_RADIUS - POPOVER_GAP - size.height;
+    const topTop = anchor.y - radius - size.height;
     const centeredLeft = anchor.x - size.width / 2;
     return {
         left: Math.min(window.innerWidth - POPOVER_MARGIN - size.width, Math.max(POPOVER_MARGIN, centeredLeft)),
@@ -193,10 +218,33 @@ function lineIdFromPoint(clientX, clientY) {
         return hit.dataset.lineId ?? null;
     }
     const label = el.closest(".schematic-line-label");
-    if (label instanceof HTMLElement) {
-        return label.dataset.lineId ?? null;
+    if (label instanceof Element) {
+        return label instanceof HTMLElement || label instanceof SVGGElement
+            ? label.dataset.lineId ?? null
+            : null;
     }
     return null;
+}
+
+/**
+ * @param {'top' | 'bottom' | 'left' | 'right'} side
+ * @param {number} width
+ * @param {number} height
+ */
+function lineLabelLocalOffset(side, width, height) {
+    const sideGap = 26;
+    const topGap = 46;
+    const bottomGap = 22;
+    if (side === "top") {
+        return { x: -width / 2, y: -height - topGap };
+    }
+    if (side === "bottom") {
+        return { x: -width / 2, y: bottomGap };
+    }
+    if (side === "left") {
+        return { x: -width - sideGap, y: -height / 2 };
+    }
+    return { x: sideGap, y: -height / 2 };
 }
 
 /**
@@ -370,7 +418,7 @@ function renderSchematic() {
      *   routes: Array<Array<{ x: number, y: number }>>,
      * }>} */
     const drawableLines = [];
-    /** @type {Array<{ el: HTMLElement, lineId: string, x: number, y: number, side: 'top' | 'bottom' | 'left' | 'right' }>} */
+    /** @type {Array<{ el: SVGGElement, lineId: string }>} */
     const lineLabels = [];
 
     const paintOffsetLines = () => {
@@ -414,14 +462,17 @@ function renderSchematic() {
                 `translate(${group.dataset.schematicX} ${group.dataset.schematicY}) scale(${scale})`,
             );
         }
+        for (const label of lineLabels) {
+            label.el.setAttribute(
+                "transform",
+                `translate(${label.el.dataset.schematicX} ${label.el.dataset.schematicY}) scale(${scale})`,
+            );
+        }
     };
-
-    let syncLineLabels = () => {};
 
     const applyCamera = () => {
         applyViewBox(svg, camera);
         syncFixedSizes();
-        syncLineLabels();
     };
 
     /** @type {Map<string, SVGGElement>} */
@@ -434,9 +485,15 @@ function renderSchematic() {
         if (openAnchor == null || detailEl.hidden) {
             return;
         }
+        if (isCompactLayout()) {
+            detailEl.style.left = "";
+            detailEl.style.top = "";
+            return;
+        }
         const size = { width: detailEl.offsetWidth, height: detailEl.offsetHeight };
-        const anchor = projectSchematicPoint(svg, camera, openAnchor.schematicX, openAnchor.schematicY);
-        const layout = computePopoverLayout(anchor, size);
+        const anchor = projectSchematicPoint(svg, openAnchor.schematicX, openAnchor.schematicY);
+        const markerRadius = schematicLengthToScreen(svg, STATION_GLOW_RADIUS * screenSizeScale());
+        const layout = computePopoverLayout(anchor, size, markerRadius);
         detailEl.style.left = `${layout.left}px`;
         detailEl.style.top = `${layout.top}px`;
     };
@@ -453,6 +510,8 @@ function renderSchematic() {
             openAnchor = null;
             detailEl.hidden = true;
             scrimEl.hidden = true;
+            detailEl.style.transform = "";
+            detailEl.style.transition = "";
             return;
         }
 
@@ -496,6 +555,7 @@ function renderSchematic() {
         };
         detailEl.hidden = false;
         scrimEl.hidden = false;
+        layoutDetail();
         window.requestAnimationFrame(layoutDetail);
     };
 
@@ -608,68 +668,6 @@ function renderSchematic() {
     }
 
     const mapCenter = centroidOf(laidOut.stations);
-    const labelLayer = document.createElement("div");
-    labelLayer.className = "schematic-line-labels";
-    for (const line of lines) {
-        const name = String(line.name ?? "").trim();
-        const lineId = String(line.id ?? "");
-        if (name === "" || mapCenter == null) {
-            continue;
-        }
-        const anchor = pickLineLabelAnchor(stationByPoiId.values(), line.stations ?? [], mapCenter);
-        if (anchor == null) {
-            continue;
-        }
-        const color = String(line.color ?? "#1565c0");
-        const labelEl = document.createElement("button");
-        labelEl.type = "button";
-        labelEl.className =
-            line.style === "canal" ? "schematic-line-label schematic-line-label--canal" : "schematic-line-label";
-        labelEl.dataset.lineId = lineId;
-        labelEl.textContent = name;
-        labelEl.style.setProperty("--line-fill", color);
-        labelEl.setAttribute("aria-pressed", "false");
-        labelEl.setAttribute("aria-label", `高亮${name}`);
-        labelEl.addEventListener("click", () => {
-            setHighlightedLine(highlightedLineId === lineId ? null : lineId);
-        });
-        labelLayer.appendChild(labelEl);
-        lineLabels.push({
-            el: labelEl,
-            lineId,
-            x: anchor.x,
-            y: anchor.y,
-            side: anchor.side,
-        });
-    }
-
-    syncLineLabels = () => {
-        const sideGap = 26;
-        const topGap = 46;
-        const bottomGap = 22;
-        for (const label of lineLabels) {
-            const point = projectSchematicPoint(svg, camera, label.x, label.y);
-            let left = point.x;
-            let top = point.y;
-            let transform = "translate(-50%, -50%)";
-            if (label.side === "top") {
-                top = point.y - topGap;
-                transform = "translate(-50%, -100%)";
-            } else if (label.side === "bottom") {
-                top = point.y + bottomGap;
-                transform = "translate(-50%, 0)";
-            } else if (label.side === "left") {
-                left = point.x - sideGap;
-                transform = "translate(-100%, -50%)";
-            } else {
-                left = point.x + sideGap;
-                transform = "translate(0, -50%)";
-            }
-            label.el.style.left = `${left}px`;
-            label.el.style.top = `${top}px`;
-            label.el.style.transform = transform;
-        }
-    };
 
     for (const station of stationByPoiId.values()) {
         const poi = poiById.get(station.poiId);
@@ -730,6 +728,66 @@ function renderSchematic() {
         svg.appendChild(group);
     }
 
+    root.replaceChildren(svg);
+
+    for (const line of lines) {
+        const name = String(line.name ?? "").trim();
+        const lineId = String(line.id ?? "");
+        if (name === "" || mapCenter == null) {
+            continue;
+        }
+        const anchor = pickLineLabelAnchor(stationByPoiId.values(), line.stations ?? [], mapCenter);
+        if (anchor == null) {
+            continue;
+        }
+        const color = String(line.color ?? "#1565c0");
+        const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        group.setAttribute(
+            "class",
+            line.style === "canal" ? "schematic-line-label schematic-line-label--canal" : "schematic-line-label",
+        );
+        group.dataset.lineId = lineId;
+        group.dataset.schematicX = String(anchor.x);
+        group.dataset.schematicY = String(anchor.y);
+        group.style.setProperty("--line-fill", color);
+        group.setAttribute("role", "button");
+        group.setAttribute("tabindex", "0");
+        group.setAttribute("aria-pressed", "false");
+        group.setAttribute("aria-label", `高亮${name}`);
+
+        const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        bg.setAttribute("class", "schematic-line-label-bg");
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("class", "schematic-line-label-text");
+        text.setAttribute("x", "0");
+        text.setAttribute("y", "0");
+        text.textContent = name;
+        group.append(bg, text);
+        svg.appendChild(group);
+
+        const bbox = text.getBBox();
+        const padX = 16;
+        const padY = 6;
+        const width = bbox.width + padX * 2;
+        const height = bbox.height + padY * 2;
+        const offset = lineLabelLocalOffset(anchor.side, width, height);
+        bg.setAttribute("x", String(offset.x));
+        bg.setAttribute("y", String(offset.y));
+        bg.setAttribute("width", String(width));
+        bg.setAttribute("height", String(height));
+        bg.setAttribute("rx", String(height / 2));
+        text.setAttribute("x", String(offset.x + padX - bbox.x));
+        text.setAttribute("y", String(offset.y + padY - bbox.y));
+
+        group.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setHighlightedLine(highlightedLineId === lineId ? null : lineId);
+            }
+        });
+        lineLabels.push({ el: group, lineId });
+    }
+
     syncFixedSizes();
 
     let pointerId = null;
@@ -764,18 +822,13 @@ function renderSchematic() {
         if (!panning) {
             return;
         }
-        const rect = svg.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) {
-            return;
-        }
-        const dx = ((event.clientX - lastX) / rect.width) * camera.w;
-        const dy = ((event.clientY - lastY) / rect.height) * camera.h;
+        const from = clientToWorld(svg, camera, lastX, lastY);
+        const to = clientToWorld(svg, camera, event.clientX, event.clientY);
         lastX = event.clientX;
         lastY = event.clientY;
-        camera.x -= dx;
-        camera.y -= dy;
+        camera.x -= to.x - from.x;
+        camera.y -= to.y - from.y;
         applyViewBox(svg, camera);
-        syncLineLabels();
         layoutDetail();
     });
 
@@ -874,6 +927,52 @@ function renderSchematic() {
     const closeDetail = () => openDetail(null);
     closeEl.addEventListener("click", closeDetail);
     scrimEl.addEventListener("click", closeDetail);
+
+    /** @type {{ pointerId: number, startY: number } | null} */
+    let drawerDrag = null;
+
+    const canDragDrawer = (event) => {
+        if (!isCompactLayout() || openAnchor == null || detailEl.hidden || event.button !== 0) {
+            return false;
+        }
+        const target = event.target;
+        if (!(target instanceof Element) || target.closest("a, button") != null) {
+            return false;
+        }
+        return target.closest(".schematic-detail-handle, .schematic-detail-header") != null;
+    };
+
+    detailEl.addEventListener("pointerdown", (event) => {
+        if (!canDragDrawer(event)) {
+            return;
+        }
+        drawerDrag = { pointerId: event.pointerId, startY: event.clientY };
+        detailEl.style.transition = "none";
+        detailEl.setPointerCapture(event.pointerId);
+    });
+
+    detailEl.addEventListener("pointermove", (event) => {
+        if (drawerDrag == null || event.pointerId !== drawerDrag.pointerId) {
+            return;
+        }
+        detailEl.style.transform = `translateY(${Math.max(0, event.clientY - drawerDrag.startY)}px)`;
+    });
+
+    const endDrawerDrag = (event) => {
+        if (drawerDrag == null || event.pointerId !== drawerDrag.pointerId) {
+            return;
+        }
+        const dy = Math.max(0, event.clientY - drawerDrag.startY);
+        drawerDrag = null;
+        detailEl.style.transition = "";
+        detailEl.style.transform = "";
+        if (dy > 72) {
+            closeDetail();
+        }
+    };
+
+    detailEl.addEventListener("pointerup", endDrawerDrag);
+    detailEl.addEventListener("pointercancel", endDrawerDrag);
     document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") {
             return;
@@ -888,13 +987,8 @@ function renderSchematic() {
         }
         closeDetail();
     });
-    window.addEventListener("resize", () => {
-        syncLineLabels();
-        layoutDetail();
-    });
-
-    root.replaceChildren(svg, labelLayer);
-    window.requestAnimationFrame(syncLineLabels);
+    window.addEventListener("resize", layoutDetail);
+    subscribeUiLayout(layoutDetail);
 
     bindSchematicControls({
         zoomBy,

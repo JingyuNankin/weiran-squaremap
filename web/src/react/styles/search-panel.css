@@ -157,22 +157,20 @@
     color: var(--weiran-ui-color-text-muted);
 }
 
-@media (max-width: 639px) {
-    .search-panel {
-        padding-top: min(16vh, 120px);
-    }
+html[data-ui-layout="compact"] .search-panel {
+    padding-top: min(16vh, 120px);
+}
 
-    .search-panel-shell {
-        width: min(100%, calc(100vw - 24px));
-    }
+html[data-ui-layout="compact"] .search-panel-shell {
+    width: min(100%, calc(100vw - 24px));
+}
 
-    .search-result-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-    }
+html[data-ui-layout="compact"] .search-result-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
 
-    .search-result-item-meta {
-        max-width: 100%;
-    }
+html[data-ui-layout="compact"] .search-result-item-meta {
+    max-width: 100%;
 }

@@ -321,49 +321,47 @@ body {
     color: var(--weiran-ui-color-text-muted);
 }
 
-@media (max-width: 639px) {
-    .schematic-header {
-        left: 16px;
-        right: 66px;
-    }
+html[data-ui-layout="compact"] .schematic-header {
+    left: 16px;
+    right: 66px;
+}
 
-    .schematic-controls {
-        display: contents;
-    }
+html[data-ui-layout="compact"] .schematic-controls {
+    display: contents;
+}
 
-    .schematic-toolbar {
-        position: fixed;
-        top: var(--schematic-inset);
-        right: var(--schematic-inset);
-        left: auto;
-        z-index: 6;
-        width: var(--schematic-control-size);
-    }
+html[data-ui-layout="compact"] .schematic-toolbar {
+    position: fixed;
+    top: var(--schematic-inset);
+    right: var(--schematic-inset);
+    left: auto;
+    z-index: 6;
+    width: var(--schematic-control-size);
+}
 
-    .schematic-zoom {
-        position: fixed;
-        top: 62%;
-        right: var(--schematic-inset);
-        left: auto;
-        z-index: 6;
-        width: var(--schematic-control-size);
-        transform: translateY(-50%);
-    }
+html[data-ui-layout="compact"] .schematic-zoom {
+    position: fixed;
+    top: 62%;
+    right: var(--schematic-inset);
+    left: auto;
+    z-index: 6;
+    width: var(--schematic-control-size);
+    transform: translateY(-50%);
+}
 
-    .schematic-settings {
-        left: auto;
-        right: calc(var(--schematic-inset) + var(--schematic-control-size) + var(--schematic-gap));
-    }
+html[data-ui-layout="compact"] .schematic-settings {
+    left: auto;
+    right: calc(var(--schematic-inset) + var(--schematic-control-size) + var(--schematic-gap));
+}
 
-    .schematic-search {
-        padding-top: min(16vh, 120px);
-    }
+html[data-ui-layout="compact"] .schematic-search {
+    padding-top: min(16vh, 120px);
+}
 
-    .schematic-search-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-    }
+html[data-ui-layout="compact"] .schematic-search-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
 }
 
 #schematic-root {
@@ -406,7 +404,7 @@ html[data-ui-skin="gloom"] .schematic-line-inner {
 }
 
 .schematic-line-glow.is-highlighted {
-    opacity: 0.5;
+    opacity: 0.28;
 }
 
 .schematic-line-hit {
@@ -414,53 +412,53 @@ html[data-ui-skin="gloom"] .schematic-line-inner {
     cursor: pointer;
 }
 
-.schematic-line-labels {
-    position: fixed;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
+.schematic-line-label {
+    cursor: pointer;
 }
 
-.schematic-line-label {
-    position: absolute;
-    margin: 0;
-    padding: 6px 16px;
-    border: none;
-    border-radius: 999px;
-    background: var(--line-fill, #1565c0);
-    color: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
-    font: inherit;
+.schematic-line-label-bg {
+    fill: var(--line-fill, #1565c0);
+}
+
+.schematic-line-label-text {
+    fill: #fff;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.06em;
-    line-height: 1.15;
-    white-space: nowrap;
-    cursor: pointer;
-    pointer-events: auto;
+    pointer-events: none;
+    user-select: none;
 }
 
-html[data-ui-skin="gloom"] .schematic-line-label {
-    color: #111;
+html[data-ui-skin="gloom"] .schematic-line-label-text {
+    fill: #111;
 }
 
-html[data-ui-skin="minecraft"] .schematic-line-label {
-    border-radius: 2px;
+html[data-ui-skin="minecraft"] .schematic-line-label-bg {
+    rx: 2;
+    ry: 2;
 }
 
-html[data-ui-skin="parchment"] .schematic-line-label {
-    border-radius: 4px;
+html[data-ui-skin="parchment"] .schematic-line-label-bg {
+    rx: 4;
+    ry: 4;
 }
 
-.schematic-line-label--canal {
-    background: #f4fcfe;
-    color: #2a7f93;
-    box-shadow: inset 0 0 0 2px var(--line-fill, #7ed4e8), 0 1px 2px rgba(0, 0, 0, 0.12);
+.schematic-line-label--canal .schematic-line-label-bg {
+    fill: #f4fcfe;
+    stroke: var(--line-fill, #7ed4e8);
+    stroke-width: 2;
 }
 
-html[data-ui-skin="gloom"] .schematic-line-label--canal {
-    background: #d7f4fb;
-    color: #1d5f70;
+.schematic-line-label--canal .schematic-line-label-text {
+    fill: #2a7f93;
+}
+
+html[data-ui-skin="gloom"] .schematic-line-label--canal .schematic-line-label-bg {
+    fill: #d7f4fb;
+}
+
+html[data-ui-skin="gloom"] .schematic-line-label--canal .schematic-line-label-text {
+    fill: #1d5f70;
 }
 
 .schematic-station {
@@ -481,7 +479,7 @@ html[data-ui-skin="gloom"] .schematic-line-label--canal {
 }
 
 .schematic-station.is-line-highlighted .schematic-station-glow {
-    opacity: 0.5;
+    opacity: 0.28;
 }
 
 .schematic-station-hit {
@@ -535,6 +533,10 @@ html[data-ui-skin="gloom"] .schematic-line-label--canal {
     border: 1px solid var(--weiran-ui-border);
     border-radius: var(--weiran-ui-radius);
     box-shadow: var(--weiran-ui-shadow-panel);
+}
+
+.schematic-detail-handle {
+    display: none;
 }
 
 .schematic-detail-header {
@@ -628,6 +630,60 @@ html[data-ui-skin="gloom"] .schematic-line-label--canal {
 .schematic-detail-link:focus-visible {
     color: var(--weiran-ui-color-primary-hover);
     text-decoration: underline;
+}
+
+html[data-ui-layout="compact"] .schematic-detail-scrim {
+    z-index: 7;
+    background: var(--weiran-ui-search-scrim, rgba(0, 0, 0, 0.22));
+}
+
+html[data-ui-layout="compact"] .schematic-detail {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    z-index: 8;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: min(34vh, 280px);
+    max-height: min(70vh, 520px);
+    padding: 2px 18px calc(44px + env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+}
+
+html[data-ui-layout="compact"] .schematic-detail-handle {
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: 8px auto 10px;
+    border-radius: 999px;
+    background: var(--weiran-ui-border);
+    touch-action: none;
+}
+
+html[data-ui-layout="compact"] .schematic-detail-header {
+    touch-action: none;
+}
+
+html[data-ui-layout="compact"] .schematic-detail-title {
+    font-size: 20px;
+}
+
+html[data-ui-layout="compact"] .schematic-detail-close {
+    width: 28px;
+    height: 28px;
+    font-size: 22px;
+}
+
+html[data-ui-layout="compact"] .schematic-detail-link {
+    padding: 6px 0 2px;
+    font-size: 15px;
 }
 
 html[data-ui-skin="minecraft"] .schematic-zoom,

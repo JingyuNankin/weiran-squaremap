@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { App } from "./App.jsx";
 import { applyUiSkin } from "./theme/applyUiSkin.js";
+import { applyUiLayout } from "../shared/uiLayout.js";
 import "./styles/skins/light.css";
 import "./styles/skins/gloom.css";
 import "./styles/skins/minecraft.css";
@@ -19,6 +20,7 @@ export function mountReactUI() {
     }
 
     applyUiSkin();
+    applyUiLayout();
 
     if (!root) {
         root = createRoot(container);

@@ -6,10 +6,8 @@
     pointer-events: none;
 }
 
-@media (max-width: 639px) {
-    #react-root {
-        height: 100dvh;
-    }
+html[data-ui-layout="compact"] #react-root {
+    height: 100dvh;
 }
 
 .map-floating-controls {
@@ -165,60 +163,58 @@
 }
 
 /* 手机端：工具栏右上、缩放下放右侧；侧栏面板改锚定到右侧 */
-@media (max-width: 639px) {
-    .map-floating-controls {
-        display: contents;
-    }
+html[data-ui-layout="compact"] .map-floating-controls {
+    display: contents;
+}
 
-    .map-toolbar-controls {
-        position: absolute;
-        top: var(--weiran-ui-inset-edge);
-        right: var(--weiran-ui-inset-edge);
-        left: auto;
-        width: var(--weiran-ui-control-width);
-        pointer-events: auto;
-    }
+html[data-ui-layout="compact"] .map-toolbar-controls {
+    position: absolute;
+    top: var(--weiran-ui-inset-edge);
+    right: var(--weiran-ui-inset-edge);
+    left: auto;
+    width: var(--weiran-ui-control-width);
+    pointer-events: auto;
+}
 
-    .map-toolbar-controls .map-tool-btn--search {
-        order: 1;
-    }
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--search {
+    order: 1;
+}
 
-    .map-toolbar-controls .map-tool-btn--layers {
-        order: 2;
-    }
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--layers {
+    order: 2;
+}
 
-    .map-toolbar-controls .map-tool-btn--org {
-        order: 3;
-    }
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--org {
+    order: 3;
+}
 
-    .map-toolbar-controls .map-tool-btn--schematic {
-        order: 4;
-    }
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--schematic {
+    order: 4;
+}
 
-    .map-toolbar-controls .map-tool-btn--settings {
-        order: 5;
-    }
+html[data-ui-layout="compact"] .map-toolbar-controls .map-tool-btn--settings {
+    order: 5;
+}
 
-    .map-zoom-control {
-        position: absolute;
-        top: 62%;
-        right: var(--weiran-ui-inset-edge);
-        left: auto;
-        width: var(--weiran-ui-control-width);
-        flex-shrink: 0;
-        transform: translateY(-50%);
-        pointer-events: auto;
-    }
+html[data-ui-layout="compact"] .map-zoom-control {
+    position: absolute;
+    top: 62%;
+    right: var(--weiran-ui-inset-edge);
+    left: auto;
+    width: var(--weiran-ui-control-width);
+    flex-shrink: 0;
+    transform: translateY(-50%);
+    pointer-events: auto;
+}
 
-    .layer-panel,
-    .settings-panel,
-    .org-panel {
-        left: auto;
-        right: calc(
-            var(--weiran-ui-inset-edge) + var(--weiran-ui-control-width) + var(--weiran-ui-gap-control)
-        );
-        max-width: min(280px, calc(100vw - 24px - var(--weiran-ui-control-width) - var(--weiran-ui-gap-control)));
-    }
+html[data-ui-layout="compact"] .layer-panel,
+html[data-ui-layout="compact"] .settings-panel,
+html[data-ui-layout="compact"] .org-panel {
+    left: auto;
+    right: calc(
+        var(--weiran-ui-inset-edge) + var(--weiran-ui-control-width) + var(--weiran-ui-gap-control)
+    );
+    max-width: min(280px, calc(100vw - 24px - var(--weiran-ui-control-width) - var(--weiran-ui-gap-control)));
 }
 
 .settings-panel-skin-list {

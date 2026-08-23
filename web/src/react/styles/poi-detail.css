@@ -27,6 +27,10 @@
     box-shadow: var(--weiran-ui-shadow-panel);
 }
 
+.poi-detail-handle {
+    display: none;
+}
+
 .poi-detail-popover-header {
     display: flex;
     align-items: flex-start;
@@ -137,4 +141,53 @@
 .poi-detail-schematic-link:hover,
 .poi-detail-schematic-link:focus-visible {
     text-decoration: underline;
+}
+
+html[data-ui-layout="compact"] .poi-detail-scrim {
+    z-index: 1200;
+    background: var(--weiran-ui-search-scrim, rgba(0, 0, 0, 0.22));
+}
+
+html[data-ui-layout="compact"] .poi-detail-popover {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    z-index: 1210;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: min(34vh, 280px);
+    max-height: min(70vh, 520px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 2px 18px calc(44px + env(safe-area-inset-bottom, 0px));
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+}
+
+html[data-ui-layout="compact"] .poi-detail-handle {
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: 8px auto 10px;
+    border-radius: 999px;
+    background: var(--weiran-ui-border);
+    touch-action: none;
+}
+
+html[data-ui-layout="compact"] .poi-detail-popover-header {
+    touch-action: none;
+}
+
+html[data-ui-layout="compact"] .poi-detail-title {
+    font-size: 20px;
+}
+
+html[data-ui-layout="compact"] .poi-detail-close-btn.ant-btn {
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 28px !important;
 }

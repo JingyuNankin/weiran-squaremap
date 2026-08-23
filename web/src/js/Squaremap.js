@@ -17,12 +17,14 @@ import "../react/styles/skins/gloom.css";
 import "../react/styles/skins/minecraft.css";
 import "../react/styles/skins/parchment.css";
 import { applyUiSkin } from "../react/theme/applyUiSkin.js";
+import { applyUiLayout } from "../shared/uiLayout.js";
 import { initMapFilter } from "../react/bridge/mapFilterBridge.js";
 import { highlightPoi, openPoiDetail } from "../react/bridge/poiBridge.js";
 import { getPoiById } from "../react/search/poiCatalog.js";
 import { SATELLITE_FOCUS_ZOOM } from "../shared/mapLinks.js";
 
 applyUiSkin();
+applyUiLayout();
 
 class SquaremapMap {
     /** @type {L.Map} */
