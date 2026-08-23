@@ -5,7 +5,7 @@ import { getPoiById } from "../react/search/poiCatalog.js";
 import { applyUiSkin } from "../react/theme/applyUiSkin.js";
 import { SATELLITE_FOCUS_ZOOM, satelliteUrl } from "../shared/mapLinks.js";
 import { bindSchematicControls } from "./controls.js";
-import { layoutSchematic } from "./layout.js";
+import { layoutSchematic, offsetDuplicateLinePaths } from "./layout.js";
 import "../react/styles/skins/light.css";
 import "../react/styles/skins/gloom.css";
 import "../react/styles/skins/minecraft.css";
@@ -15,6 +15,13 @@ import "./schematic.css";
 
 applyUiSkin();
 
+/**
+ * @param {string} name
+ */
+function schematicStationName(name) {
+    return String(name ?? "").replace(/站$/, "");
+}
+
 const MIN_VIEW_WIDTH = 160;
 const LABEL_OFFSET_Y = -28;
 const PAN_THRESHOLD_PX = 4;
@@ -22,6 +29,8 @@ const POPOVER_MARGIN = 12;
 const POPOVER_GAP = 10;
 const MARKER_RADIUS = 28;
 const LINE_STROKE_WIDTH = 5;
+const LINE_CANAL_OUTER_WIDTH = 9;
+const LINE_CANAL_INNER_WIDTH = 4;
 const LINE_GLOW_WIDTH = 16;
 const LINE_HIT_WIDTH = 26;
 const LINE_CORNER_RADIUS = 32;
@@ -191,43 +200,89 @@ function lineIdFromPoint(clientX, clientY) {
 }
 
 /**
- * @param {Array<{ x: number, y: number }>} path
- * @param {Iterable<{ x: number, y: number }>} stations
- * @returns {{ x: number, y: number, horizontal: boolean } | null}
+ * @param {Array<{ x: number, y: number }>} points
+ * @returns {{ x: number, y: number } | null}
  */
-function pickLineLabelAnchor(path, stations) {
-    if (path.length < 2) {
+function centroidOf(points) {
+    if (points.length === 0) {
         return null;
     }
+    let sumX = 0;
+    let sumY = 0;
+    for (const point of points) {
+        sumX += point.x;
+        sumY += point.y;
+    }
+    return { x: sumX / points.length, y: sumY / points.length };
+}
+
+/**
+ * @param {Array<{ x: number, y: number }>} stations
+ * @param {{ x: number, y: number }} center
+ * @returns {{ x: number, y: number } | null}
+ */
+function farthestStationFrom(stations, center) {
     let best = null;
-    for (let index = 0; index < path.length - 1; index += 1) {
-        const start = path[index];
-        const end = path[index + 1];
-        const length = Math.hypot(end.x - start.x, end.y - start.y);
-        if (best == null || length > best.length) {
-            best = { start, end, length };
+    let bestDist = -1;
+    for (const station of stations) {
+        const dist = Math.hypot(station.x - center.x, station.y - center.y);
+        if (dist > bestDist) {
+            best = station;
+            bestDist = dist;
         }
     }
-    if (best == null || best.length < 1) {
+    return best;
+}
+
+/**
+ * @param {{ x: number, y: number }} station
+ * @param {{ x: number, y: number }} center
+ * @returns {'top' | 'bottom' | 'left' | 'right'}
+ */
+function labelSideAwayFromCenter(station, center) {
+    const dx = station.x - center.x;
+    const dy = station.y - center.y;
+    if (Math.abs(dx) >= Math.abs(dy)) {
+        return dx >= 0 ? "right" : "left";
+    }
+    return dy >= 0 ? "bottom" : "top";
+}
+
+/**
+ * @param {Iterable<{ poiId?: string, x: number, y: number }>} allStations
+ * @param {string[]} poiIds
+ * @param {{ x: number, y: number }} center
+ * @returns {{ x: number, y: number, side: 'top' | 'bottom' | 'left' | 'right' } | null}
+ */
+function pickLineLabelAnchor(allStations, poiIds, center) {
+    const onLine = [];
+    const wanted = new Set(poiIds);
+    for (const station of allStations) {
+        if (wanted.has(String(station.poiId))) {
+            onLine.push(station);
+        }
+    }
+    const farthest = farthestStationFrom(onLine, center);
+    if (farthest == null) {
         return null;
-    }
-    const horizontal = best.start.y === best.end.y;
-    let t = 0.5;
-    const stationList = [...stations];
-    for (let step = 0; step < 4; step += 1) {
-        const x = best.start.x + (best.end.x - best.start.x) * t;
-        const y = best.start.y + (best.end.y - best.start.y) * t;
-        const tooClose = stationList.some((station) => Math.hypot(station.x - x, station.y - y) < 48);
-        if (!tooClose) {
-            return { x, y, horizontal };
-        }
-        t = t < 0.5 ? Math.min(0.82, t + 0.16) : Math.max(0.18, t - 0.16);
     }
     return {
-        x: best.start.x + (best.end.x - best.start.x) * t,
-        y: best.start.y + (best.end.y - best.start.y) * t,
-        horizontal,
+        x: farthest.x,
+        y: farthest.y,
+        side: labelSideAwayFromCenter(farthest, center),
     };
+}
+
+/**
+ * @param {Array<Array<{ x: number, y: number }>>} paths
+ * @param {number} radius
+ * @param {Iterable<{ x: number, y: number }>} stations
+ */
+function pathsToD(paths, radius, stations) {
+    return paths
+        .filter((path) => path.length >= 2)
+        .map((path) => pathToD(path, radius, stations))
+        .join(" ");
 }
 
 function stationFromPoint(clientX, clientY) {
@@ -301,15 +356,51 @@ function renderSchematic() {
 
     /** @type {SVGPathElement[]} */
     const lineEls = [];
+    /** @type {Array<SVGPathElement | null>} */
+    const lineInnerEls = [];
     /** @type {SVGPathElement[]} */
     const lineGlowEls = [];
     /** @type {SVGPathElement[]} */
     const lineHitEls = [];
 
+    /** @type {Array<{
+     *   id: string,
+     *   path: Array<{ x: number, y: number }>,
+     *   paths: Array<Array<{ x: number, y: number }>>,
+     *   routes: Array<Array<{ x: number, y: number }>>,
+     * }>} */
+    const drawableLines = [];
+    /** @type {Array<{ el: HTMLElement, lineId: string, x: number, y: number, side: 'top' | 'bottom' | 'left' | 'right' }>} */
+    const lineLabels = [];
+
+    const paintOffsetLines = () => {
+        const scale = screenSizeScale();
+        const offsetLines = offsetDuplicateLinePaths(drawableLines, LINE_STROKE_WIDTH * scale);
+        for (let index = 0; index < offsetLines.length; index += 1) {
+            const offsetPaths =
+                offsetLines[index].paths?.length > 0
+                    ? offsetLines[index].paths
+                    : [offsetLines[index].path ?? []];
+            const d = pathsToD(offsetPaths, LINE_CORNER_RADIUS, stationByPoiId.values());
+            lineGlowEls[index]?.setAttribute("d", d);
+            lineEls[index]?.setAttribute("d", d);
+            lineInnerEls[index]?.setAttribute("d", d);
+            lineHitEls[index]?.setAttribute("d", d);
+        }
+    };
+
     const syncFixedSizes = () => {
         const scale = screenSizeScale();
+        paintOffsetLines();
         for (const lineEl of lineEls) {
-            lineEl.setAttribute("stroke-width", String(LINE_STROKE_WIDTH * scale));
+            const canal = lineEl.classList.contains("schematic-line--canal");
+            lineEl.setAttribute(
+                "stroke-width",
+                String((canal ? LINE_CANAL_OUTER_WIDTH : LINE_STROKE_WIDTH) * scale),
+            );
+        }
+        for (const innerEl of lineInnerEls) {
+            innerEl?.setAttribute("stroke-width", String(LINE_CANAL_INNER_WIDTH * scale));
         }
         for (const glowEl of lineGlowEls) {
             glowEl.setAttribute("stroke-width", String(LINE_GLOW_WIDTH * scale));
@@ -367,7 +458,7 @@ function renderSchematic() {
 
         const catalog = getPoiById(poi.id);
         const orgPath = getPoiOrgPath(poi.id);
-        titleEl.textContent = poi.text;
+        titleEl.textContent = schematicStationName(poi.text);
         if (orgPath.length > 0) {
             orgPathEl.replaceChildren(
                 ...orgPath.flatMap((name, index) => {
@@ -444,15 +535,11 @@ function renderSchematic() {
         if (lineId !== "" && color !== "") {
             lineColorById.set(lineId, color);
         }
-        const path = line.path ?? [];
-        const route = [];
-        for (const entry of line.stations ?? []) {
-            const poiId = typeof entry === "string" ? entry : String(entry.poiId);
+        for (const poiId of line.stations ?? []) {
             const pos = stationByPoiId.get(poiId);
             if (pos == null) {
                 continue;
             }
-            route.push(pos);
             const ids = stationLineIds.get(poiId) ?? [];
             ids.push(lineId);
             stationLineIds.set(poiId, ids);
@@ -460,12 +547,27 @@ function renderSchematic() {
                 stationColorByPoiId.set(poiId, color);
             }
         }
-        const linePath = path.length >= 2 ? path : route;
-        if (linePath.length < 2) {
+        const drawPaths = (line.paths?.length > 0 ? line.paths : [line.path ?? []]).filter(
+            (path) => path.length >= 2,
+        );
+        if (drawPaths.length === 0) {
             continue;
         }
-        const d = pathToD(linePath, LINE_CORNER_RADIUS, stationByPoiId.values());
+        const coordRoutes = (line.routes ?? [line.stations ?? []]).map((route) =>
+            route
+                .map((poiId) => stationByPoiId.get(poiId))
+                .filter((station) => station != null)
+                .map((station) => ({ x: station.x, y: station.y })),
+        );
+        drawableLines.push({
+            id: lineId,
+            path: drawPaths[0].map((point) => ({ x: point.x, y: point.y })),
+            paths: drawPaths.map((path) => path.map((point) => ({ x: point.x, y: point.y }))),
+            routes: coordRoutes,
+        });
+        const d = pathsToD(drawPaths, LINE_CORNER_RADIUS, stationByPoiId.values());
         const stroke = color !== "" ? color : "currentColor";
+        const canal = line.style === "canal";
 
         const glowEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
         glowEl.setAttribute("class", "schematic-line-glow");
@@ -477,12 +579,23 @@ function renderSchematic() {
         lineGlowEls.push(glowEl);
 
         const lineEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        lineEl.setAttribute("class", "schematic-line");
+        lineEl.setAttribute("class", canal ? "schematic-line schematic-line--canal" : "schematic-line");
         lineEl.setAttribute("d", d);
         lineEl.setAttribute("stroke", stroke);
-        lineEl.setAttribute("stroke-width", String(LINE_STROKE_WIDTH));
+        lineEl.setAttribute("stroke-width", String(canal ? LINE_CANAL_OUTER_WIDTH : LINE_STROKE_WIDTH));
         svg.appendChild(lineEl);
         lineEls.push(lineEl);
+
+        if (canal) {
+            const innerEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            innerEl.setAttribute("class", "schematic-line-inner");
+            innerEl.setAttribute("d", d);
+            innerEl.setAttribute("stroke-width", String(LINE_CANAL_INNER_WIDTH));
+            svg.appendChild(innerEl);
+            lineInnerEls.push(innerEl);
+        } else {
+            lineInnerEls.push(null);
+        }
 
         const hitEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
         hitEl.setAttribute("class", "schematic-line-hit");
@@ -494,25 +607,24 @@ function renderSchematic() {
         lineHitEls.push(hitEl);
     }
 
+    const mapCenter = centroidOf(laidOut.stations);
     const labelLayer = document.createElement("div");
     labelLayer.className = "schematic-line-labels";
-    /** @type {Array<{ el: HTMLElement, lineId: string, x: number, y: number, horizontal: boolean }>} */
-    const lineLabels = [];
     for (const line of lines) {
         const name = String(line.name ?? "").trim();
         const lineId = String(line.id ?? "");
-        const linePath = line.path ?? [];
-        if (name === "" || linePath.length < 2) {
+        if (name === "" || mapCenter == null) {
             continue;
         }
-        const anchor = pickLineLabelAnchor(linePath, stationByPoiId.values());
+        const anchor = pickLineLabelAnchor(stationByPoiId.values(), line.stations ?? [], mapCenter);
         if (anchor == null) {
             continue;
         }
         const color = String(line.color ?? "#1565c0");
         const labelEl = document.createElement("button");
         labelEl.type = "button";
-        labelEl.className = "schematic-line-label";
+        labelEl.className =
+            line.style === "canal" ? "schematic-line-label schematic-line-label--canal" : "schematic-line-label";
         labelEl.dataset.lineId = lineId;
         labelEl.textContent = name;
         labelEl.style.setProperty("--line-fill", color);
@@ -527,19 +639,35 @@ function renderSchematic() {
             lineId,
             x: anchor.x,
             y: anchor.y,
-            horizontal: anchor.horizontal,
+            side: anchor.side,
         });
     }
 
     syncLineLabels = () => {
-        const offset = 28;
+        const sideGap = 26;
+        const topGap = 46;
+        const bottomGap = 22;
         for (const label of lineLabels) {
             const point = projectSchematicPoint(svg, camera, label.x, label.y);
-            const left = label.horizontal ? point.x : point.x - offset;
-            const top = label.horizontal ? point.y - offset : point.y;
+            let left = point.x;
+            let top = point.y;
+            let transform = "translate(-50%, -50%)";
+            if (label.side === "top") {
+                top = point.y - topGap;
+                transform = "translate(-50%, -100%)";
+            } else if (label.side === "bottom") {
+                top = point.y + bottomGap;
+                transform = "translate(-50%, 0)";
+            } else if (label.side === "left") {
+                left = point.x - sideGap;
+                transform = "translate(-100%, -50%)";
+            } else {
+                left = point.x + sideGap;
+                transform = "translate(0, -50%)";
+            }
             label.el.style.left = `${left}px`;
             label.el.style.top = `${top}px`;
-            label.el.style.transform = label.horizontal ? "translate(-50%, -100%)" : "translate(-100%, -50%)";
+            label.el.style.transform = transform;
         }
     };
 
@@ -560,7 +688,7 @@ function renderSchematic() {
         }
         group.setAttribute("tabindex", "0");
         group.setAttribute("role", "button");
-        group.setAttribute("aria-label", `${poi.text}详情`);
+        group.setAttribute("aria-label", `${schematicStationName(poi.text)}详情`);
 
         const glow = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         glow.setAttribute("class", "schematic-station-glow");
@@ -584,7 +712,7 @@ function renderSchematic() {
         label.setAttribute("class", "schematic-station-label");
         label.setAttribute("x", "0");
         label.setAttribute("y", String(LABEL_OFFSET_Y));
-        label.textContent = poi.text;
+        label.textContent = schematicStationName(poi.text);
 
         group.appendChild(glow);
         group.appendChild(hit);

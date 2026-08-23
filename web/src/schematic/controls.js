@@ -5,6 +5,13 @@ import { SKIN_PREVIEW_TOKENS } from "../react/theme/skinPreviews.js";
 import { satelliteUrl } from "../shared/mapLinks.js";
 
 /**
+ * @param {string} name
+ */
+function schematicStationName(name) {
+    return String(name ?? "").replace(/站$/, "");
+}
+
+/**
  * @param {{
  *   zoomBy: (factor: number) => void,
  *   focusStation: (id: string) => void,
@@ -160,7 +167,7 @@ export function bindSchematicControls(api) {
             button.setAttribute("role", "option");
             const name = document.createElement("span");
             name.className = "schematic-search-item-name";
-            name.textContent = poi.name;
+            name.textContent = schematicStationName(poi.name);
             const meta = document.createElement("span");
             meta.className = "schematic-search-item-meta";
             meta.textContent = poi.layerName;

@@ -333,6 +333,20 @@ function junctionPenalty(incoming, outgoing) {
  * @param {SchematicStation[]} stations
  * @returns {Array<{ x: number, y: number }>}
  */
+function bestLPath(from, to, stations) {
+    const hv = lPath(from, to, "HV");
+    const vh = lPath(from, to, "VH");
+    return pathStationHits(hv, from, to, stations) <= pathStationHits(vh, from, to, stations)
+        ? hv
+        : vh;
+}
+
+/**
+ * @param {SchematicStation} from
+ * @param {SchematicStation} to
+ * @param {SchematicStation[]} stations
+ * @returns {Array<{ x: number, y: number }>}
+ */
 function sPath(from, to, stations) {
     const midX = (from.x + to.x) / 2;
     const midY = (from.y + to.y) / 2;
@@ -358,16 +372,38 @@ function sPath(from, to, stations) {
 }
 
 /**
+ * @param {string} fromId
+ * @param {string} toId
+ */
+function pairBendKey(fromId, toId) {
+    return `${fromId}|${toId}`;
+}
+
+/**
+ * @param {string} fromId
+ * @param {string} toId
+ * @param {Record<string, string> | undefined} bends
+ * @returns {string | null}
+ */
+function pairBend(fromId, toId, bends) {
+    if (bends == null) {
+        return null;
+    }
+    return bends[pairBendKey(fromId, toId)] ?? bends[pairBendKey(toId, fromId)] ?? null;
+}
+
+/**
  * @param {SchematicStation[]} run
  * @param {SchematicStation[]} stations
+ * @param {string | null} [bend]
  * @returns {Array<{ x: number, y: number }>}
  */
-function routeSkewRun(run, stations) {
+function routeSkewRun(run, stations, bend = null) {
     if (run.length < 2) {
         return [];
     }
     if (run.length === 2) {
-        return sPath(run[0], run[1], stations);
+        return bend === "L" ? bestLPath(run[0], run[1], stations) : sPath(run[0], run[1], stations);
     }
 
     /** @type {Array<'HV' | 'VH'>} */
@@ -451,9 +487,10 @@ function simplifyOrthogonal(path, keepPoints = []) {
  * @param {string[]} poiIds
  * @param {Map<string, SchematicStation>} stationByPoiId
  * @param {SchematicStation[]} stations
+ * @param {Record<string, string> | undefined} [bends]
  * @returns {Array<{ x: number, y: number }>}
  */
-function buildLinePath(poiIds, stationByPoiId, stations) {
+function buildLinePath(poiIds, stationByPoiId, stations, bends) {
     const stops = poiIds
         .map((poiId) => stationByPoiId.get(poiId))
         .filter((station) => station != null);
@@ -483,18 +520,73 @@ function buildLinePath(poiIds, stationByPoiId, stations) {
         while (end < stops.length - 1 && !isAligned(stops[end], stops[end + 1])) {
             end += 1;
         }
-        append(routeSkewRun(stops.slice(index, end + 1), stations));
+        append(
+            routeSkewRun(
+                stops.slice(index, end + 1),
+                stations,
+                pairBend(from.poiId, stops[end].poiId, bends),
+            ),
+        );
         index = end;
     }
     return simplifyOrthogonal(path, stops);
 }
 
 /**
+ * @param {unknown} entry
+ */
+function routePoiId(entry) {
+    return typeof entry === "string" ? entry : String(entry?.poiId ?? "");
+}
+
+/**
+ * @param {unknown} entries
+ * @returns {string[]}
+ */
+function routePoiIds(entries) {
+    if (!Array.isArray(entries)) {
+        return [];
+    }
+    return entries.map(routePoiId).filter((id) => id !== "");
+}
+
+/**
+ * @param {string[][]} routes
+ * @returns {string[]}
+ */
+function uniqueRoutePoiIds(routes) {
+    /** @type {string[]} */
+    const ids = [];
+    const seen = new Set();
+    for (const route of routes) {
+        for (const id of route) {
+            if (seen.has(id)) {
+                continue;
+            }
+            seen.add(id);
+            ids.push(id);
+        }
+    }
+    return ids;
+}
+
+/**
+ * @param {{ stations?: unknown, branches?: unknown }} line
+ * @returns {string[][]}
+ */
+function lineRoutes(line) {
+    const main = routePoiIds(line.stations);
+    const branches = Array.isArray(line.branches) ? line.branches.map(routePoiIds) : [];
+    return main.length > 0 ? [main, ...branches.filter((route) => route.length >= 2)] : branches;
+}
+
+/**
  * @param {SchematicStation[]} stations
  * @param {Map<string, SchematicStation>} stationByPoiId
- * @param {Record<string, { row?: string, col?: string }> | undefined} overrides
+ * @param {Record<string, { row?: string, col?: string, rowShift?: number, colShift?: number }> | undefined} overrides
+ * @param {number} cell
  */
-function applyPositionOverrides(stations, stationByPoiId, overrides) {
+function applyPositionOverrides(stations, stationByPoiId, overrides, cell) {
     if (overrides == null) {
         return;
     }
@@ -517,6 +609,14 @@ function applyPositionOverrides(stations, stationByPoiId, overrides) {
             if (ref != null) {
                 nextX = ref.x;
             }
+        }
+        const rowShift = Number(rule.rowShift);
+        const colShift = Number(rule.colShift);
+        if (Number.isFinite(rowShift) && rowShift !== 0) {
+            nextY += rowShift * cell;
+        }
+        if (Number.isFinite(colShift) && colShift !== 0) {
+            nextX += colShift * cell;
         }
         const nextKey = `${nextX},${nextY}`;
         const prevKey = `${station.x},${station.y}`;
@@ -545,11 +645,225 @@ function resolveLayoutOptions(value) {
 }
 
 /**
+ * @param {'h' | 'v'} axis
+ * @param {number} pos
+ * @param {number} along
+ * @param {number} offset
+ */
+function offsetPoint(axis, pos, along, offset) {
+    if (axis === "v") {
+        return { x: pos + offset, y: along };
+    }
+    return { x: along, y: pos + offset };
+}
+
+/**
+ * @param {Array<{ x: number, y: number }>} path
+ * @param {{ x: number, y: number }} point
+ */
+function pushUniquePoint(path, point) {
+    const last = path[path.length - 1];
+    if (last != null && last.x === point.x && last.y === point.y) {
+        return;
+    }
+    path.push(point);
+}
+
+/**
+ * @param {Array<{ x: number, y: number }>} path
+ * @param {Array<{ axis: 'h' | 'v', pos: number, lo: number, hi: number, offset: number }>} atoms
+ * @returns {Array<{ x: number, y: number }>}
+ */
+function offsetSinglePath(path, atoms) {
+    if (path.length < 2) {
+        return path.map((point) => ({ x: point.x, y: point.y }));
+    }
+    /** @type {Array<{ x: number, y: number }>} */
+    const nextPath = [];
+    for (let segIndex = 0; segIndex < path.length - 1; segIndex += 1) {
+        const start = path[segIndex];
+        const end = path[segIndex + 1];
+        const axis = start.x === end.x && start.y !== end.y ? "v" : start.y === end.y && start.x !== end.x ? "h" : null;
+        const pos = axis === "v" ? start.x : start.y;
+        const from = axis === "v" ? start.y : start.x;
+        const to = axis === "v" ? end.y : end.x;
+        const segAtoms =
+            axis == null
+                ? []
+                : atoms.filter((atom) => {
+                      if (atom.axis !== axis || atom.pos !== pos) {
+                          return false;
+                      }
+                      return atom.hi > Math.min(from, to) && atom.lo < Math.max(from, to);
+                  });
+        if (axis == null || segAtoms.length === 0) {
+            pushUniquePoint(nextPath, { x: start.x, y: start.y });
+            pushUniquePoint(nextPath, { x: end.x, y: end.y });
+            continue;
+        }
+        const direction = Math.sign(to - from) || 1;
+        const alongCuts = [...new Set([from, to, ...segAtoms.flatMap((atom) => [atom.lo, atom.hi])])]
+            .filter((value) => value >= Math.min(from, to) && value <= Math.max(from, to))
+            .sort((left, right) => direction * (left - right));
+        for (let cutIndex = 0; cutIndex < alongCuts.length - 1; cutIndex += 1) {
+            const alongStart = alongCuts[cutIndex];
+            const alongEnd = alongCuts[cutIndex + 1];
+            if (alongStart === alongEnd) {
+                continue;
+            }
+            const mid = (alongStart + alongEnd) / 2;
+            const atom = segAtoms.find((entry) => entry.lo < mid && mid < entry.hi);
+            const offset = atom?.offset ?? 0;
+            pushUniquePoint(nextPath, offsetPoint(axis, pos, alongStart, offset));
+            pushUniquePoint(nextPath, offsetPoint(axis, pos, alongEnd, offset));
+        }
+    }
+    return nextPath;
+}
+
+/**
+ * @param {{
+ *   path?: Array<{ x: number, y: number }>,
+ *   paths?: Array<Array<{ x: number, y: number }>>,
+ *   stops?: Array<{ x: number, y: number }>,
+ *   routes?: Array<Array<{ x: number, y: number }>>,
+ * }} line
+ * @returns {Array<Array<{ x: number, y: number }>>}
+ */
+function lineStopRoutes(line) {
+    if (Array.isArray(line.routes) && line.routes.length > 0) {
+        return line.routes;
+    }
+    if (Array.isArray(line.stops) && line.stops.length > 0) {
+        return [line.stops];
+    }
+    return [];
+}
+
+/**
+ * @param {{
+ *   path?: Array<{ x: number, y: number }>,
+ *   paths?: Array<Array<{ x: number, y: number }>>,
+ * }} line
+ * @returns {Array<Array<{ x: number, y: number }>>}
+ */
+function lineDrawPaths(line) {
+    if (Array.isArray(line.paths) && line.paths.length > 0) {
+        return line.paths;
+    }
+    return [line.path ?? []];
+}
+
+/**
+ * 仅对「相邻两站直连且重叠」的区间错开，折线拐角蹭过他线不算复线。
+ *
+ * @param {Array<{
+ *   id?: string,
+ *   path?: Array<{ x: number, y: number }>,
+ *   paths?: Array<Array<{ x: number, y: number }>>,
+ *   stops?: Array<{ x: number, y: number }>,
+ *   routes?: Array<Array<{ x: number, y: number }>>,
+ * }>} lines
+ * @param {number} spacing
+ * @returns {Array<{
+ *   id?: string,
+ *   path: Array<{ x: number, y: number }>,
+ *   paths: Array<Array<{ x: number, y: number }>>,
+ * }>}
+ */
+export function offsetDuplicateLinePaths(lines, spacing) {
+    /** @type {Array<{ lineIndex: number, axis: 'h' | 'v', pos: number, from: number, to: number }>} */
+    const segments = [];
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+        for (const stops of lineStopRoutes(lines[lineIndex])) {
+            for (let index = 0; index < stops.length - 1; index += 1) {
+                const start = stops[index];
+                const end = stops[index + 1];
+                if (start.x === end.x && start.y !== end.y) {
+                    segments.push({
+                        lineIndex,
+                        axis: "v",
+                        pos: start.x,
+                        from: start.y,
+                        to: end.y,
+                    });
+                } else if (start.y === end.y && start.x !== end.x) {
+                    segments.push({
+                        lineIndex,
+                        axis: "h",
+                        pos: start.y,
+                        from: start.x,
+                        to: end.x,
+                    });
+                }
+            }
+        }
+    }
+
+    /** @type {Map<string, typeof segments>} */
+    const groups = new Map();
+    for (const segment of segments) {
+        const key = `${segment.axis}:${segment.pos}`;
+        const group = groups.get(key) ?? [];
+        group.push(segment);
+        groups.set(key, group);
+    }
+
+    /** @type {Array<Array<{ axis: 'h' | 'v', pos: number, lo: number, hi: number, offset: number }>>} */
+    const lookups = lines.map(() => []);
+
+    for (const group of groups.values()) {
+        const cuts = [...new Set(group.flatMap((segment) => [segment.from, segment.to]))].sort(
+            (left, right) => left - right,
+        );
+        for (let index = 0; index < cuts.length - 1; index += 1) {
+            const lo = cuts[index];
+            const hi = cuts[index + 1];
+            if (hi <= lo) {
+                continue;
+            }
+            const covered = group.filter((segment) => {
+                const start = Math.min(segment.from, segment.to);
+                const end = Math.max(segment.from, segment.to);
+                return start <= lo && hi <= end;
+            });
+            const uniqueLines = [...new Set(covered.map((segment) => segment.lineIndex))].sort(
+                (left, right) => left - right,
+            );
+            if (uniqueLines.length < 2) {
+                continue;
+            }
+            for (const lineIndex of uniqueLines) {
+                const rank = uniqueLines.indexOf(lineIndex);
+                lookups[lineIndex].push({
+                    axis: group[0].axis,
+                    pos: group[0].pos,
+                    lo,
+                    hi,
+                    offset: (rank - (uniqueLines.length - 1) / 2) * spacing,
+                });
+            }
+        }
+    }
+
+    return lines.map((line, lineIndex) => {
+        const atoms = lookups[lineIndex];
+        const nextPaths = lineDrawPaths(line).map((path) => offsetSinglePath(path, atoms));
+        return {
+            ...line,
+            path: nextPaths[0] ?? [],
+            paths: nextPaths,
+        };
+    });
+}
+
+/**
  * @param {Array<{ layer?: string, id?: string, point?: { x?: number, z?: number } }>} instances
  * @param {{
  *   layout?: LayoutOptions,
- *   overrides?: Record<string, { row?: string, col?: string }>,
- *   lines?: Array<{ id?: string, name?: string, color?: string, stations?: string[] }>,
+ *   overrides?: Record<string, { row?: string, col?: string, rowShift?: number, colShift?: number }>,
+ *   bends?: Record<string, string>,
+ *   lines?: Array<{ id?: string, name?: string, color?: string, style?: string, stations?: string[], branches?: string[][] }>,
  * }} catalog
  */
 export function layoutSchematic(instances, catalog) {
@@ -571,18 +885,22 @@ export function layoutSchematic(instances, catalog) {
     const stations = compactStations(worldStations, placed, options);
     /** @type {Map<string, SchematicStation>} */
     const stationByPoiId = new Map(stations.map((station) => [station.poiId, station]));
-    applyPositionOverrides(stations, stationByPoiId, catalog.overrides);
+    applyPositionOverrides(stations, stationByPoiId, catalog.overrides, options.cell);
 
     const lines = (catalog.lines ?? []).map((line) => {
-        const poiIds = (line.stations ?? []).map((entry) =>
-            typeof entry === "string" ? entry : String(entry.poiId),
-        );
+        const routes = lineRoutes(line);
+        const paths = routes
+            .map((poiIds) => buildLinePath(poiIds, stationByPoiId, stations, catalog.bends))
+            .filter((path) => path.length >= 2);
         return {
             id: String(line.id ?? ""),
             name: String(line.name ?? ""),
             color: String(line.color ?? ""),
-            stations: poiIds,
-            path: buildLinePath(poiIds, stationByPoiId, stations),
+            style: String(line.style ?? "rail"),
+            stations: uniqueRoutePoiIds(routes),
+            routes,
+            path: paths[0] ?? [],
+            paths,
         };
     });
 

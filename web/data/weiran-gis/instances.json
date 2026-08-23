@@ -1,5 +1,5 @@
 {
-    "version": 46,
+    "version": 48,
     "instances": [
         {
             "layer": "nation",
@@ -2250,6 +2250,17 @@
         },
         {
             "layer": "railway-station",
+            "id": "station-gongyeyuanqu",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1832,
+                "z": 3661
+            },
+            "text": "工业园区站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
             "id": "station-duishadao",
             "parentNode": "nation-ocieania",
             "point": {
@@ -2444,6 +2455,17 @@
                 "z": 4272
             },
             "text": "蓝紫岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-qixin",
+            "parentNode": "region-4",
+            "point": {
+                "x": 3090,
+                "z": 2758
+            },
+            "text": "栖心站",
             "dimension": "normal"
         }
     ]
