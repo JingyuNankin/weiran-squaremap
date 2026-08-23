@@ -2,8 +2,8 @@
     "name": "web",
     "scripts": {
         "dev": "vite dev --host",
-        "build": "vite build --emptyOutDir",
-        "package": "node scripts/write-build-info.mjs && vite build --emptyOutDir",
+        "build": "node scripts/vite-build.mjs",
+        "package": "node scripts/write-build-info.mjs && node scripts/vite-build.mjs",
         "preview": "vite preview",
         "format": "prettier --write .",
         "lint": "prettier --check . && eslint ."
