@@ -367,10 +367,64 @@ body {
     cursor: grabbing;
 }
 
-.schematic-line {
+.schematic-line,
+.schematic-line-glow,
+.schematic-line-hit {
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+    pointer-events: none;
+}
+
+.schematic-line-glow {
+    opacity: 0;
+}
+
+.schematic-line-glow.is-highlighted {
+    opacity: 0.5;
+}
+
+.schematic-line-hit {
+    pointer-events: stroke;
+    cursor: pointer;
+}
+
+.schematic-line-labels {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.schematic-line-label {
+    position: absolute;
+    margin: 0;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 999px;
+    background: var(--line-fill, #1565c0);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+    font: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    white-space: nowrap;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+html[data-ui-skin="gloom"] .schematic-line-label {
+    color: #111;
+}
+
+html[data-ui-skin="minecraft"] .schematic-line-label {
+    border-radius: 2px;
+}
+
+html[data-ui-skin="parchment"] .schematic-line-label {
+    border-radius: 4px;
 }
 
 .schematic-station {
@@ -382,6 +436,16 @@ body {
 .schematic-station:focus,
 .schematic-station:focus-visible {
     outline: none;
+}
+
+.schematic-station-glow {
+    fill: var(--highlight-fill, currentColor);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.schematic-station.is-line-highlighted .schematic-station-glow {
+    opacity: 0.5;
 }
 
 .schematic-station-hit {
@@ -396,7 +460,7 @@ body {
 
 .schematic-station-label {
     fill: var(--weiran-ui-color-text-muted);
-    font-size: 16px;
+    font-size: 28px;
     font-weight: 600;
     text-anchor: middle;
     pointer-events: none;
@@ -447,7 +511,7 @@ body {
 
 .schematic-detail-title {
     display: block;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 1.35;
 }
