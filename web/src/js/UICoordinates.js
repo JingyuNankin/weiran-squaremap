@@ -33,6 +33,15 @@ class UICoordinates {
             }
         });
 
+        S.map.addEventListener("contextmenu", (event) => {
+            event.originalEvent?.preventDefault();
+            if (!isBlankMapTarget(event.originalEvent?.target) || S.worldList.curWorld == null) {
+                return;
+            }
+            const point = S.toPoint(event.latlng);
+            copyCoordinates(Math.floor(point.x), Math.floor(point.y));
+        });
+
         this.update(null);
         registerUICoordinates(this);
     }
@@ -60,6 +69,73 @@ class UICoordinates {
     isVisible() {
         return this.enabled && this.showCoordinates;
     }
+}
+
+const NON_BLANK_SELECTOR = [
+    ".weiran-poi",
+    ".leaflet-marker-icon",
+    ".leaflet-tooltip",
+    ".leaflet-popup",
+    ".leaflet-control",
+    ".nameplate-container",
+].join(", ");
+
+/**
+ * @param {EventTarget | null | undefined} target
+ * @returns {boolean}
+ */
+function isBlankMapTarget(target) {
+    return !(target instanceof Element) || target.closest(NON_BLANK_SELECTOR) == null;
+}
+
+/** @type {number} */
+let copyToastTimer = 0;
+
+/**
+ * @param {number} x
+ * @param {number} z
+ */
+function copyCoordinates(x, z) {
+    const text = `${x}, ${z}`;
+    const write =
+        navigator.clipboard?.writeText != null
+            ? navigator.clipboard.writeText(text)
+            : Promise.reject(new Error("clipboard unavailable"));
+    write
+        .catch(() => {
+            const input = document.createElement("textarea");
+            input.value = text;
+            input.setAttribute("readonly", "");
+            input.style.position = "fixed";
+            input.style.left = "-9999px";
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            input.remove();
+        })
+        .finally(() => {
+            showCopyToast(`已复制 ${text}`);
+        });
+}
+
+/**
+ * @param {string} message
+ */
+function showCopyToast(message) {
+    let toast = document.getElementById("map-copy-toast");
+    if (!(toast instanceof HTMLElement)) {
+        toast = document.createElement("div");
+        toast.id = "map-copy-toast";
+        toast.className = "map-copy-toast";
+        toast.setAttribute("role", "status");
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.hidden = false;
+    window.clearTimeout(copyToastTimer);
+    copyToastTimer = window.setTimeout(() => {
+        toast.hidden = true;
+    }, 1600);
 }
 
 export { UICoordinates };

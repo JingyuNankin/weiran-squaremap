@@ -62,6 +62,15 @@
     margin-top: 6px;
 }
 
+.org-panel-poi-count {
+    display: block;
+    margin-top: 2px;
+    padding: 0 var(--weiran-ui-padding-panel-section-x);
+    font-size: var(--weiran-ui-font-size-sm);
+    line-height: var(--weiran-ui-line-height-sm);
+    color: var(--weiran-ui-color-text-muted);
+}
+
 .org-panel-sort.ant-segmented {
     background: var(--weiran-ui-bg-hover-subtle);
 }

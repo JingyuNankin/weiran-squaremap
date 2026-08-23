@@ -2,6 +2,7 @@
  * Parchment 羊皮纸 — 复古制图 / 藏宝图风格。
  * 暖米黄哑光面板、深褐勾线、土金点缀；纸纹与角标纯 CSS 实现。
  */
+html[data-ui-skin="parchment"],
 #react-root[data-ui-skin="parchment"] {
     /* 主色 — 土金（制图台 / 藏宝图点缀） */
     --weiran-ui-color-primary: #b8860b;

@@ -1,6 +1,7 @@
 /**
  * Gloom 静夜 — 深色 UI 皮肤（仅 #react-root 内 Ant Design 可交互组件）。
  */
+html[data-ui-skin="gloom"],
 #react-root[data-ui-skin="gloom"] {
     /* 主色 */
     --weiran-ui-color-primary: #1677ff;

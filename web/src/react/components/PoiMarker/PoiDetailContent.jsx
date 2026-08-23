@@ -1,5 +1,6 @@
 import { AimOutlined } from "@ant-design/icons";
 import { getPoiOrgPath } from "../../org/orgCatalog.js";
+import { schematicUrl } from "../../../shared/mapLinks.js";
 
 /**
  * @param {{ poi: import("../../search/poiCatalog.js").SearchPoi }} props
@@ -31,6 +32,12 @@ export function PoiDetailContent({ poi }) {
                     </span>
                 </span>
             </div>
+
+            {poi.onSchematic ? (
+                <a className="poi-detail-schematic-link" href={schematicUrl({ poi: poi.id })}>
+                    在轨道交通示意图中查看
+                </a>
+            ) : null}
         </div>
     );
 }

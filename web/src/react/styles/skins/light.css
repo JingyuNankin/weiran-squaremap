@@ -2,6 +2,8 @@
  * Light 光昼 — 浅色 UI 皮肤（默认；Ant Design / Material 白天模式思路）。
  * 半透明白色浮层叠在地图上，主色与 Ant Design 默认蓝对齐。
  */
+html[data-ui-skin="light"],
+html:not([data-ui-skin]),
 #react-root[data-ui-skin="light"],
 #react-root:not([data-ui-skin]) {
     /* 主色 — Ant Design 默认 primary */

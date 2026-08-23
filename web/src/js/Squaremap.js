@@ -5,7 +5,7 @@ import { UICoordinates } from "./UICoordinates.js";
 import { UIScaleBar } from "./UIScaleBar.js";
 import { UILink } from "./UILink.js";
 import { LayerControl } from "./LayerControl.js";
-import { setControlsVisible } from "../react/bridge/layerBridge.js";
+import { getLayerBridge, setControlsVisible } from "../react/bridge/layerBridge.js";
 import L from "leaflet";
 import "./addons/Ellipse.js";
 import "./addons/RotateMarker.js";
@@ -18,6 +18,9 @@ import "../react/styles/skins/minecraft.css";
 import "../react/styles/skins/parchment.css";
 import { applyUiSkin } from "../react/theme/applyUiSkin.js";
 import { initMapFilter } from "../react/bridge/mapFilterBridge.js";
+import { highlightPoi, openPoiDetail } from "../react/bridge/poiBridge.js";
+import { getPoiById } from "../react/search/poiCatalog.js";
+import { SATELLITE_FOCUS_ZOOM } from "../shared/mapLinks.js";
 
 applyUiSkin();
 
@@ -121,11 +124,24 @@ class SquaremapMap {
 
                 this.worldList.loadInitialWorld(json, (world) => {
                     this.loop();
+                    const poiId = this.getUrlParam("poi", null);
+                    const poi = poiId != null ? getPoiById(poiId) : null;
+                    const defaultZoom =
+                        poi != null
+                            ? Math.max(poi.minZoom ?? 0, SATELLITE_FOCUS_ZOOM)
+                            : world.zoom.def;
                     this.centerOn(
-                        this.getUrlParam("x", world.spawn.x),
-                        this.getUrlParam("z", world.spawn.z),
-                        this.getUrlParam("zoom", world.zoom.def),
+                        this.getUrlParam("x", poi?.x ?? world.spawn.x),
+                        this.getUrlParam("z", poi?.z ?? world.spawn.z),
+                        this.getUrlParam("zoom", defaultZoom),
                     );
+                    if (poi != null) {
+                        window.requestAnimationFrame(() => {
+                            getLayerBridge().setLayerVisible(poi.layerId, true);
+                            highlightPoi(poi.id);
+                            openPoiDetail(poi.id, { x: poi.x, z: poi.z });
+                        });
+                    }
                 });
             },
         );

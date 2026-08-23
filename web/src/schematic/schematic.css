@@ -1,0 +1,541 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    --schematic-canvas-bg: #e8eef4;
+}
+
+html[data-ui-skin="gloom"] {
+    --schematic-canvas-bg: #0e1520;
+}
+
+html[data-ui-skin="minecraft"] {
+    --schematic-canvas-bg: #c6c6c6;
+}
+
+html[data-ui-skin="parchment"] {
+    --schematic-canvas-bg: #e6d4b0;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--schematic-canvas-bg);
+    color: var(--weiran-ui-color-text, rgba(0, 0, 0, 0.88));
+    font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    --schematic-inset: 10px;
+    --schematic-gap: 8px;
+    --schematic-control-size: 40px;
+}
+
+.schematic-header {
+    position: fixed;
+    top: 12px;
+    left: 66px;
+    right: 16px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.schematic-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.schematic-controls {
+    position: fixed;
+    top: var(--schematic-inset);
+    left: var(--schematic-inset);
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: var(--schematic-control-size);
+    gap: var(--schematic-gap);
+}
+
+.schematic-zoom {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(var(--schematic-control-size) * 2);
+    overflow: hidden;
+    border: 1px solid var(--weiran-ui-border);
+    border-radius: var(--weiran-ui-radius);
+    background: var(--weiran-ui-bg-container);
+    box-shadow: var(--weiran-ui-shadow-control);
+}
+
+.schematic-zoom-btn,
+.schematic-tool-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: var(--weiran-ui-color-text);
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.schematic-zoom-btn {
+    flex: 1 1 50%;
+    width: 100%;
+    min-height: 0;
+}
+
+.schematic-zoom-btn + .schematic-zoom-btn {
+    border-top: 1px solid var(--weiran-ui-border-subtle);
+}
+
+.schematic-zoom-btn:hover,
+.schematic-zoom-btn:focus-visible,
+.schematic-tool-btn:hover,
+.schematic-tool-btn:focus-visible {
+    color: var(--weiran-ui-color-text-hover);
+    background: var(--weiran-ui-bg-hover);
+    outline: none;
+}
+
+.schematic-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: var(--schematic-gap);
+}
+
+.schematic-tool-btn {
+    width: 100%;
+    height: var(--schematic-control-size);
+    border: 1px solid var(--weiran-ui-border);
+    border-radius: var(--weiran-ui-radius);
+    background: var(--weiran-ui-bg-container);
+    box-shadow: var(--weiran-ui-shadow-control);
+    box-sizing: border-box;
+}
+
+.schematic-tool-btn.is-active {
+    color: #ffffff;
+    background: var(--weiran-ui-color-primary);
+    border-color: var(--weiran-ui-color-primary);
+}
+
+.schematic-zoom-btn svg,
+.schematic-tool-btn svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.schematic-search[hidden],
+.schematic-settings[hidden] {
+    display: none !important;
+}
+
+.schematic-search {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: min(20vh, 156px) 16px 16px;
+    background: var(--weiran-ui-search-scrim, rgba(0, 0, 0, 0.2));
+}
+
+.schematic-search-shell {
+    width: min(560px, 100%);
+    overflow: hidden;
+    border: 1px solid var(--weiran-ui-search-border, var(--weiran-ui-border));
+    border-radius: var(--weiran-ui-search-radius, 12px);
+    background: var(--weiran-ui-search-bg, var(--weiran-ui-bg-container));
+    box-shadow: var(--weiran-ui-search-shadow, var(--weiran-ui-shadow-panel));
+    -webkit-backdrop-filter: var(--weiran-ui-search-backdrop-filter);
+    backdrop-filter: var(--weiran-ui-search-backdrop-filter);
+}
+
+.schematic-search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 14px;
+}
+
+.schematic-search-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.schematic-search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 48px;
+    border: 0;
+    background: transparent;
+    color: var(--weiran-ui-color-text);
+    font: inherit;
+    font-size: 16px;
+    outline: none;
+}
+
+.schematic-search-input::placeholder {
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.schematic-search-results {
+    max-height: min(46vh, 340px);
+    overflow-y: auto;
+    padding: 4px 8px 8px;
+    border-top: 1px solid var(--weiran-ui-search-divider, var(--weiran-ui-border-divider));
+}
+
+.schematic-search-empty {
+    margin: 0;
+    padding: 16px 12px 14px;
+    font-size: 13px;
+    color: var(--weiran-ui-color-text-muted);
+    text-align: center;
+}
+
+.schematic-search-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--weiran-ui-color-text);
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+.schematic-search-item:hover,
+.schematic-search-item:focus-visible {
+    background: var(--weiran-ui-search-item-hover, var(--weiran-ui-bg-hover));
+    outline: none;
+}
+
+.schematic-search-item-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.schematic-search-item-meta {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.schematic-settings {
+    position: fixed;
+    z-index: 6;
+    top: var(--schematic-inset);
+    left: calc(var(--schematic-inset) + var(--schematic-control-size) + var(--schematic-gap));
+    min-width: 220px;
+    max-width: min(320px, calc(100vw - 80px));
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+    padding: 12px 14px 14px;
+    border: 1px solid var(--weiran-ui-border);
+    border-radius: var(--weiran-ui-radius);
+    background: var(--weiran-ui-bg-container);
+    box-shadow: var(--weiran-ui-shadow-panel);
+}
+
+.schematic-settings-heading {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.schematic-skin-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.schematic-skin-list .skin-preview-card {
+    flex: 1 1 120px;
+    min-width: 120px;
+}
+
+.schematic-settings-divider {
+    margin: 4px 0 12px;
+    border: 0;
+    border-top: 1px solid var(--weiran-ui-border-divider);
+}
+
+.schematic-settings-name {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--weiran-ui-color-text);
+}
+
+.schematic-settings-version,
+.schematic-settings-meta {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--weiran-ui-color-text-muted);
+}
+
+@media (max-width: 639px) {
+    .schematic-header {
+        left: 16px;
+        right: 66px;
+    }
+
+    .schematic-controls {
+        display: contents;
+    }
+
+    .schematic-toolbar {
+        position: fixed;
+        top: var(--schematic-inset);
+        right: var(--schematic-inset);
+        left: auto;
+        z-index: 6;
+        width: var(--schematic-control-size);
+    }
+
+    .schematic-zoom {
+        position: fixed;
+        top: 62%;
+        right: var(--schematic-inset);
+        left: auto;
+        z-index: 6;
+        width: var(--schematic-control-size);
+        transform: translateY(-50%);
+    }
+
+    .schematic-settings {
+        left: auto;
+        right: calc(var(--schematic-inset) + var(--schematic-control-size) + var(--schematic-gap));
+    }
+
+    .schematic-search {
+        padding-top: min(16vh, 120px);
+    }
+
+    .schematic-search-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+}
+
+#schematic-root {
+    position: fixed;
+    inset: 0;
+}
+
+.schematic-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: grab;
+}
+
+.schematic-svg.is-panning {
+    cursor: grabbing;
+}
+
+.schematic-line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.schematic-station {
+    color: var(--weiran-ui-color-text);
+    cursor: pointer;
+    outline: none;
+}
+
+.schematic-station:focus,
+.schematic-station:focus-visible {
+    outline: none;
+}
+
+.schematic-station-hit {
+    fill: transparent;
+}
+
+.schematic-station-dot {
+    fill: var(--schematic-canvas-bg);
+    stroke: currentColor;
+    stroke-width: 4;
+}
+
+.schematic-station-label {
+    fill: var(--weiran-ui-color-text-muted);
+    font-size: 16px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+    user-select: none;
+}
+
+.schematic-station.is-highlighted .schematic-station-dot {
+    fill: currentColor;
+}
+
+.schematic-station.is-highlighted .schematic-station-label {
+    fill: var(--weiran-ui-color-text);
+    font-weight: 800;
+}
+
+.schematic-detail-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--weiran-ui-search-scrim, rgba(0, 0, 0, 0.08));
+    cursor: default;
+}
+
+.schematic-detail {
+    position: fixed;
+    z-index: 5;
+    min-width: 168px;
+    max-width: min(260px, calc(100vw - 24px));
+    box-sizing: border-box;
+    padding: 8px 10px 10px;
+    background: var(--weiran-ui-bg-container);
+    color: var(--weiran-ui-color-text);
+    border: 1px solid var(--weiran-ui-border);
+    border-radius: var(--weiran-ui-radius);
+    box-shadow: var(--weiran-ui-shadow-panel);
+}
+
+.schematic-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.schematic-detail-title {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.schematic-detail-close {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: -2px -4px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--weiran-ui-color-text-muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.schematic-detail-close:hover,
+.schematic-detail-close:focus-visible {
+    color: var(--weiran-ui-color-text);
+    background: var(--weiran-ui-bg-hover);
+}
+
+.schematic-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.schematic-detail-org-path {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.schematic-detail-org-sep {
+    margin: 0 4px;
+    opacity: 0.55;
+}
+
+.schematic-detail-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 6px;
+    border-top: 1px solid var(--weiran-ui-border-divider);
+}
+
+.schematic-detail-layer,
+.schematic-detail-coords {
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.schematic-detail-layer {
+    color: var(--weiran-ui-color-text-muted);
+}
+
+.schematic-detail-coords {
+    color: var(--weiran-ui-color-text);
+    font-variant-numeric: tabular-nums;
+}
+
+.schematic-detail-link {
+    display: inline-block;
+    margin-top: 2px;
+    color: var(--weiran-ui-color-primary);
+    font-size: 13px;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.schematic-detail-link:hover,
+.schematic-detail-link:focus-visible {
+    color: var(--weiran-ui-color-primary-hover);
+    text-decoration: underline;
+}
+
+html[data-ui-skin="minecraft"] .schematic-zoom,
+html[data-ui-skin="minecraft"] .schematic-tool-btn,
+html[data-ui-skin="minecraft"] .schematic-settings,
+html[data-ui-skin="minecraft"] .schematic-detail,
+html[data-ui-skin="minecraft"] .schematic-search-shell {
+    border-radius: 0;
+    border-color: #000000;
+    box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #555555;
+}

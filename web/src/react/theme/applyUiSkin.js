@@ -11,6 +11,8 @@ export const UI_SKINS = [
 /** @type {string} */
 export const DEFAULT_UI_SKIN = "light";
 
+const SKIN_STORAGE_KEY = "weiran-ui-skin";
+
 /**
  * @param {string} skinId
  * @returns {UiSkinDefinition | undefined}
@@ -20,10 +22,23 @@ export function getUiSkinDefinition(skinId) {
 }
 
 /**
+ * @returns {string}
+ */
+export function getStoredUiSkin() {
+    try {
+        return getUiSkinDefinition(localStorage.getItem(SKIN_STORAGE_KEY) ?? "")?.id ?? DEFAULT_UI_SKIN;
+    } catch {
+        return DEFAULT_UI_SKIN;
+    }
+}
+
+/**
  * @param {string} [skinId]
  */
-export function applyUiSkin(skinId = DEFAULT_UI_SKIN) {
-    const resolvedSkinId = getUiSkinDefinition(skinId)?.id ?? DEFAULT_UI_SKIN;
+export function applyUiSkin(skinId) {
+    const resolvedSkinId = getUiSkinDefinition(skinId ?? getStoredUiSkin())?.id ?? DEFAULT_UI_SKIN;
+
+    document.documentElement.dataset.uiSkin = resolvedSkinId;
 
     const root = document.getElementById("react-root");
     if (root != null) {
@@ -34,12 +49,21 @@ export function applyUiSkin(skinId = DEFAULT_UI_SKIN) {
     if (map != null) {
         map.dataset.uiSkin = resolvedSkinId;
     }
+
+    try {
+        localStorage.setItem(SKIN_STORAGE_KEY, resolvedSkinId);
+    } catch {
+        /* ignore quota / private mode */
+    }
 }
 
 /**
  * @returns {string}
  */
 export function getCurrentUiSkin() {
-    const root = document.getElementById("react-root");
-    return root?.dataset.uiSkin ?? DEFAULT_UI_SKIN;
+    return (
+        document.documentElement.dataset.uiSkin ??
+        document.getElementById("react-root")?.dataset.uiSkin ??
+        DEFAULT_UI_SKIN
+    );
 }

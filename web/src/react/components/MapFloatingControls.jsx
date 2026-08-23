@@ -2,6 +2,7 @@ import {
     ApartmentOutlined,
     AppstoreOutlined,
     MinusOutlined,
+    NodeIndexOutlined,
     PlusOutlined,
     SearchOutlined,
     SettingOutlined,
@@ -13,6 +14,7 @@ import { getPanelBridge, SIDE_PANEL } from "../bridge/panelBridge.js";
 import { getMapBridge } from "../bridge/mapBridge.js";
 import { MapToolButton } from "./MapToolButton.jsx";
 import { useCompactMapLayout } from "../hooks/useCompactMapLayout.js";
+import { schematicUrl } from "../../shared/mapLinks.js";
 
 export function MapFloatingControls() {
     const mapBridge = getMapBridge();
@@ -92,6 +94,16 @@ export function MapFloatingControls() {
                     ariaExpanded={activePanel === SIDE_PANEL.ORG}
                     tooltipPlacement={tooltipPlacement}
                     onClick={() => panelBridge.toggle(SIDE_PANEL.ORG)}
+                />
+
+                <MapToolButton
+                    title="轨道交通示意图"
+                    icon={<NodeIndexOutlined />}
+                    className="map-tool-btn--schematic"
+                    tooltipPlacement={tooltipPlacement}
+                    onClick={() => {
+                        window.location.assign(schematicUrl());
+                    }}
                 />
 
                 <MapToolButton

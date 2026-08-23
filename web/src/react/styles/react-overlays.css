@@ -191,8 +191,12 @@
         order: 3;
     }
 
-    .map-toolbar-controls .map-tool-btn--settings {
+    .map-toolbar-controls .map-tool-btn--schematic {
         order: 4;
+    }
+
+    .map-toolbar-controls .map-tool-btn--settings {
+        order: 5;
     }
 
     .map-zoom-control {
@@ -369,4 +373,26 @@
     border: none;
     box-shadow: none;
     border-radius: 0;
+}
+
+.map-copy-toast[hidden] {
+    display: none !important;
+}
+
+.map-copy-toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--weiran-ui-inset-edge, 10px) + 48px);
+    z-index: 1200;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    border: 1px solid var(--weiran-ui-border, #d9d9d9);
+    border-radius: var(--weiran-ui-radius, 8px);
+    background: var(--weiran-ui-bg-container, rgba(255, 255, 255, 0.94));
+    box-shadow: var(--weiran-ui-shadow-panel, 0 6px 16px rgba(0, 0, 0, 0.12));
+    color: var(--weiran-ui-color-text, rgba(0, 0, 0, 0.88));
+    font-size: var(--weiran-ui-font-size-sm, 12px);
+    line-height: var(--weiran-ui-line-height-sm, 14px);
+    pointer-events: none;
+    white-space: nowrap;
 }

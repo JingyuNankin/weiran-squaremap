@@ -1,5 +1,5 @@
 {
-    "version": 8,
+    "version": 9,
     "layers": {
         "nation": {
             "name": "国家",
@@ -134,6 +134,22 @@
             "style": {
                 "color": "#388e3c",
                 "icon": "attraction"
+            }
+        },
+        "railway-station": {
+            "name": "火车站",
+            "control": true,
+            "hide": false,
+            "order": 8,
+            "z_index": 9,
+            "version": 1,
+            "minZoom": 3,
+            "maxZoom": null,
+            "markerType": "iconWithText",
+            "maps": ["satellite", "schematic"],
+            "style": {
+                "color": "#1565c0",
+                "icon": "rail"
             }
         }
     }

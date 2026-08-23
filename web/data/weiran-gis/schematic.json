@@ -1,0 +1,95 @@
+{
+    "version": 7,
+    "view": {
+        "width": 1280,
+        "height": 980
+    },
+    "stations": [
+        { "poiId": "station-buyudao", "x": 720, "y": 80 },
+        { "poiId": "station-yingjiao", "x": 520, "y": 100 },
+        { "poiId": "station-wuling", "x": 480, "y": 120 },
+        { "poiId": "station-jiahai", "x": 620, "y": 140 },
+        { "poiId": "station-huhai", "x": 840, "y": 180 },
+        { "poiId": "station-baimo", "x": 940, "y": 180 },
+        { "poiId": "station-huguang", "x": 860, "y": 200 },
+        { "poiId": "station-yongchunjiao", "x": 700, "y": 220 },
+        { "poiId": "station-shaxi", "x": 780, "y": 220 },
+        { "poiId": "station-xingwei", "x": 680, "y": 300 },
+        { "poiId": "station-beishengli", "x": 780, "y": 320 },
+        { "poiId": "station-xuexia", "x": 860, "y": 320 },
+        { "poiId": "station-yinggu", "x": 1020, "y": 320 },
+        { "poiId": "station-zimenfeng", "x": 1080, "y": 320 },
+        { "poiId": "station-dongsheng", "x": 1200, "y": 320 },
+        { "poiId": "station-tiannan", "x": 280, "y": 360 },
+        { "poiId": "station-shengli", "x": 780, "y": 360 },
+        { "poiId": "station-nanshengli", "x": 800, "y": 400 },
+        { "poiId": "station-bingxia", "x": 80, "y": 440 },
+        { "poiId": "station-xiangshujiao", "x": 220, "y": 440 },
+        { "poiId": "station-duishadao", "x": 400, "y": 440 },
+        { "poiId": "station-guiyang", "x": 540, "y": 440 },
+        { "poiId": "station-youcheng-kouan", "x": 700, "y": 440 },
+        { "poiId": "station-youyiguan-kouan", "x": 760, "y": 440 },
+        { "poiId": "station-renquan", "x": 640, "y": 480 },
+        { "poiId": "station-youcheng", "x": 680, "y": 480 },
+        { "poiId": "station-youyiguan", "x": 740, "y": 500 },
+        { "poiId": "station-hongying-airport", "x": 500, "y": 520 },
+        { "poiId": "station-shimin-huodong", "x": 640, "y": 540 },
+        { "poiId": "station-mubing", "x": 700, "y": 540 },
+        { "poiId": "station-nantiamen-industrial", "x": 1040, "y": 540 },
+        { "poiId": "station-xinanha", "x": 500, "y": 560 },
+        { "poiId": "station-dongwuyuan", "x": 520, "y": 560 },
+        { "poiId": "station-pengzhou", "x": 880, "y": 580 },
+        { "poiId": "station-xuedongcun", "x": 480, "y": 620 },
+        { "poiId": "station-youyu-bandao", "x": 540, "y": 700 },
+        { "poiId": "station-lanzidao", "x": 500, "y": 720 },
+        { "poiId": "station-haigui-qundao", "x": 400, "y": 740 },
+        { "poiId": "station-xiaoludao", "x": 340, "y": 760 },
+        { "poiId": "station-yangbeicun", "x": 540, "y": 760 },
+        { "poiId": "station-linxidao", "x": 300, "y": 800 },
+        { "poiId": "station-ziyangjiao", "x": 340, "y": 880 },
+        { "poiId": "station-lanzichangdao-nan", "x": 500, "y": 900 }
+    ],
+    "lines": [
+        {
+            "id": "line-central",
+            "name": "中央线",
+            "color": "#FF5A60",
+            "stations": [
+                "station-dongsheng",
+                "station-zimenfeng",
+                "station-yinggu",
+                "station-xuexia",
+                "station-beishengli",
+                "station-shengli",
+                "station-youyiguan-kouan"
+            ],
+            "path": [
+                { "x": 1200, "y": 320 },
+                { "x": 780, "y": 320 },
+                { "x": 780, "y": 440 },
+                { "x": 760, "y": 440 }
+            ]
+        },
+        {
+            "id": "line-yingjia",
+            "name": "樱嘉线",
+            "color": "#FFB459",
+            "stations": [
+                "station-yinggu",
+                "station-baimo",
+                "station-huguang",
+                "station-shaxi",
+                "station-yongchunjiao",
+                "station-jiahai"
+            ],
+            "path": [
+                { "x": 1020, "y": 320 },
+                { "x": 1020, "y": 180 },
+                { "x": 860, "y": 180 },
+                { "x": 860, "y": 220 },
+                { "x": 620, "y": 220 },
+                { "x": 620, "y": 140 }
+            ]
+        }
+    ]
+}

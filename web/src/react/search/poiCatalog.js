@@ -2,10 +2,11 @@ import instanceCatalog from "../../../data/weiran-gis/instances.json";
 import layerCatalog from "../../../data/weiran-gis/layers.json";
 import { getInstanceDimension, gisDimensionMatchesWorld } from "../../js/util/gisDimension.js";
 import { WEIRAN_GIS_ID_PREFIX } from "../../js/util/weiranGis.js";
+import { layerAppearsOn, MAP_SCHEMATIC } from "../../shared/gisMaps.js";
 
 /** @typedef {import('../../js/util/gisDimension.js').GisDimension} GisDimension */
 
-/** @typedef {{ id: string, name: string, layerKey: string, layerName: string, layerId: string, dimension: GisDimension, x: number, z: number, minZoom: number | null, maxZoom: number | null, remark: string | null }} SearchPoi */
+/** @typedef {{ id: string, name: string, layerKey: string, layerName: string, layerId: string, dimension: GisDimension, x: number, z: number, minZoom: number | null, maxZoom: number | null, remark: string | null, onSchematic: boolean }} SearchPoi */
 
 /** @type {SearchPoi[] | null} */
 let cachedPois = null;
@@ -31,6 +32,14 @@ export function getSearchablePois() {
         Object.entries(layerCatalog.layers ?? {}).map(([key, layer]) => [key, String(layer.name ?? key)]),
     );
 
+    /** @type {Map<string, boolean>} */
+    const layerOnSchematic = new Map(
+        Object.entries(layerCatalog.layers ?? {}).map(([key, layer]) => [
+            key,
+            layerAppearsOn(layer, MAP_SCHEMATIC),
+        ]),
+    );
+
     cachedPois = (instanceCatalog.instances ?? []).map((instance) => {
         const layerKey = String(instance.layer);
         return {
@@ -48,6 +57,7 @@ export function getSearchablePois() {
                 instance.remark == null || String(instance.remark).trim() === ""
                     ? null
                     : String(instance.remark).trim(),
+            onSchematic: layerOnSchematic.get(layerKey) === true,
         };
     });
 

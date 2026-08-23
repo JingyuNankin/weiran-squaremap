@@ -1,5 +1,5 @@
 {
-    "version": 40,
+    "version": 46,
     "instances": [
         {
             "layer": "nation",
@@ -1970,6 +1970,480 @@
                 "z": 2838
             },
             "text": "天空岛",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yinggu",
+            "parentNode": "region-1",
+            "point": {
+                "x": 3093,
+                "z": 3282
+            },
+            "text": "樱谷站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xuexia",
+            "parentNode": "village-3",
+            "point": {
+                "x": 2708,
+                "z": 3282
+            },
+            "text": "雪下站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-beishengli",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2515,
+                "z": 3282
+            },
+            "text": "北生栗站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-dongsheng",
+            "parentNode": "village-6",
+            "point": {
+                "x": 3544,
+                "z": 3283
+            },
+            "text": "东昇站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-baimo",
+            "parentNode": "region-3",
+            "point": {
+                "x": 2912,
+                "z": 2945
+            },
+            "text": "白沫站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-huhai",
+            "parentNode": "region-2",
+            "point": {
+                "x": 2677,
+                "z": 2945
+            },
+            "text": "湖海站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-huguang",
+            "parentNode": "village-1",
+            "point": {
+                "x": 2709,
+                "z": 3003
+            },
+            "text": "湖光站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-shaxi",
+            "parentNode": "village-2",
+            "point": {
+                "x": 2515,
+                "z": 3022
+            },
+            "text": "沙隙站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yongchunjiao",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2308,
+                "z": 3021
+            },
+            "text": "咏春礁站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-jiahai",
+            "parentNode": "region-9",
+            "point": {
+                "x": 2122,
+                "z": 2817
+            },
+            "text": "嘉海站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-buyudao",
+            "parentNode": "office-2",
+            "point": {
+                "x": 2352,
+                "z": 2691
+            },
+            "text": "捕鱼岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xingwei",
+            "parentNode": "office-1",
+            "point": {
+                "x": 2269,
+                "z": 3249
+            },
+            "text": "星蔚站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youyiguan",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2405,
+                "z": 3725
+            },
+            "text": "友谊关站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youyiguan-kouan",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2481,
+                "z": 3609
+            },
+            "text": "友谊关口岸站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-pengzhou",
+            "parentNode": "region-6",
+            "point": {
+                "x": 2764,
+                "z": 3940
+            },
+            "text": "蓬洲站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-nantiamen-industrial",
+            "parentNode": "region-7",
+            "point": {
+                "x": 3165,
+                "z": 3848
+            },
+            "text": "南天门工业区站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-zimenfeng",
+            "parentNode": "region-1",
+            "point": {
+                "x": 3259,
+                "z": 3294
+            },
+            "text": "紫门峰站",
+            "dimension": "normal",
+            "remark": "地下"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-shengli",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2515,
+                "z": 3376
+            },
+            "text": "生栗站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-nanshengli",
+            "parentNode": "region-5",
+            "point": {
+                "x": 2573,
+                "z": 3513
+            },
+            "text": "南生栗站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-wuling",
+            "parentNode": "region-12",
+            "point": {
+                "x": 1747,
+                "z": 2786
+            },
+            "text": "武陵站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yingjiao",
+            "parentNode": "region-11",
+            "point": {
+                "x": 1873,
+                "z": 2750
+            },
+            "text": "鹰角站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-tiannan",
+            "parentNode": "region-14",
+            "point": {
+                "x": 1261,
+                "z": 3366
+            },
+            "text": "天南站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youcheng-kouan",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2333,
+                "z": 3612
+            },
+            "text": "鱿城口岸站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youcheng",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2272,
+                "z": 3673
+            },
+            "text": "鱿城站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-guiyang",
+            "parentNode": "region-15",
+            "point": {
+                "x": 1895,
+                "z": 3611
+            },
+            "text": "瑰洋站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-duishadao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1561,
+                "z": 3603
+            },
+            "text": "堆沙岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xiangshujiao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1118,
+                "z": 3604
+            },
+            "text": "橡树角站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-bingxia",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 767,
+                "z": 3605
+            },
+            "text": "冰下站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xinanha",
+            "parentNode": "region-17",
+            "point": {
+                "x": 1808,
+                "z": 3898
+            },
+            "text": "西南海站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-hongying-airport",
+            "parentNode": "region-17",
+            "point": {
+                "x": 1832,
+                "z": 3787
+            },
+            "text": "红樱机场站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xuedongcun",
+            "parentNode": "village-11",
+            "point": {
+                "x": 1758,
+                "z": 4047
+            },
+            "text": "雪东村站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-youyu-bandao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1917,
+                "z": 4223
+            },
+            "text": "鱿鱼半岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-yangbeicun",
+            "parentNode": "village-12",
+            "point": {
+                "x": 1917,
+                "z": 4400
+            },
+            "text": "洋北村站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-lanzichangdao-nan",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1833,
+                "z": 4724
+            },
+            "text": "蓝紫长岛南站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-dongwuyuan",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1881,
+                "z": 3873
+            },
+            "text": "动物园站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-shimin-huodong",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2162,
+                "z": 3827
+            },
+            "text": "市民活动中心站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-renquan",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2167,
+                "z": 3711
+            },
+            "text": "人权理事会站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-mubing",
+            "parentNode": "region-16",
+            "point": {
+                "x": 2325,
+                "z": 3829
+            },
+            "text": "幕兵站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-ziyangjiao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1400,
+                "z": 4708
+            },
+            "text": "紫阳礁站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-linxidao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1340,
+                "z": 4486
+            },
+            "text": "林西岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-xiaoludao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1421,
+                "z": 4393
+            },
+            "text": "小鹿岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-haigui-qundao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1561,
+                "z": 4345
+            },
+            "text": "海龟群岛站",
+            "dimension": "normal"
+        },
+        {
+            "layer": "railway-station",
+            "id": "station-lanzidao",
+            "parentNode": "nation-ocieania",
+            "point": {
+                "x": 1814,
+                "z": 4272
+            },
+            "text": "蓝紫岛站",
             "dimension": "normal"
         }
     ]

@@ -7,6 +7,7 @@ import { highlightPoi, openPoiDetail } from "../../bridge/poiBridge.js";
 import { SIDE_PANEL } from "../../bridge/panelBridge.js";
 import { useSidePanelOpen } from "../../hooks/useSidePanelOpen.js";
 import { collectExpandableTreeKeys, getOrgTreeData, ORG_SORT } from "../../org/orgCatalog.js";
+import { filterPoisByWorld, getSearchablePois } from "../../search/poiCatalog.js";
 import { OrgTreeNodeTitle } from "./OrgTreeNodeTitle.jsx";
 import "../../styles/org-panel.css";
 
@@ -18,7 +19,11 @@ export function OrgPanel() {
     const [worldType, setWorldType] = useState(() => mapBridge.getCurrentWorldType());
     const treeData = useMemo(() => getOrgTreeData(sortMode, worldType), [sortMode, worldType]);
     const expandableKeys = useMemo(() => collectExpandableTreeKeys(treeData), [treeData]);
-    const [expandedKeys, setExpandedKeys] = useState(() => treeData.map((node) => String(node.key)));
+    const poiCount = useMemo(
+        () => filterPoisByWorld(getSearchablePois(), worldType).length,
+        [worldType],
+    );
+    const [expandedKeys, setExpandedKeys] = useState(/** @type {string[]} */ ([]));
 
     useEffect(() => {
         return mapBridge.subscribeWorldChange(() => {
@@ -27,7 +32,7 @@ export function OrgPanel() {
     }, [mapBridge]);
 
     useEffect(() => {
-        setExpandedKeys(treeData.map((node) => String(node.key)));
+        setExpandedKeys([]);
     }, [treeData]);
 
     if (!open || treeData.length === 0) {
@@ -81,6 +86,7 @@ export function OrgPanel() {
                     </Tooltip>
                 </div>
             </div>
+            <Typography.Text className="org-panel-poi-count">{poiCount} 个 POI</Typography.Text>
             <Segmented
                 className="org-panel-sort"
                 size="small"

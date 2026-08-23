@@ -1,6 +1,7 @@
 /**
  * Minecraft 方块 — 游戏内 GUI 风格：灰色面板、直角、浮雕描边。
  */
+html[data-ui-skin="minecraft"],
 #react-root[data-ui-skin="minecraft"] {
     /* 主色 — 草方块绿（选中 / 高亮） */
     --weiran-ui-color-primary: #5b8731;
