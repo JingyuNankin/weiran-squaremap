@@ -415,6 +415,22 @@ html[data-ui-skin="gloom"] .schematic-line-inner {
 
 .schematic-line-label {
     cursor: pointer;
+    outline: none;
+}
+
+.schematic-line-label:focus,
+.schematic-line-label:focus-visible {
+    outline: none;
+}
+
+.schematic-line-label-glow {
+    fill: var(--line-fill, #1565c0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.schematic-line-label.is-highlighted .schematic-line-label-glow {
+    opacity: 0.28;
 }
 
 .schematic-line-label-bg {
@@ -434,12 +450,14 @@ html[data-ui-skin="gloom"] .schematic-line-label-text {
     fill: #111;
 }
 
-html[data-ui-skin="minecraft"] .schematic-line-label-bg {
+html[data-ui-skin="minecraft"] .schematic-line-label-bg,
+html[data-ui-skin="minecraft"] .schematic-line-label-glow {
     rx: 2;
     ry: 2;
 }
 
-html[data-ui-skin="parchment"] .schematic-line-label-bg {
+html[data-ui-skin="parchment"] .schematic-line-label-bg,
+html[data-ui-skin="parchment"] .schematic-line-label-glow {
     rx: 4;
     ry: 4;
 }

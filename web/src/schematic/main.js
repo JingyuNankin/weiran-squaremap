@@ -805,6 +805,8 @@ function renderSchematic() {
         group.setAttribute("aria-pressed", "false");
         group.setAttribute("aria-label", `高亮${name}`);
 
+        const glow = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        glow.setAttribute("class", "schematic-line-label-glow");
         const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         bg.setAttribute("class", "schematic-line-label-bg");
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -812,15 +814,21 @@ function renderSchematic() {
         text.setAttribute("x", "0");
         text.setAttribute("y", "0");
         text.textContent = name;
-        group.append(bg, text);
+        group.append(glow, bg, text);
         svg.appendChild(group);
 
         const bbox = text.getBBox();
         const padX = 16;
         const padY = 6;
+        const glowPad = 6;
         const width = bbox.width + padX * 2;
         const height = bbox.height + padY * 2;
         const offset = lineLabelLocalOffset(anchor.side, width, height);
+        glow.setAttribute("x", String(offset.x - glowPad));
+        glow.setAttribute("y", String(offset.y - glowPad));
+        glow.setAttribute("width", String(width + glowPad * 2));
+        glow.setAttribute("height", String(height + glowPad * 2));
+        glow.setAttribute("rx", String((height + glowPad * 2) / 2));
         bg.setAttribute("x", String(offset.x));
         bg.setAttribute("y", String(offset.y));
         bg.setAttribute("width", String(width));
